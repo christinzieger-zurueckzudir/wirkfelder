@@ -1,0 +1,1173 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wirkfelder · BEWEGEN</title>
+<style>
+:root{
+  --bg:#f6f2eb; --card:#ffffff; --ink:#2d2a26; --muted:#6c655d;
+  --line:#ded7cd; --accent:#6d7b63; --accent2:#b8a58a; --soft:#eef0ea;
+  --warn:#fff4dc; --danger:#fff0f0; --ok:#edf6ee;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5}
+.shell{max-width:980px;margin:0 auto;padding:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:0 8px 28px rgba(0,0,0,.05);margin:18px 0}
+h1,h2,h3{line-height:1.15;margin-top:0}
+h1{font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-.04em}
+h2{font-size:1.55rem}
+h3{font-size:1.08rem;margin-top:22px}
+.lead{font-size:1.08rem;color:var(--muted)}
+.brand{font-size:.86rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.pill{display:inline-block;background:var(--soft);border-radius:999px;padding:7px 11px;margin:3px 4px 3px 0;font-size:.9rem}
+.progress-wrap{position:sticky;top:0;background:rgba(246,242,235,.94);backdrop-filter:blur(8px);padding:12px 0;z-index:5}
+.progress{height:8px;background:#e7e1d8;border-radius:999px;overflow:hidden}
+.progress span{display:block;height:100%;background:var(--accent);width:0;transition:.25s}
+label{display:block;font-weight:650;margin:18px 0 7px}
+small,.hint{color:var(--muted)}
+input,select,textarea{width:100%;font:inherit;border:1px solid #cfc7bc;border-radius:12px;padding:12px 13px;background:#fff;color:var(--ink)}
+textarea{min-height:90px;resize:vertical}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.choice{border:1px solid var(--line);border-radius:14px;padding:11px;background:#fff}
+.choice label{margin:0;font-weight:500;display:flex;gap:9px;align-items:flex-start}
+.choice input{width:auto;margin-top:4px}
+.actions{display:flex;gap:10px;justify-content:space-between;margin-top:26px;flex-wrap:wrap}
+button{border:0;border-radius:999px;padding:12px 18px;font:inherit;font-weight:700;cursor:pointer}
+.primary{background:var(--accent);color:white}
+.secondary{background:#ece7df;color:var(--ink)}
+.ghost{background:transparent;border:1px solid var(--line)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.step{display:none}
+.step.active{display:block}
+.notice{border-left:4px solid var(--accent2);background:#faf7f1;padding:14px 16px;border-radius:10px;margin:16px 0}
+.warn{background:var(--warn)}
+.danger{background:var(--danger)}
+.ok{background:var(--ok)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}
+.kpi{background:var(--soft);border-radius:16px;padding:15px}
+.kpi b{display:block;font-size:1.35rem;margin-top:4px}
+.result-block{border-top:1px solid var(--line);padding-top:22px;margin-top:24px}
+table{width:100%;border-collapse:collapse;font-size:.94rem}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f8f5f0;position:sticky;top:0}
+.scroll{overflow:auto;border:1px solid var(--line);border-radius:14px}
+.lock{max-width:560px;margin:9vh auto}
+.code-row{display:flex;gap:8px}
+.code-row input{flex:1}
+.hidden{display:none!important}
+.tag{font-size:.78rem;background:#f1ede6;border-radius:999px;padding:4px 8px;white-space:nowrap}
+hr{border:0;border-top:1px solid var(--line);margin:24px 0}
+.footer{color:var(--muted);font-size:.85rem;text-align:center;padding:20px 0}
+@media(max-width:720px){.grid,.grid3,.choice-grid,.kpis{grid-template-columns:1fr}.shell{padding:14px}.card{padding:20px}.kpis{gap:8px}}
+.print-only{display:none}
+.print-week{margin:0}
+.print-week h3{margin:0 0 8px;font-size:13pt}
+.print-rhythm{font-size:9pt;margin:0 0 7px;color:var(--muted)}
+.print-table{width:100%;border-collapse:collapse;table-layout:fixed}
+.print-table th,.print-table td{border:1px solid var(--line);padding:6px 7px;vertical-align:top;word-wrap:break-word;overflow-wrap:anywhere}
+.print-table th{font-size:8.7pt;text-align:left;background:#f6f3ed}
+.print-table td{font-size:8.3pt;line-height:1.28}
+.print-table th:nth-child(1),.print-table td:nth-child(1){width:18%}
+.print-table th:nth-child(2),.print-table td:nth-child(2){width:20%}
+.print-table th:nth-child(3),.print-table td:nth-child(3){width:22%}
+.print-table th:nth-child(4),.print-table td:nth-child(4){width:15%}
+.print-table th:nth-child(5),.print-table td:nth-child(5){width:25%}
+.print-tag{font-weight:700;font-size:8.5pt}
+.print-sub{font-size:7.7pt;color:var(--muted);display:block;margin-top:2px}
+.result-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:22px}
+.result-actions .wide{grid-column:1/-1;padding:15px 18px}
+@media(max-width:640px){
+  .result-actions{grid-template-columns:1fr}
+  .result-actions .wide{grid-column:auto}
+}
+@page{size:A4 portrait;margin:16mm 15mm 17mm 15mm}
+@media print{
+  html,body{background:#fff!important;width:auto!important}
+  body{font-size:10.2pt;line-height:1.38;margin:0!important}
+  .no-print,.progress-wrap,#appForm,.footer,.screen-only,#planTable,.scroll{display:none!important}
+  .print-only{display:block!important}
+  #results{display:block!important}
+  .shell{width:auto!important;max-width:none!important;padding:0!important;margin:0!important}
+  .card{box-shadow:none!important;border:0!important;padding:0!important;margin:0!important}
+  h1{font-size:22pt;line-height:1.05;margin-bottom:7mm}
+  h2{font-size:15pt;line-height:1.15;margin:0 0 4mm}
+  h3{font-size:11.5pt}
+  p{margin:0 0 3.5mm}
+  .lead{font-size:10.8pt;margin-bottom:5mm}
+  .result-block{break-inside:auto;margin-top:6mm;padding-top:5mm}
+  .result-block h2,.result-block h3{break-after:avoid}
+  .notice,.kpi{break-inside:avoid}
+  .kpis{grid-template-columns:repeat(2,1fr);gap:6px}
+  .kpi{padding:8px 10px}
+  .kpi b{font-size:13pt}
+  .grid3{grid-template-columns:repeat(3,1fr);gap:5px}
+  #printPlan{display:block!important}
+  .print-week{break-before:page!important;page-break-before:always!important}
+  .print-week:first-child{break-before:auto!important;page-break-before:auto!important}
+  .print-table{width:100%!important;max-width:100%!important}
+  .final-page-start{break-before:page!important;page-break-before:always!important;padding-top:4mm!important;margin-top:0!important}
+  .final-page-keep{break-inside:avoid!important;page-break-inside:avoid!important}
+}
+details.info-box{border:1px solid var(--line);border-radius:14px;background:#faf8f4;margin:16px 0}
+details.info-box summary{cursor:pointer;font-weight:750;padding:14px 16px;color:var(--accent)}
+details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
+.intro-kicker{font-size:1.03rem;font-weight:750;margin:12px 0 5px}
+.recipe-view,.shopping-view{max-width:980px;margin:0 auto}
+.recipe-intro{background:var(--soft);border-radius:16px;padding:16px;margin-bottom:18px}
+.recipe-groups{display:grid;gap:20px}
+.recipe-card{border:1px solid var(--line);border-radius:16px;background:#fff;margin:10px 0;overflow:hidden}
+.recipe-card summary{cursor:pointer;padding:14px 16px;font-weight:800}
+.recipe-card .recipe-body{padding:0 16px 16px}
+.recipe-meta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px}
+.recipe-meta span{font-size:.82rem;background:var(--soft);padding:5px 8px;border-radius:999px}
+.recipe-card ul,.recipe-card ol{padding-left:21px}
+.recipe-card li{margin:5px 0}
+.recipe-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.shopping-week{border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0;background:#fff}
+.shopping-week h3{margin-top:0}
+.shopping-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.shopping-group{background:#faf8f4;border-radius:12px;padding:12px}
+.shopping-group h4{margin:0 0 8px}
+.shopping-group ul{margin:0;padding-left:20px}
+.sex-choice{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.sex-choice label{margin:0;border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;gap:10px;align-items:center;font-weight:700;cursor:pointer;background:#fff}
+.sex-choice input{width:auto}
+@media(max-width:640px){.shopping-grid,.sex-choice{grid-template-columns:1fr}}
+@media print{
+  body.recipe-print #tool > *:not(#recipeView){display:none!important}
+  body.recipe-print #recipeView{display:block!important}
+  body.shopping-print #tool > *:not(#shoppingView){display:none!important}
+  body.shopping-print #shoppingView{display:block!important}
+  body.single-recipe-print #tool > *:not(#recipeView){display:none!important}
+  body.single-recipe-print #recipeView > *{display:none!important}
+  body.single-recipe-print #recipeView .single-print-header{display:block!important}
+  body.single-recipe-print #recipeView .print-target{display:block!important}
+  body.recipe-print .recipe-card,
+  body.single-recipe-print .recipe-card{break-inside:avoid;page-break-inside:avoid}
+  body.recipe-print details.recipe-card > *,
+  body.single-recipe-print details.recipe-card > *{display:block!important}
+  body.recipe-print .recipe-actions,
+  body.single-recipe-print .recipe-actions,
+  body.shopping-print .no-print{display:none!important}
+  body.shopping-print .shopping-week{break-before:page;page-break-before:always}
+  body.shopping-print .shopping-week:first-of-type{break-before:auto;page-break-before:auto}
+}
+
+
+
+.exercise-view,.yoga-view{max-width:980px;margin:0 auto}
+.library-intro{background:var(--soft);border-radius:16px;padding:16px;margin-bottom:18px}
+.library-card{border:1px solid var(--line);border-radius:16px;background:#fff;margin:10px 0;overflow:hidden}
+.library-card summary{cursor:pointer;padding:14px 16px;font-weight:800}
+.library-card .library-body{padding:0 16px 16px}
+.levels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0}
+.level-card{border:1px solid var(--line);border-radius:12px;padding:11px;background:#faf8f4}
+.level-card.recommended{border:2px solid var(--accent);background:var(--ok)}
+.level-card b{display:block;margin-bottom:4px}
+.routine-list{counter-reset:item;padding:0;margin:0;list-style:none}
+.routine-list li{counter-increment:item;border-bottom:1px solid var(--line);padding:10px 0 10px 38px;position:relative}
+.routine-list li:before{content:counter(item);position:absolute;left:0;top:9px;width:27px;height:27px;border-radius:50%;background:var(--soft);display:flex;align-items:center;justify-content:center;font-weight:800}
+.plan-note{font-size:.9rem;color:var(--muted)}
+.pill-row{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+.level-pill{display:inline-block;border-radius:999px;padding:5px 9px;font-size:.8rem;font-weight:750;background:var(--soft)}
+.level-pill.light{background:#f1f4ec}
+.level-pill.medium{background:#f7f0df}
+.level-pill.strong{background:#f7e9e7}
+.sex-choice{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.sex-choice label{margin:0;border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;gap:10px;align-items:center;font-weight:700;cursor:pointer;background:#fff}
+.sex-choice input{width:auto}
+.print-move-table{width:100%;border-collapse:collapse;table-layout:fixed}
+.print-move-table th,.print-move-table td{border:1px solid var(--line);padding:6px 7px;vertical-align:top;overflow-wrap:anywhere}
+.print-move-table th{background:#f6f3ed;font-size:8.7pt}
+.print-move-table td{font-size:8.3pt;line-height:1.28}
+.print-move-table th:nth-child(1),.print-move-table td:nth-child(1){width:19%}
+.print-move-table th:nth-child(2),.print-move-table td:nth-child(2){width:23%}
+.print-move-table th:nth-child(3),.print-move-table td:nth-child(3){width:37%}
+.print-move-table th:nth-child(4),.print-move-table td:nth-child(4){width:21%}
+@media(max-width:640px){.levels,.sex-choice{grid-template-columns:1fr}}
+@media print{
+  body.exercise-print #tool > *:not(#exerciseView){display:none!important}
+  body.exercise-print #exerciseView{display:block!important}
+  body.yoga-print #tool > *:not(#yogaView){display:none!important}
+  body.yoga-print #yogaView{display:block!important}
+  body.single-library-print #tool > *:not(#exerciseView):not(#yogaView){display:none!important}
+  body.single-library-print #exerciseView > *,
+  body.single-library-print #yogaView > *{display:none!important}
+  body.single-library-print .print-target{display:block!important}
+  body.exercise-print details.library-card > *,
+  body.yoga-print details.library-card > *,
+  body.single-library-print details.library-card > *{display:block!important}
+  body.exercise-print .no-print,
+  body.yoga-print .no-print,
+  body.single-library-print .no-print{display:none!important}
+  .print-move-table{width:100%!important;max-width:100%!important}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<section id="gate" class="card lock">
+  <div class="brand">Zurück zu dir · Wirkfelder</div>
+  <h1>WIRKFELDER</h1>
+  <h2 style="margin-top:-8px">BEWEGEN</h2>
+  <p class="lead"><b>Bewegung muss nicht kompliziert sein.</b> BEWEGEN hilft dir dabei, Bewegung wieder so in deinen Alltag zu integrieren, dass sie zu deinem Körper, deinem Leben und deinem aktuellen Rhythmus passt. Es geht nicht darum, plötzlich ein extremes Sportprogramm zu starten – sondern jeden Tag wieder ein Stück mehr in deinen Körper zurückzukommen.</p>
+
+  <details class="info-box">
+    <summary>Warum BEWEGEN? · Mehr erfahren</summary>
+    <div class="details-body">
+      <p>Viele Menschen verbringen heute einen großen Teil ihres Tages sitzend, unter Zeitdruck oder ständig im Außen. Gleichzeitig entsteht schnell das Gefühl, Bewegung müsse lang, anstrengend oder an einen bestimmten Ort gebunden sein.</p>
+      <p>Genau hier setzt BEWEGEN an. Eine kurze tägliche Morgenroutine bildet dein Fundament. Kleine Bewegungsimpulse holen dich über den Tag aus dem Stillstand. Yoga unterstützt Beweglichkeit, Körperwahrnehmung und Regulation. Und wenn Kraft oder Muskelaufbau zu deinen Zielen gehören, kommen gezielte Kraftreize dazu.</p>
+      <p>Du brauchst dafür kein Fitnessstudio und keine große Ausstattung. Dein eigener Körper ist die Basis. Wasserflaschen, ein Rucksack, Hanteln oder andere Gewichte können später einfach ergänzen.</p>
+      <p><b>NÄHREN und BEWEGEN gehören zusammen:</b> Ernährung gibt deinem Körper Energie und Bausteine – Bewegung hilft dir, Kraft, Stabilität, Muskulatur und Beweglichkeit aufzubauen bzw. zu erhalten.</p>
+    </div>
+  </details>
+
+  <div class="notice">
+    <b>Deine Angaben bleiben bei dir.</b><br>
+    BEWEGEN erstellt aus deinen Antworten eine persönliche Auswertung und einen Bewegungsplan. Deine Fragebogenangaben werden von diesem Tool nicht dauerhaft gespeichert. Wenn du die Seite schließt oder neu lädst, beginnt dein Weg wieder von vorn. Speichere deine Auswertung am Ende als PDF, wenn du sie behalten möchtest.
+  </div>
+
+  <label for="accessCode">Zugangscode</label>
+  <div class="code-row">
+    <input id="accessCode" type="password" autocomplete="off" placeholder="Code eingeben">
+    <button class="primary" type="button" onclick="unlock()">Starten</button>
+  </div>
+  <p id="codeError" class="hint"></p>
+</section>
+
+<div id="tool" class="hidden">
+  <div class="progress-wrap no-print">
+    <div class="progress"><span id="progressBar"></span></div>
+  </div>
+
+  <form id="appForm" class="card" onsubmit="return false;">
+
+    <section class="step active" data-step="0">
+      <div class="brand">Schritt 1</div>
+      <h2>Beginnen wir bei dir</h2>
+      <p class="lead">Die erste Frage entscheidet nur, welche Fragen du im nächsten Schritt siehst. Männer gehen direkt in den allgemeinen Teil, Frauen bekommen zuerst den Frauen-Bereich.</p>
+      <label>Bist du Mann oder Frau?</label>
+      <div class="sex-choice">
+        <label><input type="radio" name="sex" value="male" onchange="updateProgress()"> Mann</label>
+        <label><input type="radio" name="sex" value="female" onchange="updateProgress()"> Frau</label>
+      </div>
+      <div class="actions"><span></span><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="1">
+      <div class="brand">Frauen-Bereich</div>
+      <h2>Dein aktueller Rhythmus</h2>
+      <p class="lead">Diese Fragen verändern später Planlänge, Intensität und Übungsauswahl. Danach geht es mit denselben allgemeinen Fragen weiter.</p>
+
+      <label>Welche Situation beschreibt dich aktuell am besten?</label>
+      <select name="femaleStage" id="femaleStage" onchange="updateFemaleBranches()">
+        <option value="cycle">Regelmäßiger / gut einschätzbarer Zyklus</option>
+        <option value="irregular">Unregelmäßiger / schwer einschätzbarer Zyklus</option>
+        <option value="nocycle">Aktuell kein Zyklus</option>
+        <option value="peri">Perimenopause</option>
+        <option value="meno">Menopause</option>
+        <option value="pregnant">Schwangerschaft</option>
+      </select>
+
+      <div id="cycleBranch">
+        <div class="grid">
+          <div><label>Wie lang ist dein Zyklus ungefähr?</label><input name="cycleLength" type="number" min="20" max="45" value="28"><small>Deine Planlänge wird daran angepasst.</small></div>
+          <div><label>Welcher Zyklustag ist heute ungefähr?</label><input name="cycleDay" type="number" min="1" max="45" value="1"></div>
+        </div>
+        <label>Beeinflusst dein Zyklus deine Energie oder Belastbarkeit deutlich?</label>
+        <select name="cycleImpact"><option value="little">Kaum</option><option value="sometimes">Manchmal</option><option value="strong">Ja, deutlich</option></select>
+      </div>
+
+      <div id="noCycleBranch" class="hidden notice">
+        Wenn dein Zyklus aktuell unregelmäßig, nicht einschätzbar oder nicht vorhanden ist, arbeiten wir mit einem <b>28‑Tage‑Rhythmus</b> als klare Alltagsstruktur.
+      </div>
+
+      <div id="pregnancyBranch" class="hidden">
+        <div class="grid">
+          <div><label>In welcher Schwangerschaftswoche bist du?</label><input name="pregnancyWeek" type="number" min="1" max="42"></div>
+          <div><label>Ist die Schwangerschaft bisher unkompliziert?</label><select name="pregnancyUncomplicated"><option value="yes">Ja</option><option value="no">Nein</option><option value="unsure">Unsicher</option></select></div>
+        </div>
+        <label>Wurde dir empfohlen, bestimmte Bewegung oder Sport zu vermeiden?</label>
+        <select name="pregnancyRestriction"><option value="no">Nein</option><option value="yes">Ja</option><option value="unsure">Unsicher</option></select>
+      </div>
+
+      <label>Liegt eine Geburt noch relativ nah zurück?</label>
+      <select name="postpartum" id="postpartum" onchange="updatePostpartum()">
+        <option value="none">Nein</option>
+        <option value="lt3">Unter 3 Monaten</option>
+        <option value="3to6">3–6 Monate</option>
+        <option value="6to12">6–12 Monate</option>
+        <option value="gt12">Mehr als 12 Monate</option>
+      </select>
+
+      <div id="postpartumBranch" class="hidden">
+        <div class="grid">
+          <div><label>Geburt</label><select name="birthType"><option value="vaginal">Vaginal</option><option value="csection">Kaiserschnitt</option><option value="prefernot">Möchte ich nicht angeben</option></select></div>
+          <div><label>Rückbildung</label><select name="recovery"><option value="done">Begonnen / abgeschlossen</option><option value="partial">Teilweise</option><option value="notyet">Noch nicht</option></select></div>
+        </div>
+      </div>
+
+      <label>Ist bei dir eine Rektusdiastase bekannt?</label>
+      <select name="diastasis"><option value="no">Nein</option><option value="yes">Ja</option><option value="unsure">Unsicher</option></select>
+
+      <label>Trifft aktuell etwas davon auf dich zu?</label>
+      <div class="choice-grid">
+        <div class="choice"><label><input type="checkbox" name="pelvic" value="pressure"> Druck-/Schweregefühl im Beckenboden</label></div>
+        <div class="choice"><label><input type="checkbox" name="pelvic" value="leak"> Urinverlust bei Husten, Springen oder Sport</label></div>
+        <div class="choice"><label><input type="checkbox" name="pelvic" value="doming"> Sichtbares Vorwölben der Bauchmitte bei Belastung</label></div>
+        <div class="choice"><label><input type="checkbox" name="pelvic" value="unstable"> Gefühl einer instabilen Körpermitte</label></div>
+        <div class="choice"><label><input type="checkbox" name="pelvic" value="none"> Nichts davon</label></div>
+      </div>
+
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="2">
+      <div class="brand">Über dich</div>
+      <h2>Deine Ausgangslage</h2>
+      <div class="grid">
+        <div><label>Vorname</label><input name="firstName" required placeholder="z. B. Anna"></div>
+        <div><label>Alter</label><input name="age" type="number" min="18" max="99" required></div>
+        <div><label>Körpergröße in cm</label><input name="height" type="number" min="130" max="220" required></div>
+        <div><label>Aktuelles Gewicht in kg</label><input name="weight" type="number" min="35" max="300" step=".1" required></div>
+      </div>
+
+      <label>Wie sieht dein Alltag überwiegend aus?</label>
+      <select name="dailyActivity">
+        <option value="sitting">Überwiegend sitzend</option>
+        <option value="mixed">Viel sitzend, aber zwischendurch in Bewegung</option>
+        <option value="half">Ungefähr halb sitzend / halb aktiv</option>
+        <option value="feet">Viel auf den Beinen</option>
+        <option value="physical">Körperlich sehr aktiv</option>
+      </select>
+
+      <label>Wie viele Stunden sitzt du ungefähr an einem normalen Tag?</label>
+      <select name="sittingHours">
+        <option value="lt3">Unter 3 Stunden</option>
+        <option value="3to5">3–5 Stunden</option>
+        <option value="5to8">5–8 Stunden</option>
+        <option value="gt8">Mehr als 8 Stunden</option>
+      </select>
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="3">
+      <div class="brand">Dein Ziel</div>
+      <h2>Was möchtest du mit BEWEGEN erreichen?</h2>
+      <div class="choice-grid">
+        <div class="choice"><label><input type="checkbox" name="goals" value="daily"> Mehr Bewegung im Alltag</label></div>
+        <div class="choice"><label><input type="checkbox" name="goals" value="fitness"> Fitter werden</label></div>
+        <div class="choice"><label><input type="checkbox" name="goals" value="muscle"> Muskulatur / Kraft aufbauen</label></div>
+        <div class="choice"><label><input type="checkbox" name="goals" value="shape"> Körper formen</label></div>
+        <div class="choice"><label><input type="checkbox" name="goals" value="weight"> Gewichtsreduktion unterstützen</label></div>
+        <div class="choice"><label><input type="checkbox" name="goals" value="core"> Körpermitte stärken</label></div>
+        <div class="choice"><label><input type="checkbox" name="goals" value="back"> Rücken stärken</label></div>
+        <div class="choice"><label><input type="checkbox" name="goals" value="mobility"> Beweglicher werden</label></div>
+        <div class="choice"><label><input type="checkbox" name="goals" value="tension"> Weniger Verspannungen</label></div>
+        <div class="choice"><label><input type="checkbox" name="goals" value="energy"> Mehr Energie</label></div>
+        <div class="choice"><label><input type="checkbox" name="goals" value="stress"> Stress reduzieren / herunterfahren</label></div>
+        <div class="choice"><label><input type="checkbox" name="goals" value="joy"> Freude an Bewegung zurückfinden</label></div>
+      </div>
+
+      <label>Was ist dein wichtigstes Ziel?</label>
+      <select name="primaryGoal">
+        <option value="daily">Mehr Bewegung im Alltag</option>
+        <option value="fitness">Fitter werden</option>
+        <option value="muscle">Muskulatur / Kraft aufbauen</option>
+        <option value="shape">Körper formen</option>
+        <option value="weight">Gewichtsreduktion unterstützen</option>
+        <option value="core">Körpermitte stärken</option>
+        <option value="back">Rücken stärken</option>
+        <option value="mobility">Beweglicher werden</option>
+        <option value="stress">Stress reduzieren</option>
+      </select>
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="4">
+      <div class="brand">Erfahrung</div>
+      <h2>Wo stehst du heute?</h2>
+      <label>Wie schätzt du deine aktuelle Fitness selbst ein?</label>
+      <select name="selfLevel">
+        <option value="0">Ich fange gerade erst an</option>
+        <option value="1">Ich bin Wiedereinsteiger/in</option>
+        <option value="2">Ich bin regelmäßig aktiv</option>
+        <option value="3">Ich bin gut trainiert</option>
+        <option value="4">Ich trainiere sehr regelmäßig und gezielt</option>
+      </select>
+
+      <label>Wie war Bewegung und Sport über die letzten Jahre bei dir?</label>
+      <select name="history">
+        <option value="0">Eigentlich nie regelmäßig</option>
+        <option value="1">Immer wieder kurze Phasen, aber nicht dauerhaft</option>
+        <option value="2">Über Jahre immer wieder aktiv</option>
+        <option value="3">Seit mehreren Jahren regelmäßig</option>
+        <option value="4">Langjährige gezielte Sport-/Krafttrainingserfahrung</option>
+      </select>
+
+      <label>Wie oft trainierst du aktuell bewusst?</label>
+      <select name="currentFrequency">
+        <option value="0">Praktisch gar nicht</option>
+        <option value="1">Etwa 1× pro Woche</option>
+        <option value="2">2× pro Woche</option>
+        <option value="3">3× pro Woche</option>
+        <option value="4">4× oder häufiger</option>
+      </select>
+
+      <label>Wie viel zusätzliche Zeit ist an einem Kraft- oder Yoga-Tag realistisch?</label>
+      <select name="extraTime">
+        <option value="15">15 Minuten</option>
+        <option value="20">20 Minuten</option>
+        <option value="30">30 Minuten</option>
+        <option value="45">45 Minuten</option>
+      </select>
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="5">
+      <div class="brand">Dein Alltag</div>
+      <h2>Was kannst du wirklich leben?</h2>
+      <div class="notice"><b>Die Basis von BEWEGEN:</b> Jeden Tag dieselbe kurze Morgenroutine. Sie braucht kein Fitnessstudio und kaum Platz. Idealerweise machst du sie direkt nach dem Aufstehen – bevor dein Tag dich übernimmt.</div>
+
+      <label>Wann kannst du deine Basisroutine am zuverlässigsten umsetzen?</label>
+      <select name="routineTime">
+        <option value="direct">Direkt morgens nach dem Aufstehen</option>
+        <option value="morning">Etwas später am Morgen</option>
+        <option value="noon">Mittags</option>
+        <option value="afternoon">Nachmittags</option>
+        <option value="evening">Abends</option>
+        <option value="varies">Unterschiedlich</option>
+      </select>
+
+      <label>Sind ungefähr 10–15 Minuten täglich grundsätzlich realistisch?</label>
+      <select name="dailyMinutes"><option value="yes">Ja</option><option value="mostly">Meistens</option><option value="10">Aktuell eher 10 Minuten</option></select>
+
+      <label>Wie viele zusätzliche Krafttage pro Woche fühlen sich realistisch an?</label>
+      <select name="strengthWish">
+        <option value="auto">Bitte passend zu mir empfehlen</option>
+        <option value="1">1 Krafttag</option>
+        <option value="2">2 Krafttage</option>
+        <option value="3">3 Krafttage</option>
+      </select>
+
+      <label>Wann hast du normalerweise am meisten Energie?</label>
+      <select name="energyPeak"><option value="morning">Morgens</option><option value="noon">Mittags</option><option value="afternoon">Nachmittags</option><option value="evening">Abends</option><option value="varies">Sehr unterschiedlich</option></select>
+
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="6">
+      <div class="brand">Körper & Sicherheit</div>
+      <h2>Was sollten wir berücksichtigen?</h2>
+
+      <label>Kannst du aktuell problemlos leicht hüpfen oder springen?</label>
+      <select name="jump">
+        <option value="yes">Ja, problemlos</option>
+        <option value="short">Ja, aber nur kurz</option>
+        <option value="joint">Nein, wegen Gelenken / Schmerzen</option>
+        <option value="pelvic">Nein, wegen Beckenboden / Druckgefühl</option>
+        <option value="no">Ich möchte grundsätzlich nicht springen</option>
+        <option value="unsure">Ich bin unsicher</option>
+      </select>
+
+      <label>Gibt es Körperbereiche, die wir besonders berücksichtigen sollten?</label>
+      <div class="choice-grid">
+        <div class="choice"><label><input type="checkbox" name="complaints" value="neck"> Nacken / Schultern</label></div>
+        <div class="choice"><label><input type="checkbox" name="complaints" value="upperback"> Oberer Rücken</label></div>
+        <div class="choice"><label><input type="checkbox" name="complaints" value="lowerback"> Unterer Rücken</label></div>
+        <div class="choice"><label><input type="checkbox" name="complaints" value="hip"> Hüfte</label></div>
+        <div class="choice"><label><input type="checkbox" name="complaints" value="knee"> Knie</label></div>
+        <div class="choice"><label><input type="checkbox" name="complaints" value="ankle"> Sprunggelenke / Füße</label></div>
+        <div class="choice"><label><input type="checkbox" name="complaints" value="wrist"> Handgelenke</label></div>
+        <div class="choice"><label><input type="checkbox" name="complaints" value="none"> Keine</label></div>
+      </div>
+
+      <label>Trifft aktuell etwas davon auf dich zu?</label>
+      <div class="choice-grid">
+        <div class="choice"><label><input type="checkbox" name="safety" value="injury"> Akute Verletzung</label></div>
+        <div class="choice"><label><input type="checkbox" name="safety" value="pain"> Starke oder ungeklärte Schmerzen</label></div>
+        <div class="choice"><label><input type="checkbox" name="safety" value="dizzy"> Schwindel / Ohnmachtsgefühl bei Belastung</label></div>
+        <div class="choice"><label><input type="checkbox" name="safety" value="restriction"> Bekannte medizinische Bewegungseinschränkung</label></div>
+        <div class="choice"><label><input type="checkbox" name="safety" value="none"> Nichts davon</label></div>
+      </div>
+
+      <div class="notice warn"><b>Wichtig:</b> BEWEGEN ist ein allgemeines Bewegungs- und Wohlfühltool. Bei akuten Verletzungen, starken ungeklärten Beschwerden, Schwindel oder einer bekannten Bewegungseinschränkung hat deine individuelle medizinische Freigabe Vorrang.</div>
+
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="7">
+      <div class="brand">Deine Möglichkeiten</div>
+      <h2>Was passt zu dir?</h2>
+
+      <label>Welche Bewegung machst du grundsätzlich gerne?</label>
+      <div class="choice-grid">
+        <div class="choice"><label><input type="checkbox" name="likes" value="walk"> Spazieren / zügig gehen</label></div>
+        <div class="choice"><label><input type="checkbox" name="likes" value="yoga"> Yoga</label></div>
+        <div class="choice"><label><input type="checkbox" name="likes" value="strength"> Krafttraining</label></div>
+        <div class="choice"><label><input type="checkbox" name="likes" value="calisthenics"> Calisthenics / Körpergewicht</label></div>
+        <div class="choice"><label><input type="checkbox" name="likes" value="bike"> Radfahren</label></div>
+        <div class="choice"><label><input type="checkbox" name="likes" value="run"> Joggen</label></div>
+        <div class="choice"><label><input type="checkbox" name="likes" value="swim"> Schwimmen</label></div>
+        <div class="choice"><label><input type="checkbox" name="likes" value="dance"> Tanzen</label></div>
+      </div>
+
+      <label>Was möchtest du möglichst nicht in deinem Plan haben?</label>
+      <textarea name="dislikes" placeholder="z. B. Joggen, Burpees, lange Workouts ..."></textarea>
+
+      <label>Was kannst du für dein Training nutzen?</label>
+      <div class="choice-grid">
+        <div class="choice"><label><input type="checkbox" name="equipment" value="body"> Nur meinen eigenen Körper</label></div>
+        <div class="choice"><label><input type="checkbox" name="equipment" value="chair"> Stuhl / Wand / Boden</label></div>
+        <div class="choice"><label><input type="checkbox" name="equipment" value="mat"> Matte</label></div>
+        <div class="choice"><label><input type="checkbox" name="equipment" value="homeweight"> Wasserflaschen / gefüllter Rucksack</label></div>
+        <div class="choice"><label><input type="checkbox" name="equipment" value="band"> Widerstandsband</label></div>
+        <div class="choice"><label><input type="checkbox" name="equipment" value="dumbbell"> Kurzhanteln</label></div>
+        <div class="choice"><label><input type="checkbox" name="equipment" value="kettlebell"> Kettlebell</label></div>
+      </div>
+      <div class="notice">Du brauchst keine besondere Ausstattung. Die Grundübungen funktionieren immer auch mit dem eigenen Körper und einfachen Alltagsgegenständen.</div>
+
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="8">
+      <div class="brand">Stress & Regulation</div>
+      <h2>Wie fühlt sich dein Alltag an?</h2>
+
+      <label>Wie angespannt oder gestresst fühlst du dich aktuell?</label>
+      <select name="stress"><option value="low">Eher entspannt</option><option value="some">Gelegentlich angespannt</option><option value="high">Häufig gestresst</option><option value="very">Fast ständig unter Spannung</option></select>
+
+      <label>Wie gut kannst du abends herunterfahren?</label>
+      <select name="down"><option value="good">Sehr gut</option><option value="mostly">Meistens gut</option><option value="hard">Manchmal schwierig</option><option value="veryhard">Mein Kopf läuft abends häufig weiter</option></select>
+
+      <label>Wie fühlst du dich morgens meistens?</label>
+      <select name="morningEnergy"><option value="good">Erholt und wach</option><option value="okay">Okay</option><option value="tired">Eher müde</option><option value="exhausted">Sehr erschöpft</option></select>
+
+      <div class="notice">
+        <b>Optional am Abend:</b> Jeder bekommt zusätzlich die 5‑Minuten‑Routine <b>RUNTERFAHREN</b>. Sie kann bereits im Bett stattfinden und verbindet sanfte Bewegung, Atmung, Körperreise und einen guten Gedanken zum Abschluss des Tages.
+      </div>
+
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="9">
+      <div class="brand">Dein erster Zyklus</div>
+      <h2>Was hilft dir, wirklich dranzubleiben?</h2>
+
+      <label>Was war bisher deine größte Hürde?</label>
+      <div class="choice-grid">
+        <div class="choice"><label><input type="checkbox" name="barriers" value="time"> Keine Zeit</label></div>
+        <div class="choice"><label><input type="checkbox" name="barriers" value="tired"> Zu müde</label></div>
+        <div class="choice"><label><input type="checkbox" name="barriers" value="motivation"> Motivation lässt nach</label></div>
+        <div class="choice"><label><input type="checkbox" name="barriers" value="pain"> Schmerzen / Beschwerden</label></div>
+        <div class="choice"><label><input type="checkbox" name="barriers" value="unknown"> Ich weiß nicht, was ich machen soll</label></div>
+        <div class="choice"><label><input type="checkbox" name="barriers" value="complex"> Programme sind mir zu kompliziert</label></div>
+        <div class="choice"><label><input type="checkbox" name="barriers" value="extreme"> Ich starte zu extrem und höre wieder auf</label></div>
+        <div class="choice"><label><input type="checkbox" name="barriers" value="family"> Familie / Kinder / Arbeit</label></div>
+      </div>
+
+      <label>Was muss dein Bewegungsplan erfüllen, damit du deinen ersten Zyklus wirklich umsetzt?</label>
+      <textarea name="mustHave" placeholder="z. B. kurz, morgens machbar, ohne Geräte, Rücken entlasten ..."></textarea>
+
+      <div class="notice ok">
+        <b>Erst erleben – dann beurteilen.</b><br>
+        Wenn du startest, gib deinem Plan einen ganzen Zyklus. Du musst nicht perfekt sein. Wenn ein Tag ausfällt, steigst du am nächsten Tag wieder ein. Deine Aufgabe ist nicht, alles perfekt zu machen – sondern wiederzukommen.
+      </div>
+
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="generateResults()">Auswertung erstellen</button></div>
+    </section>
+  </form>
+
+  <section id="results" class="card hidden">
+    <div class="brand">Deine Auswertung</div>
+    <h1 id="resultTitle">Dein BEWEGEN-Plan</h1>
+    <p class="lead" id="resultLead"></p>
+    <div id="safetyResult"></div>
+
+    <div class="result-block">
+      <h2>Deine Ausgangslage</h2>
+      <div id="summaryText"></div>
+    </div>
+
+    <div class="result-block">
+      <h2>Was bei dir gerade auffällt</h2>
+      <div id="personalInsight"></div>
+    </div>
+
+    <div class="result-block">
+      <h2>Deine Empfehlung</h2>
+      <div class="kpis">
+        <div class="kpi"><span>Startstufe</span><b id="kLevel">–</b></div>
+        <div class="kpi"><span>Krafttage</span><b id="kStrength">–</b></div>
+        <div class="kpi"><span>Yoga</span><b>2× / Woche</b></div>
+        <div class="kpi"><span>Plan</span><b id="kPlan">–</b></div>
+      </div>
+      <div id="recommendationText"></div>
+      <h3>Deine drei Stufen</h3>
+      <div class="levels" id="levelCards"></div>
+    </div>
+
+    <div class="result-block">
+      <h2>Deine tägliche Morgenroutine</h2>
+      <p><b>Diese Basis bleibt für alle gleich.</b> Sie wird nicht möglichst schnell ausgeführt. Lass deinen Körper locker schwingen, bewege dich ruhig und atme während der gesamten Routine bewusst tief in den Bauch ein und aus.</p>
+      <div id="morningRoutine"></div>
+      <div class="notice"><b>Wichtig:</b> Bei Sprung-, Gelenk-, Beckenboden- oder Schwangerschaftsthemen ersetzt du die Hüpfvarianten durch die angezeigten Low‑Impact‑Varianten. Technik und gutes Körpergefühl gehen immer vor Wiederholungszahl.</div>
+    </div>
+
+    <div class="result-block">
+      <h2>Regeneration gehört zu deinem Training</h2>
+      <p>Beim Training setzt du einen Reiz. Die Anpassung deines Körpers braucht anschließend Erholung. Deshalb gehören Pausen genauso zu deinem Bewegungsweg wie die Trainingstage.</p>
+      <p>Mehr ist nicht automatisch besser. Wenn du starken Muskelkater hast, dich erschöpft oder überreizt fühlst, verschiebe eine intensive Einheit oder wähle die leichtere Variante. Ein Rhythmus, den du dauerhaft leben kannst, bringt dir mehr als ein Programm, das dich nach kurzer Zeit ausbremst.</p>
+      <div class="notice"><b>Mit deinem Körper statt gegen ihn:</b> Wenn dein Körper in einer Lebensphase nur einen Krafttag pro Woche gut verträgt, ist ein guter Krafttag besser als drei Einheiten, nach denen du wochenlang nicht weitermachst.</div>
+    </div>
+
+    <div class="result-block">
+      <h2>Dein Bewegungsrhythmus</h2>
+      <div id="rhythmText"></div>
+      <div id="movementIslands"></div>
+    </div>
+
+    <div class="result-block">
+      <h2 id="planHeading">Dein Bewegungsplan</h2>
+      <p class="hint">Die Tage sind eine Orientierung. Du kannst deine Krafttage auf feste Wochentage legen, die zu deinem Alltag passen – entscheidend ist der Abstand zwischen stärkeren Belastungen.</p>
+      <div class="scroll screen-only">
+        <table id="planTable">
+          <thead><tr><th>Tag</th><th>Phase / Rhythmus</th><th>Morgen</th><th>Zusatz</th><th>Fokus</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div id="printPlan" class="print-only"></div>
+    </div>
+
+    <div class="result-block">
+      <h2>Optional am Abend: 5 Minuten RUNTERFAHREN</h2>
+      <p>Leg dich bereits bequem ins Bett. Wenn es für deinen Nacken und Rücken angenehm ist, zunächst flach auf den Rücken. Ein Kissen oder eine andere bequeme Position ist natürlich völlig in Ordnung, wenn dein Körper sie braucht.</p>
+      <ol>
+        <li>Füße langsam vor und zurück bewegen und die Waden locker lassen.</li>
+        <li>Knie aufstellen und beide Knie sanft nach links und rechts sinken lassen.</li>
+        <li>Becken und Hüfte lockern, Schultern sanft bewegen und bewusst sinken lassen.</li>
+        <li>Arme entspannt neben den Körper legen, Kopf langsam nach links und rechts drehen und in der Mitte zur Ruhe kommen.</li>
+        <li>Ruhig in den Bauch atmen und mit deiner Aufmerksamkeit durch Füße, Beine, Becken, Bauch, Rücken, Schultern, Arme, Gesicht und Kopf wandern. Mit jedem Ausatmen darf etwas mehr loslassen.</li>
+        <li>Zum Abschluss suchst du dir <b>eine Sache, die heute schön war</b>. Nimm diesen Gedanken mit in die Nacht.</li>
+      </ol>
+    </div>
+
+    <div class="result-block final-page-start final-page-keep">
+      <h2>Dein Plan wächst mit dir</h2>
+      <p>Dein Bewegungsplan ist eine Momentaufnahme. Wenn sich Fitness, Beschwerden, Gewicht, Zyklus, Schwangerschaft, Alltag oder Ziel deutlich verändern, darfst du BEWEGEN erneut durchführen.</p>
+      <p><b>Dein Ziel ist nicht, möglichst schnell möglichst viel zu leisten.</b> Dein Ziel ist, wieder ein Grundgerüst aufzubauen, das dich trägt: regelmäßige Bewegung, Kraft, Mobilität, Regeneration und ein besseres Gefühl für deinen eigenen Körper.</p>
+      <div class="notice ok"><b>Deine Aufgabe für den ersten Zyklus:</b> nicht perfekt sein – sondern wiederkommen.</div>
+    </div>
+
+    <div class="result-block final-page-keep">
+      <h2>Einer von drei Schlüsseln</h2>
+      <p><b>NÄHREN</b> gibt deinem Körper Energie und Bausteine. <b>BEWEGEN</b> unterstützt Kraft, Stabilität, Beweglichkeit, Muskulatur und Körpergefühl. Und manchmal reicht Ernährung und Bewegung allein nicht aus, wenn die Versorgung nicht zu deiner persönlichen Situation passt.</p>
+      <div class="notice ok">
+        <b>Dein nächster Schlüssel: VERSORGEN</b><br>
+        Im dritten Wirkfeld schauen wir auf deine Nährstoffversorgung: Was bekommst du bereits über deine Ernährung? Wo können besondere Bedürfnisse bestehen? Und wann können zum Beispiel Protein, Mikronährstoffe oder eine gezielte Ergänzung sinnvoll sein?
+      </div>
+      <p class="hint">Wenn VERSORGEN für dich bereitsteht, führt dich der Button unten direkt zum dritten Teil.</p>
+    </div>
+
+    <div class="result-actions no-print">
+      <button class="secondary" onclick="restart()">Neu starten</button>
+      <button class="ghost" onclick="showExercises()">Meine Übungen</button>
+      <button class="ghost" onclick="showYoga()">Meine Yoga-Einheiten</button>
+      <button class="secondary" onclick="printResults()">Auswertung als PDF speichern / drucken</button>
+      <button class="primary wide" onclick="goToSupply()">Weiter zu VERSORGEN →</button>
+    </div>
+  </section>
+
+  <section id="exerciseView" class="card hidden exercise-view">
+    <div class="brand">WIRKFELDER · BEWEGEN</div>
+    <h1>Meine Übungen</h1>
+    <div class="library-intro">
+      <p><b>Einfach, funktionell und überall umsetzbar.</b> Du brauchst kein Fitnessstudio. Nutze deinen eigenen Körper, einen Stuhl, eine Wand, Wasserflaschen oder einen gefüllten Rucksack. Zusätzliche Gewichte sind ein Bonus – keine Voraussetzung.</p>
+      <p id="exercisePersonalNote"></p>
+    </div>
+    <div id="exerciseContent"></div>
+    <div class="result-actions no-print">
+      <button class="secondary" onclick="backToResults()">Zurück zur Auswertung</button>
+      <button class="primary wide" onclick="printExercises()">Alle Übungen als PDF speichern / drucken</button>
+    </div>
+  </section>
+
+  <section id="yogaView" class="card hidden yoga-view">
+    <div class="brand">WIRKFELDER · BEWEGEN</div>
+    <h1>Meine Yoga-Einheiten</h1>
+    <div class="library-intro">
+      <p>Yoga ergänzt deinen Kraft- und Bewegungsweg durch Mobilität, Atmung, Balance, Körperwahrnehmung und Regulation. Die acht Einheiten wiederholen bewusst bekannte Grundhaltungen, damit dein Körper die Abläufe mit der Zeit kennt und nicht jedes Mal etwas völlig Neues lernen muss.</p>
+    </div>
+    <div id="yogaContent"></div>
+    <div class="result-actions no-print">
+      <button class="secondary" onclick="backToResults()">Zurück zur Auswertung</button>
+      <button class="primary wide" onclick="printYoga()">Alle Yoga-Einheiten als PDF speichern / drucken</button>
+    </div>
+  </section>
+
+  <div class="footer no-print">Zurück zu dir · WIRKFELDER · BEWEGEN</div>
+</div>
+</div>
+
+<script>
+const ACCESS_CODES=["NAEHREN2026","WIRKFELDER2026"];
+const SUPPLY_URL="../versorgen/";
+let currentStep=0;
+let currentLevel="light";
+let currentStrengthDays=2;
+let currentPlanLength=28;
+let currentPlanRows=[];
+let currentStage="male";
+
+const qs=s=>document.querySelector(s);
+const qsa=s=>[...document.querySelectorAll(s)];
+const val=n=>{const e=qs(`[name="${n}"]`);return e?e.value:""};
+const checked=n=>qsa(`[name="${n}"]:checked`).map(x=>x.value);
+const radio=n=>{const e=qs(`[name="${n}"]:checked`);return e?e.value:""};
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));
+
+function unlock(){
+  const code=qs("#accessCode").value.trim();
+  if(ACCESS_CODES.includes(code)){
+    qs("#gate").classList.add("hidden");
+    qs("#tool").classList.remove("hidden");
+    showStep(0);
+  }else qs("#codeError").textContent="Der Code stimmt noch nicht.";
+}
+qs("#accessCode").addEventListener("keydown",e=>{if(e.key==="Enter")unlock()});
+
+function stepOrder(){
+  return radio("sex")==="female" ? [0,1,2,3,4,5,6,7,8,9] : [0,2,3,4,5,6,7,8,9];
+}
+function showStep(n){
+  qsa(".step").forEach(s=>s.classList.toggle("active",+s.dataset.step===n));
+  currentStep=n; updateProgress(); window.scrollTo({top:0,behavior:"smooth"});
+}
+function updateProgress(){
+  const o=stepOrder(), p=Math.max(0,o.indexOf(currentStep));
+  qs("#progressBar").style.width=((p+1)/o.length*100)+"%";
+}
+function validateCurrent(){
+  if(currentStep===0&&!radio("sex")){alert("Bitte wähle zuerst Mann oder Frau.");return false}
+  const active=qs(`.step[data-step="${currentStep}"]`);
+  for(const e of qsa(`.step[data-step="${currentStep}"] [required]`)){if(!e.value){e.reportValidity();e.focus();return false}}
+  if(currentStep===2 && +val("age")<18){alert("Diese Version erstellt automatische Pläne nur für Erwachsene ab 18 Jahren.");return false}
+  return true;
+}
+function nextStep(){
+  if(!validateCurrent())return;
+  const o=stepOrder(), p=o.indexOf(currentStep);
+  if(p<o.length-1)showStep(o[p+1]); else generateResults();
+}
+function prevStep(){
+  const o=stepOrder(),p=o.indexOf(currentStep);
+  if(p>0)showStep(o[p-1]);
+}
+function updateFemaleBranches(){
+  const s=val("femaleStage");
+  qs("#cycleBranch").classList.toggle("hidden",s!=="cycle");
+  qs("#noCycleBranch").classList.toggle("hidden",!(s==="irregular"||s==="nocycle"));
+  qs("#pregnancyBranch").classList.toggle("hidden",s!=="pregnant");
+}
+function updatePostpartum(){
+  qs("#postpartumBranch").classList.toggle("hidden",val("postpartum")==="none");
+}
+
+const levelNames={light:"LEICHT",medium:"MITTEL",strong:"STARK"};
+const levelRank={light:0,medium:1,strong:2};
+const levelByRank=["light","medium","strong"];
+function downLevel(l){return levelByRank[Math.max(0,levelRank[l]-1)]}
+function upTo(l,max){return levelByRank[Math.min(levelRank[l],levelRank[max])]}
+function repsFor(l){return l==="light"?30:l==="medium"?50:100}
+function perSideFor(l){return Math.round(repsFor(l)/2)}
+
+function femaleRisk(){
+  if(radio("sex")!=="female")return {pregnant:false,post:false,pelvic:false,diastasis:false};
+  const pelvic=checked("pelvic").filter(x=>x!=="none").length>0;
+  return {
+    pregnant:val("femaleStage")==="pregnant",
+    post:["lt3","3to6"].includes(val("postpartum")),
+    pelvic,
+    diastasis:val("diastasis")==="yes"||val("diastasis")==="unsure"
+  };
+}
+function lowImpactNeeded(){
+  const j=val("jump"), f=femaleRisk();
+  return !["yes","short"].includes(j)||f.pregnant||f.post||f.pelvic;
+}
+function recommendLevel(){
+  let score=(+val("selfLevel") + +val("history") + +val("currentFrequency"))/3;
+  const h=+val("height")/100,w=+val("weight"),bmi=w/(h*h);
+  const complaints=checked("complaints").filter(x=>x!=="none").length;
+  const safety=checked("safety").filter(x=>x!=="none").length;
+  const f=femaleRisk();
+
+  if(bmi>=35)score-=1; else if(bmi>=30)score-=0.5;
+  if(complaints>=2)score-=0.5;
+  if(lowImpactNeeded())score-=0.4;
+  if(safety)score-=1.5;
+  if(f.post)score-=1;
+  if(f.diastasis||f.pelvic)score-=0.5;
+  if(f.pregnant)score-=1;
+
+  let l=score<1.25?"light":score<2.7?"medium":"strong";
+  if(safety||f.pregnant||val("postpartum")==="lt3")l="light";
+  return l;
+}
+function recommendStrengthDays(level){
+  const wish=val("strengthWish");
+  if(wish!=="auto")return +wish;
+  const safety=checked("safety").filter(x=>x!=="none").length;
+  const f=femaleRisk();
+  if(safety||f.pregnant||val("postpartum")==="lt3")return 1;
+  const goal=val("primaryGoal");
+  if(["muscle","shape"].includes(goal)&&level!=="light")return 3;
+  return 2;
+}
+
+const morningExercises=[
+  {n:"Lockeres Hüpfen auf der Stelle",desc:"Nicht hoch springen. Locker federn, Schultern und Kiefer weich lassen.",low:"Low‑Impact: auf der Stelle marschieren oder abwechselnd die Fersen anheben."},
+  {n:"Hüpfen mit Füßen links / rechts",desc:"Kleine lockere Seitbewegung der Füße, sodass das Becken weich mitbewegt wird.",low:"Low‑Impact: kleine Steps links / rechts ohne Abheben."},
+  {n:"Arme über Kopf und nach unten schwingen",desc:"Arme gestreckt nach oben führen und locker wieder nach unten schwingen.",low:"Bei Schulterbeschwerden nur so weit führen, wie es angenehm ist."},
+  {n:"Arme seitlich öffnen und auf die Brust klatschen",desc:"Arme seitlich ausstrecken und abwechselnd locker vor dem Brustkorb zusammenführen.",low:"Bewegungsradius kleiner machen, wenn Schulter oder Brustkorb empfindlich sind."},
+  {n:"Ellbogen Richtung Boden",desc:"Leicht nach vorne beugen, Hände an die Brust, Ellbogen abwechselnd Richtung Boden führen.",low:"Nur kleine Rotation, Rücken lang lassen."},
+  {n:"Überkreuz zum gegenüberliegenden Fuß",desc:"Linke Hand Richtung rechter Fuß, rechte Hand Richtung linker Fuß – ruhig im Wechsel.",low:"Statt bis zum Fuß nur Richtung gegenüberliegendes Knie greifen."},
+  {n:"Golf Twists",desc:"Locker aus Hüfte und Brustkorb nach links und rechts rotieren. Die Arme dürfen entspannt mitschwingen.",low:"Kleine Rotation, Füße stabil, kein Schwung erzwingen."},
+  {n:"Knieheben mit Klatschen",desc:"Knie abwechselnd anheben und mit beiden Händen locker auf das angehobene Knie klatschen.",low:"Knie nur so hoch anheben, wie es angenehm ist."},
+  {n:"Dead Arms",desc:"Arme möglichst locker von links nach rechts schwingen lassen. Nicht festhalten – loslassen.",low:"Kleine Bewegung im Stand, falls Schwindel oder Gleichgewicht unsicher ist."},
+  {n:"Hip Hinge / Good Morning",desc:"Füße hüftbreit, Knie leicht gebeugt, Becken nach hinten, Oberkörper mit langem Rücken nach vorne und wieder aufrichten.",low:"Kleiner Bewegungsweg. Qualität vor Wiederholungszahl; aufhören, bevor die Form verloren geht."}
+];
+
+const strengthPrograms=[
+ {title:"Kraft 1 · Grundkraft & Körpermitte",focus:"Ganzkörper kennenlernen",ex:[
+  ["Kniebeuge","Stuhl-Squat","freie Kniebeuge","Kniebeuge mit Rucksack / Gewicht"],
+  ["Glute Bridge","kleine Brücke","volle Brücke","Brücke mit Gewicht / einbeiniger Impuls"],
+  ["Wadenheben","beidbeinig mit Halt","frei beidbeinig","einbeinig / mit Gewicht"],
+  ["Bird Dog","nur Arm oder Bein","Arm + Gegenbein","langsamer Bird Dog mit Pause"],
+  ["Push","Wandliegestütz","erhöhter Liegestütz","Liegestütz / gewichtete Variante"]
+ ]},
+ {title:"Kraft 2 · Rücken & Haltung",focus:"Rücken, Schultergürtel, Mitte",ex:[
+  ["Hip Hinge","kleiner Good Morning","voller Hip Hinge","Hip Hinge mit Gewicht"],
+  ["Push","Wandliegestütz","erhöhter Liegestütz","Liegestütz"],
+  ["Reverse Snow Angels","kleine Armbewegung in Bauchlage","volle kontrollierte Bewegung","mit längeren Haltepunkten"],
+  ["Bird Dog","Basis","Arm + Gegenbein","mit Pause / langsamem Zurückführen"],
+  ["Seitstütz","Knie am Boden","Seitstütz kurz","voller Seitstütz / längere Haltezeit"]
+ ]},
+ {title:"Kraft 3 · Beine & Gesäß",focus:"Unterkörper",ex:[
+  ["Squat","Stuhl-Squat","freie Kniebeuge","gewichtete Kniebeuge"],
+  ["Reverse Lunge","kleiner Rückwärtsschritt mit Halt","Reverse Lunge","mit Gewicht"],
+  ["Glute Bridge","Basis","volle Brücke","mit Gewicht / anspruchsvollere Variante"],
+  ["Hip Hinge","kleiner Bewegungsweg","voller Hip Hinge","Romanian Deadlift mit Gewicht"],
+  ["Wadenheben","mit Halt","frei","einbeinig / Gewicht"]
+ ]},
+ {title:"Kraft 4 · Ganzkörper-Calisthenics",focus:"Ganzkörper & Körperspannung",ex:[
+  ["Squat","Stuhl-Squat","freie Kniebeuge","gewichtete / langsamere Kniebeuge"],
+  ["Push-up","Wand","erhöht","Boden"],
+  ["Ausfallschritt","mit Halt","alternierend","mit Gewicht"],
+  ["Mountain Climber","an Wand / Tisch langsam","erhöht im Wechsel","Boden kontrolliert"],
+  ["Plank","an Wand / Tisch","erhöht","Boden"]
+ ]},
+ {title:"Kraft 5 · Ganzkörper-Power",focus:"stärkerer Kraftreiz",ex:[
+  ["Kniebeuge","Stuhl-Squat","freie Kniebeuge","gewichtete Kniebeuge"],
+  ["Push-up","Wand","erhöht","Boden / anspruchsvoller"],
+  ["Reverse Lunge","kleiner Schritt","voll","mit Gewicht"],
+  ["Deadlift / Hip Hinge","ohne Gewicht","Rucksack leicht","schwererer Rucksack / Hanteln"],
+  ["Shoulder Taps","an Wand","erhöht","Plank Shoulder Taps"]
+ ]},
+ {title:"Kraft 6 · Muskelreiz",focus:"gezielte Belastung",ex:[
+  ["Split Squat","kleiner Split Squat mit Halt","voller Split Squat","mit Gewicht"],
+  ["Romanian Deadlift","Hip Hinge ohne Gewicht","leichter Rucksack","Hanteln / schwererer Rucksack"],
+  ["Push","Wand","erhöht","Liegestütz / anspruchsvoller"],
+  ["Rücken / Ziehen","isometrisch Schulterblätter ziehen","Band / Handtuchspannung","Rudern mit Gewicht oder Band"],
+  ["Core","Dead Bug vereinfacht","Dead Bug","langsamere / längere Hebel"]
+ ]},
+ {title:"Kraft 7 · Rücken, Gesäß & Mitte",focus:"Stabilität & Haltung",ex:[
+  ["Glute Bridge","Basis","Bridge March vorbereitet","Bridge March / Zusatzgewicht"],
+  ["Bird Dog","einzeln","Arm + Gegenbein","mit Pause"],
+  ["Hip Hinge","klein","voll","mit Gewicht"],
+  ["Seitstütz","Knie","kurz voll","voll / länger"],
+  ["Rückenaktivierung","Schulterblätter im Stand","Bauchlage klein","kontrollierte Rückenstreckung"]
+ ]},
+ {title:"Kraft 8 · Ganzkörper-Abschluss",focus:"Vergleich & Festigung",ex:[
+  ["Squat","Stuhl","frei","mit Gewicht"],
+  ["Push-up","Wand","erhöht","Boden"],
+  ["Lunge","mit Halt","frei","mit Gewicht"],
+  ["Hip Hinge / Deadlift","ohne Gewicht","leicht belastet","stärker belastet"],
+  ["Glute Bridge","Basis","voll","mit Gewicht"],
+  ["Core","Bird Dog","Dead Bug / Plank erhöht","passende stärkere Core-Variante"]
+ ]}
+];
+
+const yogaPrograms=[
+ {title:"Yoga 1 · Ankommen & Loslassen",focus:"Ruhe, Atmung, sanfter Einstieg",poses:["Ruhiges Ankommen in Rückenlage oder Sitz","Bauchatmung","Katze–Kuh","Kindhaltung","sanfte liegende Drehung","Hüftöffner","kurze Ruhe"]},
+ {title:"Yoga 2 · Rücken & Hüfte",focus:"Mobilität nach viel Sitzen",poses:["Katze–Kuh","herabschauender Hund","tiefer Ausfallschritt","Hüftöffnung","sanfte Vorbeuge","Brücke","liegende Rotation","Kindhaltung"]},
+ {title:"Yoga 3 · Sonnengruß",focus:"fließende Ganzkörperbewegung",poses:["Ankommen","Sonnengruß langsam","mehrere Wiederholungen","herabschauender Hund","kurzer Hüftöffner","Abschlussatmung"]},
+ {title:"Yoga 4 · Kraft & Balance",focus:"Beine, Haltung, Stabilität",poses:["Berghaltung","Stuhlhaltung","Krieger I","Krieger II","seitliche Öffnung","Baum","herabschauender Hund","Brücke","kurze Entspannung"]},
+ {title:"Yoga 5 · Dynamischer Flow",focus:"Energie & fließende Kraft",poses:["Sonnengruß","Kriegerfolge","herabschauender Hund","angepasste Plank-Variante","Ausfallschritt","Rotation","Flow wiederholen","ruhiger Abschluss"]},
+ {title:"Yoga 6 · Körpermitte & Stabilität",focus:"Mitte, Balance, Kontrolle",poses:["Brücke","kontrollierte Beinbewegungen","Bird-Dog-orientierte Stabilisation","angepasster Seitstütz","Katze–Kuh","Kindhaltung","Atmung"]},
+ {title:"Yoga 7 · Erdung",focus:"ruhiger werden & mobil bleiben",poses:["langsame Katze–Kuh","herabschauender Hund","tiefer Ausfallschritt","Krieger II","breite Vorbeuge","Hüftöffner","Kindhaltung","liegende Drehung","Bauchatmung"]},
+ {title:"Yoga 8 · Regeneration",focus:"Loslassen & herunterfahren",poses:["Rückenlage","Füße und Beine lockern","Knie sanft bewegen","Hüftöffner","Happy-Baby-Variante","liegende Drehung","Beine erhöht / an die Wand","bewusste Atmung","kurze Körperreise"]}
+];
+
+function phaseInfo(day,stage,cycleLen,startCycleDay){
+  if(stage==="cycle"){
+    const cd=((startCycleDay+day-2)%cycleLen)+1;
+    const ovu=Math.max(10,cycleLen-14);
+    let phase="Lutealphase";
+    if(cd<=5)phase="Menstruation";
+    else if(cd<ovu-1)phase="Follikelphase";
+    else if(cd<=ovu+1)phase="Ovulationsphase";
+    return {phase,detail:`Zyklustag ${cd}`,cd,ovu};
+  }
+  if(stage==="pregnant")return {phase:"Schwangerschaft",detail:`Tag ${day} deines Bewegungszyklus`};
+  if(stage==="peri")return {phase:"28‑Tage‑Rhythmus",detail:`Perimenopause · Tag ${day}`};
+  if(stage==="meno")return {phase:"28‑Tage‑Rhythmus",detail:`Menopause · Tag ${day}`};
+  if(stage==="irregular"||stage==="nocycle")return {phase:"28‑Tage‑Rhythmus",detail:`Tag ${day}`};
+  return {phase:"28‑Tage‑Rhythmus",detail:`Tag ${day}`};
+}
+function dayLevel(base,phase,info){
+  let l=base;
+  if(currentStage==="pregnant")return "light";
+  if(currentStage==="cycle"){
+    if(phase==="Menstruation")l=downLevel(l);
+    if(phase==="Lutealphase" && info.cd && info.cd>=currentPlanLength-3)l=downLevel(l);
+  }
+  if(val("morningEnergy")==="exhausted"||val("stress")==="very")l=downLevel(l);
+  return l;
+}
+function weeklyPattern(strengthDays){
+  if(strengthDays===1)return {strength:[3],yoga:[1,6]};
+  if(strengthDays===3)return {strength:[1,4,6],yoga:[2,7]};
+  return {strength:[2,6],yoga:[1,4]};
+}
+function movementIslandsHtml(){
+  const lots=["sitting","mixed"].includes(val("dailyActivity"))||["5to8","gt8"].includes(val("sittingHours"));
+  if(!lots)return `<div class="notice"><b>Alltag:</b> Behalte natürliche Bewegung bewusst bei – Wege zu Fuß, Treppen, Spaziergänge und kurze Bewegungsunterbrechungen zählen genauso.</div>`;
+  return `<div class="notice"><b>Dein zusätzlicher Hebel: Bewegungsinseln.</b><br>Du sitzt einen großen Teil des Tages. Stell dir, wenn möglich, alle 60–90 Minuten einen kurzen Bewegungswecker: aufstehen, 30–60 Sekunden gehen oder marschieren, einige Wadenheben / Kniebeugen und Schulter-/Brustkorbbewegungen. Zwei Minuten reichen oft schon, um den Stillstand zu unterbrechen.</div>`;
+}
+
+function generateResults(){
+  if(!validateCurrent())return;
+  const sex=radio("sex");
+  currentStage=sex==="female"?val("femaleStage"):"male";
+  currentPlanLength=currentStage==="cycle"?Math.max(20,Math.min(45,+val("cycleLength")||28)):28;
+  currentLevel=recommendLevel();
+  currentStrengthDays=recommendStrengthDays(currentLevel);
+  const lowImpact=lowImpactNeeded();
+
+  const name=val("firstName")||"Du",age=+val("age"),height=+val("height"),weight=+val("weight");
+  const goals=checked("goals"),goal=val("primaryGoal");
+  const goalText={
+    daily:"mehr Bewegung im Alltag",fitness:"fitter werden",muscle:"Muskulatur und Kraft aufbauen",
+    shape:"deinen Körper formen",weight:"Gewichtsreduktion unterstützen",core:"deine Körpermitte stärken",
+    back:"deinen Rücken stärken",mobility:"beweglicher werden",stress:"Stress reduzieren"
+  }[goal]||"mehr Bewegung";
+
+  qs("#resultTitle").textContent=`${name}s BEWEGEN‑Plan`;
+  qs("#resultLead").textContent=`Dein persönlicher ${currentPlanLength}‑Tage‑Bewegungsweg – auf Basis deiner heutigen Angaben.`;
+
+  let stageText="Mann";
+  if(sex==="female"){
+    stageText={
+      cycle:"Frau mit regelmäßigem / gut einschätzbarem Zyklus",
+      irregular:"Frau mit unregelmäßigem Zyklus",
+      nocycle:"Frau ohne aktuellen Zyklus",
+      peri:"Frau in der Perimenopause",
+      meno:"Frau in der Menopause",
+      pregnant:"Schwangerschaft"
+    }[currentStage];
+  }
+  qs("#summaryText").innerHTML=`
+    <p>Du bist <b>${age} Jahre</b>, ${height} cm groß und wiegst aktuell <b>${weight.toFixed(1)} kg</b>. Dein wichtigstes Ziel ist <b>${goalText}</b>.</p>
+    <p>Für diese Auswertung wurdest du der Gruppe <b>${stageText}</b> zugeordnet. Deine eigene Einschätzung, deine Sporterfahrung über die letzten Jahre, deine aktuelle Bewegung und deine körperliche Ausgangslage fließen gemeinsam in die Empfehlung ein.</p>
+    ${val("mustHave")?`<div class="notice"><b>Was dein Plan für dich erfüllen muss:</b><br>${esc(val("mustHave"))}</div>`:""}
+  `;
+
+  const insights=[];
+  if(["sitting","mixed"].includes(val("dailyActivity"))||["5to8","gt8"].includes(val("sittingHours"))) insights.push("Du sitzt einen größeren Teil deines Tages. Dein Hebel ist deshalb nicht nur ein Workout, sondern den langen Stillstand regelmäßig zu unterbrechen.");
+  if(+val("history")>=3 && +val("currentFrequency")<=1) insights.push("Du bringst langfristige Bewegungserfahrung mit, bist aktuell aber weniger regelmäßig aktiv. Dein Körper kennt Training – trotzdem lohnt sich ein kontrollierter Wiedereinstieg.");
+  if(+val("history")<=1) insights.push("Du hast bisher wenig langfristige Trainingsroutine. Deshalb ist Kontinuität wichtiger als ein möglichst harter Einstieg.");
+  if(["muscle","shape"].includes(goal)) insights.push(`Für dein Ziel reichen kleine Alltagsimpulse allein nicht aus. Zusätzlich zur Morgenroutine sind bei dir <b>${currentStrengthDays} gezielte Krafttage pro Woche</b> vorgesehen.`);
+  if(lowImpact) insights.push("Für dich verwenden wir in der Morgenroutine und bei dynamischen Übungen Low‑Impact‑Alternativen statt verpflichtendem Springen.");
+  if(["high","very"].includes(val("stress"))||["hard","veryhard"].includes(val("down"))) insights.push("Dein Stress-/Regulationsbereich ist gerade wichtig. Deshalb ist die 5‑Minuten‑Abendroutine für dich besonders sinnvoll.");
+  const f=femaleRisk();
+  if(f.diastasis||f.pelvic) insights.push("Deine Körpermitte und der Beckenboden werden besonders berücksichtigt. Der Fokus liegt auf kontrollierter Spannung, Atmung, Rücken und Gesäß statt auf möglichst vielen klassischen Bauchübungen.");
+  if(currentStage==="cycle") insights.push(`Dein Bewegungsplan folgt deinem angegebenen Zyklus von etwa <b>${currentPlanLength} Tagen</b> und startet an deinem aktuellen Zyklustag.`);
+  if(["irregular","nocycle","peri","meno"].includes(currentStage)) insights.push("Dein Plan nutzt einen 28‑Tage‑Rhythmus als Struktur, ohne deinem Körper einen künstlichen biologischen Zyklus vorzugeben.");
+  qs("#personalInsight").innerHTML=(insights.length?insights:["Du hast eine gute Ausgangsbasis, um Bewegung jetzt als regelmäßigen Teil deines Alltags zu verankern."]).map(x=>`<p>${x}</p>`).join("");
+
+  const safety=checked("safety").filter(x=>x!=="none");
+  const pregRestriction=currentStage==="pregnant"&&["yes","unsure"].includes(val("pregnancyRestriction"));
+  if(safety.length||pregRestriction){
+    qs("#safetyResult").innerHTML=`<div class="notice warn"><b>Deine Sicherheit geht vor:</b><br>Du hast einen Punkt angegeben, bei dem ein automatischer Bewegungsplan nur Orientierung sein kann. Nutze die sanften Varianten und kläre bei akuten, ungeklärten oder ausdrücklich eingeschränkten Situationen zuerst, welche Belastung für dich freigegeben ist. Der Plan ersetzt keine individuelle medizinische Freigabe.</div>`;
+  }else qs("#safetyResult").innerHTML="";
+
+  qs("#kLevel").textContent=levelNames[currentLevel];
+  qs("#kStrength").textContent=currentStrengthDays+"× / Woche";
+  qs("#kPlan").textContent=currentPlanLength+" Tage";
+
+  const reason=currentLevel==="light"
+    ?"Wir empfehlen dir einen sanften Einstieg. Auch wenn einzelne Übungen leicht wirken, geht es zuerst darum, die Routine sauber kennenzulernen und dauerhaft in deinen Alltag zu bringen."
+    :currentLevel==="medium"
+    ?"Aufgrund deiner Selbsteinschätzung, deiner bisherigen Bewegungserfahrung und deiner aktuellen Ausgangslage kannst du voraussichtlich mit der mittleren Stufe starten. Du darfst jederzeit auf LEICHT wechseln, wenn dein Körper mehr Ruhe braucht."
+    :"Du bringst bereits eine gute langfristige Trainingsbasis mit. Deshalb kannst du mit STARK starten – trotzdem bleibt die Qualität der Bewegung wichtiger als Geschwindigkeit oder eine Zahl auf dem Papier.";
+  qs("#recommendationText").innerHTML=`<p>${reason}</p><div class="notice"><b>Alle drei Stufen bleiben sichtbar.</b> Deine Empfehlung ist ein Startpunkt, kein Urteil. Wenn sich dein Körper anders anfühlt, darfst du die Stufe jederzeit anpassen.</div>`;
+
+  qs("#levelCards").innerHTML=["light","medium","strong"].map(l=>`
+    <div class="level-card ${l===currentLevel?"recommended":""}">
+      <b>${levelNames[l]}${l===currentLevel?" · deine Empfehlung":""}</b>
+      <span>${l==="light"?"ca. 30 Wiederholungen · bei Wechselbewegungen etwa 15 je Seite":l==="medium"?"ca. 50 Wiederholungen · etwa 25 je Seite":"bis ca. 100 Wiederholungen · etwa 50 je Seite, nur solange die Ausführung sauber bleibt"}</span>
+    </div>`).join("");
+
+  const reps=repsFor(currentLevel), per=perSideFor(currentLevel);
+  qs("#morningRoutine").innerHTML=`
+    <div class="pill-row"><span class="level-pill ${currentLevel}">${levelNames[currentLevel]}</span><span class="pill">ca. ${reps} Wiederholungen</span>${lowImpact?'<span class="pill">Low‑Impact aktiviert</span>':""}</div>
+    <ol class="routine-list">
+      ${morningExercises.map((x,i)=>`<li><b>${x.n}</b><br>${x.desc}<br><small>${lowImpact&&i<2?x.low:"Richtwert: "+reps+" gesamt"+([4,5,6,7].includes(i)?" / ca. "+per+" je Seite":"")}</small></li>`).join("")}
+    </ol>`;
+
+  qs("#rhythmText").innerHTML=`
+    <p><b>Jeden Tag:</b> deine Morgenroutine – idealerweise direkt nach dem Aufstehen. Wenn Schlafmangel, Schichtarbeit oder dein Familienalltag das nicht zulassen, nimm den Zeitpunkt, den du wirklich halten kannst.</p>
+    <p><b>Zusätzlich:</b> im Durchschnitt 2 Yoga-Einheiten pro Woche und <b>${currentStrengthDays} Krafttag${currentStrengthDays===1?"":"e"}</b> pro Woche. Zwischen stärkeren Belastungen derselben Muskelgruppen liegt mindestens ein Regenerationstag; wenn dein Körper mehr braucht, auch zwei.</p>
+    <p><b>Abends optional:</b> 5 Minuten RUNTERFAHREN – besonders sinnvoll an stressigen Tagen.</p>`;
+  qs("#movementIslands").innerHTML=movementIslandsHtml();
+
+  buildPlan();
+  renderExerciseLibrary();
+  renderYogaLibrary();
+
+  qs("#appForm").classList.add("hidden");
+  qs("#results").classList.remove("hidden");
+  qs("#exerciseView").classList.add("hidden");
+  qs("#yogaView").classList.add("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function buildPlan(){
+  const tbody=qs("#planTable tbody"), printPlan=qs("#printPlan");
+  tbody.innerHTML="";printPlan.innerHTML="";
+  const pattern=weeklyPattern(currentStrengthDays);
+  let strengthIndex=0,yogaIndex=0;
+  const rows=[];
+  const startCycle=+val("cycleDay")||1;
+
+  for(let d=1;d<=currentPlanLength;d++){
+    const weekDay=((d-1)%7)+1;
+    const info=phaseInfo(d,currentStage,currentPlanLength,startCycle);
+    const lev=dayLevel(currentLevel,info.phase,info);
+    let extra="Morgenroutine + natürliche Alltagsbewegung";
+    let focus="Basis & Kontinuität";
+
+    if(pattern.strength.includes(weekDay)){
+      const p=strengthPrograms[strengthIndex%strengthPrograms.length];
+      extra=`${p.title} · ${levelNames[lev]}`;
+      focus=p.focus;
+      strengthIndex++;
+    }else if(pattern.yoga.includes(weekDay)){
+      const y=yogaPrograms[yogaIndex%yogaPrograms.length];
+      extra=`${y.title} · ${levelNames[lev]}`;
+      focus=y.focus;
+      yogaIndex++;
+    }else if(["sitting","mixed"].includes(val("dailyActivity"))||["5to8","gt8"].includes(val("sittingHours"))){
+      extra="Morgenroutine + 3 kurze Bewegungsinseln über den Tag";
+      focus="Stillstand unterbrechen";
+    }
+
+    if(currentStage==="cycle"&&info.phase==="Menstruation"&&extra.includes("Kraft")){
+      extra+= " · bei starken Beschwerden verschieben oder LEICHT wählen";
+    }
+    if(currentStage==="pregnant"&&extra.includes("Kraft")) extra=extra.replace(/· (LEICHT|MITTEL|STARK)/,"· LEICHT / angepasst");
+
+    const row={d,phase:info.phase,detail:info.detail,morning:`Basisroutine · ${levelNames[lev]}`,extra,focus};
+    rows.push(row);
+
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td><b>${d}</b></td><td>${info.phase}<br><small>${info.detail}</small></td><td>${row.morning}</td><td>${extra}</td><td>${focus}</td>`;
+    tbody.appendChild(tr);
+  }
+  currentPlanRows=rows;
+
+  for(let start=0;start<rows.length;start+=7){
+    const w=Math.floor(start/7)+1,end=Math.min(start+7,rows.length);
+    const sec=document.createElement("section");
+    sec.className="print-week";
+    sec.innerHTML=`<h3>Woche ${w} · Tage ${start+1}–${end}</h3>
+      <table class="print-move-table"><thead><tr><th>Tag & Rhythmus</th><th>Morgen</th><th>Zusatz</th><th>Fokus</th></tr></thead><tbody></tbody></table>`;
+    const b=sec.querySelector("tbody");
+    rows.slice(start,end).forEach(r=>{
+      const tr=document.createElement("tr");
+      tr.innerHTML=`<td><b>Tag ${r.d}</b><br>${r.phase}<br><small>${r.detail}</small></td><td>${r.morning}</td><td>${r.extra}</td><td>${r.focus}</td>`;
+      b.appendChild(tr);
+    });
+    printPlan.appendChild(sec);
+  }
+  qs("#planHeading").textContent=`Dein ${currentPlanLength}‑Tage‑Bewegungsplan`;
+}
+
+function strengthCard(p,i){
+  const rows=p.ex.map(x=>`<tr><td><b>${x[0]}</b></td><td>${x[1]}</td><td>${x[2]}</td><td>${x[3]}</td></tr>`).join("");
+  return `<details class="library-card" id="strength-${i}">
+    <summary>${p.title}</summary>
+    <div class="library-body">
+      <p><b>Schwerpunkt:</b> ${p.focus}</p>
+      <table><thead><tr><th>Übung</th><th>LEICHT</th><th>MITTEL</th><th>STARK</th></tr></thead><tbody>${rows}</tbody></table>
+      <div class="notice"><b>Runden:</b> LEICHT meist 1–2 Runden à 8–10 saubere Wiederholungen · MITTEL 2–3 Runden à 10–15 · STARK 3–4 Runden mit einem Widerstand, bei dem ungefähr 6–12 technisch saubere Wiederholungen wirklich fordernd sind. Du musst nicht jeden Satz bis zum völligen Muskelversagen treiben.</div>
+      <div class="actions no-print"><button class="ghost" onclick="printSingle('strength-${i}','exercise')">Diese Einheit als PDF / drucken</button></div>
+    </div>
+  </details>`;
+}
+function renderExerciseLibrary(){
+  const low=lowImpactNeeded();
+  const morning=`<section><h2>Deine 10 Morgenübungen</h2>
+    <div class="notice"><b>Atmung während der gesamten Routine:</b> ruhig und bewusst tief in den Bauch ein- und ausatmen. Es geht nicht um Tempo, sondern um Loslassen, Schwingen und einen ruhigen Start in den Körper.</div>
+    ${morningExercises.map((x,i)=>`<details class="library-card"><summary>${i+1}. ${x.n}</summary><div class="library-body"><p>${x.desc}</p><div class="levels"><div class="level-card"><b>LEICHT</b>${i<2&&low?x.low:"30 gesamt / bei Seitenübungen ca. 15 je Seite"}</div><div class="level-card"><b>MITTEL</b>${i<2&&low?x.low:"50 gesamt / ca. 25 je Seite"}</div><div class="level-card"><b>STARK</b>${i<2&&low?x.low:"bis ca. 100 gesamt / ca. 50 je Seite – nur technisch sauber"}</div></div></div></details>`).join("")}
+  </section>`;
+  const strength=`<section><h2>Deine 8 Kraft-Einheiten</h2>${strengthPrograms.map(strengthCard).join("")}</section>`;
+  qs("#exercisePersonalNote").innerHTML=`Deine aktuelle Empfehlung ist <b>${levelNames[currentLevel]}</b> mit <b>${currentStrengthDays} Krafttag${currentStrengthDays===1?"":"en"} pro Woche</b>. Alle Stufen bleiben sichtbar, damit du mit deinem Körper mitgehen kannst.`;
+  qs("#exerciseContent").innerHTML=morning+strength;
+}
+function yogaCard(y,i){
+  const duration=currentLevel==="light"?"10–12 Min.":currentLevel==="medium"?"15–20 Min.":"20–25 Min.";
+  const adapt=currentLevel==="light"?"ruhig, mit Pausen und kürzeren Haltezeiten":currentLevel==="medium"?"fließend und kontrolliert":"dynamischer bzw. mit längeren Haltezeiten – ohne Hektik";
+  return `<details class="library-card" id="yoga-${i}">
+    <summary>${y.title}</summary>
+    <div class="library-body">
+      <div class="pill-row"><span class="pill">${duration}</span><span class="pill">${y.focus}</span></div>
+      <ol>${y.poses.map(p=>`<li>${p}</li>`).join("")}</ol>
+      <div class="notice"><b>${levelNames[currentLevel]}:</b> ${adapt}. Atmung und Körpergefühl bestimmen den Rhythmus.</div>
+      <div class="actions no-print"><button class="ghost" onclick="printSingle('yoga-${i}','yoga')">Diese Einheit als PDF / drucken</button></div>
+    </div>
+  </details>`;
+}
+function renderYogaLibrary(){
+  qs("#yogaContent").innerHTML=`<section><h2>8 wiederkehrende Yoga-Sequenzen</h2>${yogaPrograms.map(yogaCard).join("")}</section>`;
+}
+
+function showExercises(){qs("#results").classList.add("hidden");qs("#yogaView").classList.add("hidden");qs("#exerciseView").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"})}
+function showYoga(){qs("#results").classList.add("hidden");qs("#exerciseView").classList.add("hidden");qs("#yogaView").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"})}
+function backToResults(){qs("#exerciseView").classList.add("hidden");qs("#yogaView").classList.add("hidden");qs("#results").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"})}
+function cleanupPrint(){document.body.classList.remove("exercise-print","yoga-print","single-library-print");qsa(".print-target").forEach(x=>x.classList.remove("print-target"))}
+window.addEventListener("afterprint",cleanupPrint);
+function printResults(){cleanupPrint();window.print()}
+function printExercises(){cleanupPrint();qsa("#exerciseView details").forEach(x=>x.open=true);document.body.classList.add("exercise-print");setTimeout(()=>window.print(),50)}
+function printYoga(){cleanupPrint();qsa("#yogaView details").forEach(x=>x.open=true);document.body.classList.add("yoga-print");setTimeout(()=>window.print(),50)}
+function printSingle(id,type){
+  cleanupPrint();
+  const el=qs("#"+id);if(!el)return;el.open=true;el.classList.add("print-target");
+  if(type==="exercise")qs("#exerciseView").classList.remove("hidden");else qs("#yogaView").classList.remove("hidden");
+  document.body.classList.add("single-library-print");setTimeout(()=>window.print(),50);
+}
+function goToSupply(){
+  alert("VERSORGEN ist dein nächster Wirkfeld-Schritt. Sobald Teil 3 fertig ist, führt dich dieser Button direkt dorthin.");
+}
+function restart(){location.reload()}
+
+updateFemaleBranches();
+updatePostpartum();
+</script>
+</body>
+</html>
