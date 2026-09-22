@@ -1,0 +1,1217 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wirkfelder · NÄHREN</title>
+<style>
+:root{
+  --bg:#f6f2eb; --card:#ffffff; --ink:#2d2a26; --muted:#6c655d;
+  --line:#ded7cd; --accent:#6d7b63; --accent2:#b8a58a; --soft:#eef0ea;
+  --warn:#fff4dc; --danger:#fff0f0; --ok:#edf6ee;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5}
+.shell{max-width:980px;margin:0 auto;padding:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:0 8px 28px rgba(0,0,0,.05);margin:18px 0}
+h1,h2,h3{line-height:1.15;margin-top:0}
+h1{font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-.04em}
+h2{font-size:1.55rem}
+h3{font-size:1.08rem;margin-top:22px}
+.lead{font-size:1.08rem;color:var(--muted)}
+.brand{font-size:.86rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.pill{display:inline-block;background:var(--soft);border-radius:999px;padding:7px 11px;margin:3px 4px 3px 0;font-size:.9rem}
+.progress-wrap{position:sticky;top:0;background:rgba(246,242,235,.94);backdrop-filter:blur(8px);padding:12px 0;z-index:5}
+.progress{height:8px;background:#e7e1d8;border-radius:999px;overflow:hidden}
+.progress span{display:block;height:100%;background:var(--accent);width:0;transition:.25s}
+label{display:block;font-weight:650;margin:18px 0 7px}
+small,.hint{color:var(--muted)}
+input,select,textarea{width:100%;font:inherit;border:1px solid #cfc7bc;border-radius:12px;padding:12px 13px;background:#fff;color:var(--ink)}
+textarea{min-height:90px;resize:vertical}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.choice{border:1px solid var(--line);border-radius:14px;padding:11px;background:#fff}
+.choice label{margin:0;font-weight:500;display:flex;gap:9px;align-items:flex-start}
+.choice input{width:auto;margin-top:4px}
+.actions{display:flex;gap:10px;justify-content:space-between;margin-top:26px;flex-wrap:wrap}
+button{border:0;border-radius:999px;padding:12px 18px;font:inherit;font-weight:700;cursor:pointer}
+.primary{background:var(--accent);color:white}
+.secondary{background:#ece7df;color:var(--ink)}
+.ghost{background:transparent;border:1px solid var(--line)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.step{display:none}
+.step.active{display:block}
+.notice{border-left:4px solid var(--accent2);background:#faf7f1;padding:14px 16px;border-radius:10px;margin:16px 0}
+.warn{background:var(--warn)}
+.danger{background:var(--danger)}
+.ok{background:var(--ok)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}
+.kpi{background:var(--soft);border-radius:16px;padding:15px}
+.kpi b{display:block;font-size:1.35rem;margin-top:4px}
+.result-block{border-top:1px solid var(--line);padding-top:22px;margin-top:24px}
+table{width:100%;border-collapse:collapse;font-size:.94rem}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f8f5f0;position:sticky;top:0}
+.scroll{overflow:auto;border:1px solid var(--line);border-radius:14px}
+.lock{max-width:560px;margin:9vh auto}
+.code-row{display:flex;gap:8px}
+.code-row input{flex:1}
+.hidden{display:none!important}
+.tag{font-size:.78rem;background:#f1ede6;border-radius:999px;padding:4px 8px;white-space:nowrap}
+hr{border:0;border-top:1px solid var(--line);margin:24px 0}
+.footer{color:var(--muted);font-size:.85rem;text-align:center;padding:20px 0}
+@media(max-width:720px){.grid,.grid3,.choice-grid,.kpis{grid-template-columns:1fr}.shell{padding:14px}.card{padding:20px}.kpis{gap:8px}}
+.print-only{display:none}
+.print-week{margin:0}
+.print-week h3{margin:0 0 8px;font-size:13pt}
+.print-rhythm{font-size:9pt;margin:0 0 7px;color:var(--muted)}
+.print-table{width:100%;border-collapse:collapse;table-layout:fixed}
+.print-table th,.print-table td{border:1px solid var(--line);padding:6px 7px;vertical-align:top;word-wrap:break-word;overflow-wrap:anywhere}
+.print-table th{font-size:8.7pt;text-align:left;background:#f6f3ed}
+.print-table td{font-size:8.3pt;line-height:1.28}
+.print-table th:nth-child(1),.print-table td:nth-child(1){width:18%}
+.print-table th:nth-child(2),.print-table td:nth-child(2){width:20%}
+.print-table th:nth-child(3),.print-table td:nth-child(3){width:22%}
+.print-table th:nth-child(4),.print-table td:nth-child(4){width:15%}
+.print-table th:nth-child(5),.print-table td:nth-child(5){width:25%}
+.print-tag{font-weight:700;font-size:8.5pt}
+.print-sub{font-size:7.7pt;color:var(--muted);display:block;margin-top:2px}
+.result-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:22px}
+.result-actions .wide{grid-column:1/-1;padding:15px 18px}
+@media(max-width:640px){
+  .result-actions{grid-template-columns:1fr}
+  .result-actions .wide{grid-column:auto}
+}
+@page{size:A4 portrait;margin:16mm 15mm 17mm 15mm}
+@media print{
+  html,body{background:#fff!important;width:auto!important}
+  body{font-size:10.2pt;line-height:1.38;margin:0!important}
+  .no-print,.progress-wrap,#appForm,.footer,.screen-only,#planTable,.scroll{display:none!important}
+  .print-only{display:block!important}
+  #results{display:block!important}
+  .shell{width:auto!important;max-width:none!important;padding:0!important;margin:0!important}
+  .card{box-shadow:none!important;border:0!important;padding:0!important;margin:0!important}
+  h1{font-size:22pt;line-height:1.05;margin-bottom:7mm}
+  h2{font-size:15pt;line-height:1.15;margin:0 0 4mm}
+  h3{font-size:11.5pt}
+  p{margin:0 0 3.5mm}
+  .lead{font-size:10.8pt;margin-bottom:5mm}
+  .result-block{break-inside:auto;margin-top:6mm;padding-top:5mm}
+  .result-block h2,.result-block h3{break-after:avoid}
+  .notice,.kpi{break-inside:avoid}
+  .kpis{grid-template-columns:repeat(2,1fr);gap:6px}
+  .kpi{padding:8px 10px}
+  .kpi b{font-size:13pt}
+  .grid3{grid-template-columns:repeat(3,1fr);gap:5px}
+  #printPlan{display:block!important}
+  .print-week{break-before:page!important;page-break-before:always!important}
+  .print-week:first-child{break-before:auto!important;page-break-before:auto!important}
+  .print-table{width:100%!important;max-width:100%!important}
+  .final-page-start{break-before:page!important;page-break-before:always!important;padding-top:4mm!important;margin-top:0!important}
+  .final-page-keep{break-inside:avoid!important;page-break-inside:avoid!important}
+}
+details.info-box{border:1px solid var(--line);border-radius:14px;background:#faf8f4;margin:16px 0}
+details.info-box summary{cursor:pointer;font-weight:750;padding:14px 16px;color:var(--accent)}
+details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
+.intro-kicker{font-size:1.03rem;font-weight:750;margin:12px 0 5px}
+.recipe-view,.shopping-view{max-width:980px;margin:0 auto}
+.recipe-intro{background:var(--soft);border-radius:16px;padding:16px;margin-bottom:18px}
+.recipe-groups{display:grid;gap:20px}
+.recipe-card{border:1px solid var(--line);border-radius:16px;background:#fff;margin:10px 0;overflow:hidden}
+.recipe-card summary{cursor:pointer;padding:14px 16px;font-weight:800}
+.recipe-card .recipe-body{padding:0 16px 16px}
+.recipe-meta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px}
+.recipe-meta span{font-size:.82rem;background:var(--soft);padding:5px 8px;border-radius:999px}
+.recipe-card ul,.recipe-card ol{padding-left:21px}
+.recipe-card li{margin:5px 0}
+.recipe-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.shopping-week{border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0;background:#fff}
+.shopping-week h3{margin-top:0}
+.shopping-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.shopping-group{background:#faf8f4;border-radius:12px;padding:12px}
+.shopping-group h4{margin:0 0 8px}
+.shopping-group ul{margin:0;padding-left:20px}
+.sex-choice{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.sex-choice label{margin:0;border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;gap:10px;align-items:center;font-weight:700;cursor:pointer;background:#fff}
+.sex-choice input{width:auto}
+@media(max-width:640px){.shopping-grid,.sex-choice{grid-template-columns:1fr}}
+@media print{
+  body.recipe-print #tool > *:not(#recipeView){display:none!important}
+  body.recipe-print #recipeView{display:block!important}
+  body.shopping-print #tool > *:not(#shoppingView){display:none!important}
+  body.shopping-print #shoppingView{display:block!important}
+  body.single-recipe-print #tool > *:not(#recipeView){display:none!important}
+  body.single-recipe-print #recipeView > *{display:none!important}
+  body.single-recipe-print #recipeView .single-print-header{display:block!important}
+  body.single-recipe-print #recipeView .print-target{display:block!important}
+  body.recipe-print .recipe-card,
+  body.single-recipe-print .recipe-card{break-inside:avoid;page-break-inside:avoid}
+  body.recipe-print details.recipe-card > *,
+  body.single-recipe-print details.recipe-card > *{display:block!important}
+  body.recipe-print .recipe-actions,
+  body.single-recipe-print .recipe-actions,
+  body.shopping-print .no-print{display:none!important}
+  body.shopping-print .shopping-week{break-before:page;page-break-before:always}
+  body.shopping-print .shopping-week:first-of-type{break-before:auto;page-break-before:auto}
+}
+
+</style>
+</head>
+<body>
+<div class="shell">
+
+<section id="gate" class="card lock">
+  <div class="brand">Zurück zu dir · Wirkfelder</div>
+  <h1>WIRKFELDER</h1>
+  <h2 style="margin-top:-8px">NÄHREN</h2>
+  <p class="lead"><b>Ernährung soll zu deinem Leben passen – nicht dein Leben zu einem Ernährungsplan.</b> NÄHREN hilft dir dabei, einen persönlichen Rahmen zu finden, der deinen Körper versorgt, zu deinem Ziel passt und sich auch im echten Alltag umsetzen lässt.</p>
+
+  <details class="info-box">
+    <summary>Warum NÄHREN? · Mehr erfahren</summary>
+    <div class="details-body">
+      <p>Ernährung wird schnell kompliziert: Kalorien, Fasten, Protein, Verbote, verschiedene Ernährungsformen und ständig neue Regeln. Dabei geht oft verloren, was eigentlich entscheidend ist: <b>Was braucht dein Körper – und was kannst du langfristig wirklich leben?</b></p>
+      <p>NÄHREN verbindet deine aktuelle Ausgangslage, dein Ziel, deinen Alltag, deinen Essensrhythmus und deine persönlichen Bedürfnisse zu einem überschaubaren Plan. Es geht nicht um Perfektion und nicht um möglichst starken Verzicht, sondern um Orientierung, Sättigung, Versorgung und eine Struktur, die zu deinem Leben passt.</p>
+      <p>Dein Plan ist ein Startpunkt. Er darf sich mit dir verändern. Und weil Ernährung nur einer von mehreren Schlüsseln ist, führt dich NÄHREN am Ende direkt weiter zu <b>BEWEGEN</b>.</p>
+    </div>
+  </details>
+
+  <div class="notice">
+    <b>Deine Angaben bleiben bei dir.</b><br>
+    NÄHREN begleitet dich für diesen Moment und erstellt aus deinen Antworten deine persönliche Auswertung. Deine Fragebogenangaben werden von diesem Tool nicht dauerhaft gespeichert. Wenn du die Seite schließt oder neu lädst, beginnt dein Weg wieder von vorn. Speichere deshalb am Ende deine Auswertung, Rezepte und Einkaufsliste auf deinem Gerät, wenn du sie behalten möchtest.
+  </div>
+
+  <label for="accessCode">Zugangscode</label>
+  <div class="code-row">
+    <input id="accessCode" type="password" autocomplete="off" placeholder="Code eingeben">
+    <button class="primary" type="button" onclick="unlock()">Starten</button>
+  </div>
+  <p id="codeError" class="hint"></p>
+</section>
+
+<div id="tool" class="hidden">
+  <div class="progress-wrap no-print">
+    <div class="progress"><span id="progressBar"></span></div>
+  </div>
+
+  <form id="appForm" class="card" onsubmit="return false;">
+
+    <section class="step active" data-step="0">
+      <div class="brand">Schritt 1</div>
+      <h2>Beginnen wir bei dir</h2>
+      <p class="lead">Die erste Frage entscheidet nur, welche Fragen du im nächsten Schritt siehst. Männer gehen direkt in den allgemeinen Teil, Frauen bekommen zuerst die Fragen zu Zyklus und Lebensphase.</p>
+      <label>Bist du Mann oder Frau?</label>
+      <div class="sex-choice">
+        <label><input type="radio" name="sex" value="male" onchange="selectSex()"> Mann</label>
+        <label><input type="radio" name="sex" value="female" onchange="selectSex()"> Frau</label>
+      </div>
+      <div class="actions"><span></span><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="1">
+      <div class="brand">Frauen-Bereich</div>
+      <h2>Dein Rhythmus</h2>
+      <p class="lead">Diese Fragen erscheinen nur für Frauen. Danach geht es mit denselben allgemeinen Fragen weiter.</p>
+
+      <label>Welche Situation beschreibt dich aktuell am besten?</label>
+      <select name="lifeStage" id="lifeStage" onchange="updateFemaleBranches()">
+        <option value="cycle">Regelmäßiger / gut einschätzbarer Zyklus</option>
+        <option value="irregular">Unregelmäßiger / aktuell schwer einschätzbarer Zyklus</option>
+        <option value="nocycle">Aktuell kein Zyklus</option>
+        <option value="peri">Perimenopause</option>
+        <option value="meno">Menopause</option>
+      </select>
+
+      <div id="cycleBranch">
+        <div class="grid">
+          <div><label>Wie lang ist dein Zyklus ungefähr?</label><input name="cycleLength" type="number" min="20" max="45" value="28"><small>Deine Planlänge wird daran angepasst.</small></div>
+          <div><label>Welcher Zyklustag ist heute ungefähr?</label><input name="cycleDay" type="number" min="1" max="45" value="1"></div>
+        </div>
+        <label>Verändert sich dein Hunger im Laufe des Zyklus?</label>
+        <select name="cycleHunger"><option value="no">Kaum</option><option value="luteal">Ja, besonders vor der Periode</option><option value="varies">Sehr unterschiedlich</option></select>
+        <div class="notice">Bei einem gut einschätzbaren Zyklus richtet sich dein Plan nach deiner tatsächlichen Zykluslänge. Aus 26 Tagen werden 26 Plantage, aus 30 Tagen 30 Plantage. Die Phasen sind eine praktische Orientierung und keine exakte Bestimmung des Eisprungs.</div>
+      </div>
+
+      <div id="femaleNoCycleInfo" class="hidden notice">
+        Wenn dein Zyklus aktuell unregelmäßig, nicht einschätzbar oder nicht vorhanden ist, arbeiten wir mit einem <b>28‑Tage‑Rhythmus</b> als klare Alltagsstruktur.
+      </div>
+
+      <div id="moonBranch" class="hidden">
+        <label>Möchtest du den 28‑Tage‑Plan zusätzlich symbolisch an vier Mond-/Rhythmusphasen ausrichten?</label>
+        <select name="moonWish"><option value="yes">Ja, gerne</option><option value="no">Nein, einfach Tag 1–28</option></select>
+        <div class="notice">Die Mondphasen dienen hier als persönliche Orientierung – nicht als biologischer Zyklus.</div>
+      </div>
+
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="2">
+      <div class="brand">Über dich</div>
+      <h2>Deine Ausgangslage</h2>
+      <p class="lead">Wir starten mit deinem heutigen Ausgangspunkt. Das Ergebnis ist eine Momentaufnahme – kein Wert für immer.</p>
+      <div class="grid">
+        <div><label>Vorname</label><input name="firstName" required placeholder="z. B. Anna"></div>
+        <div><label>Alter</label><input name="age" type="number" min="18" max="99" required></div>
+        <div><label>Körpergröße in cm</label><input name="height" type="number" min="130" max="220" required></div>
+        <div><label>Aktuelles Gewicht in kg</label><input name="weight" type="number" min="35" max="300" step="0.1" required></div>
+      </div>
+
+      <label>Wie sieht dein Alltag überwiegend aus?</label>
+      <select name="activity" required>
+        <option value="1.20">Überwiegend sitzend</option>
+        <option value="1.35">Leicht aktiv / regelmäßig auf den Beinen</option>
+        <option value="1.50">Viel auf den Beinen / bewegter Alltag</option>
+        <option value="1.65">Körperlich sehr aktiver Alltag</option>
+      </select>
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="3">
+      <div class="brand">Gewicht & Ziel</div>
+      <h2>Was möchtest du verändern?</h2>
+      <label>Was ist dein Hauptziel?</label>
+      <select name="goal" id="goal" onchange="toggleGoal()" required>
+        <option value="lose">Gewicht reduzieren</option>
+        <option value="maintain">Gewicht halten</option>
+        <option value="gain">Gewicht zunehmen</option>
+        <option value="composition">Körperzusammensetzung verbessern</option>
+        <option value="energy">Mehr Energie / regelmäßiger essen</option>
+      </select>
+
+      <div id="lossFields">
+        <div class="grid">
+          <div><label>Wunschgewicht in kg</label><input name="targetWeight" type="number" min="35" max="300" step=".1"></div>
+          <div><label>Wie viel möchtest du ungefähr abnehmen?</label>
+            <select name="lossGoal"><option value="3">1–3 kg</option><option value="5">3–7 kg</option><option value="9">7–10 kg</option><option value="12">Mehr als 10 kg</option></select>
+          </div>
+        </div>
+      </div>
+
+      <label>Wie möchtest du grundsätzlich vorgehen?</label>
+      <select name="intensityWish">
+        <option value="gentle">Sanft und gut in meinen Alltag integrierbar</option>
+        <option value="medium">Spürbar, aber alltagstauglich</option>
+        <option value="strong">Konsequent – solange Energie und Wohlbefinden passen</option>
+      </select>
+
+      <label>Was ist dir zusätzlich wichtig?</label>
+      <div class="choice-grid">
+        <div class="choice"><label><input type="checkbox" name="secondary" value="cravings"> Weniger Heißhunger</label></div>
+        <div class="choice"><label><input type="checkbox" name="secondary" value="digestion"> Bessere Verdauung</label></div>
+        <div class="choice"><label><input type="checkbox" name="secondary" value="energy"> Mehr Energie</label></div>
+        <div class="choice"><label><input type="checkbox" name="secondary" value="habits"> Bessere Gewohnheiten</label></div>
+        <div class="choice"><label><input type="checkbox" name="secondary" value="protein"> Mehr Protein / Muskelerhalt</label></div>
+        <div class="choice"><label><input type="checkbox" name="secondary" value="rhythm"> Klarer Essensrhythmus</label></div>
+      </div>
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="4">
+      <div class="brand">Gesundheit</div>
+      <h2>Gesundheitliche Hinweise</h2>
+      <div class="notice warn"><b>Wichtig:</b> NÄHREN ist ein allgemeines Ernährungs- und Wohlfühltool. Es stellt keine Diagnose und ersetzt keine individuelle medizinische oder ernährungsmedizinische Betreuung.</div>
+
+      <label>Trifft etwas davon auf dich zu?</label>
+      <div class="choice-grid">
+        <div class="choice"><label><input type="checkbox" name="health" value="prediabetes"> Insulinresistenz / Prädiabetes</label></div>
+        <div class="choice"><label><input type="checkbox" name="health" value="diabetes2"> Typ‑2‑Diabetes</label></div>
+        <div class="choice"><label><input type="checkbox" name="health" value="thyroid"> Schilddrüsenthema</label></div>
+        <div class="choice"><label><input type="checkbox" name="health" value="bp"> Bluthochdruck</label></div>
+        <div class="choice"><label><input type="checkbox" name="health" value="lipids"> Erhöhte Blutfette</label></div>
+        <div class="choice"><label><input type="checkbox" name="health" value="reflux"> Reflux / empfindlicher Magen</label></div>
+        <div class="choice"><label><input type="checkbox" name="health" value="gut"> Reizdarm / häufige Verdauungsbeschwerden</label></div>
+        <div class="choice"><label><input type="checkbox" name="health" value="none"> Nichts davon</label></div>
+      </div>
+
+      <label>Nimmst du Medikamente, die Blutzucker, Blutdruck, Appetit oder Stoffwechsel beeinflussen?</label>
+      <select name="meds"><option value="no">Nein</option><option value="yes">Ja</option></select>
+
+      <label>Trifft einer dieser Punkte zu?</label>
+      <div class="choice-grid">
+        <div class="choice"><label><input type="checkbox" name="safety" value="pregnancy"> Schwangerschaft / Stillzeit</label></div>
+        <div class="choice"><label><input type="checkbox" name="safety" value="eatingdisorder"> Aktuelle / kürzliche Essstörung</label></div>
+        <div class="choice"><label><input type="checkbox" name="safety" value="chronicstable"> Chronische Erkrankung – aktuell stabil / behandelt</label></div>
+        <div class="choice"><label><input type="checkbox" name="safety" value="acute"> Akute, schwere oder aktuell ungeklärte Erkrankung</label></div>
+        <div class="choice"><label><input type="checkbox" name="safety" value="medicaldiet"> Ärztlich verordnete Spezialdiät</label></div>
+      </div>
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="5">
+      <div class="brand">Essensrhythmus</div>
+      <h2>Dein aktueller Essensrhythmus</h2>
+      <div class="grid">
+        <div><label>Wie viele Mahlzeiten isst du meist?</label><select name="meals"><option>2</option><option selected>3</option><option>4</option></select></div>
+        <div><label>Frühstückst du?</label><select name="breakfast"><option value="yes">Ja</option><option value="sometimes">Manchmal</option><option value="no">Nein</option></select></div>
+        <div><label>Erste Mahlzeit ungefähr</label><input name="firstMeal" type="time" value="08:00"></div>
+        <div><label>Letzte Mahlzeit ungefähr</label><input name="lastMeal" type="time" value="19:00"></div>
+        <div><label>Wann hast du am meisten Hunger?</label><select name="hungerPeak"><option value="morning">Morgens</option><option value="noon">Mittags</option><option value="afternoon">Nachmittags</option><option value="evening">Abends</option><option value="varies">Unterschiedlich</option></select></div>
+        <div><label>Wie häufig hast du Heißhunger?</label><select name="cravings"><option value="rare">Selten</option><option value="sometimes">Manchmal</option><option value="often">Häufig</option></select></div>
+      </div>
+
+      <label>Wann entsteht Heißhunger bei dir eher?</label>
+      <div class="choice-grid">
+        <div class="choice"><label><input type="checkbox" name="cravingTrigger" value="stress"> Stress</label></div>
+        <div class="choice"><label><input type="checkbox" name="cravingTrigger" value="boredom"> Langeweile</label></div>
+        <div class="choice"><label><input type="checkbox" name="cravingTrigger" value="tired"> Müdigkeit</label></div>
+        <div class="choice"><label><input type="checkbox" name="cravingTrigger" value="evening"> Abends</label></div>
+        <div class="choice"><label><input type="checkbox" name="cravingTrigger" value="cycle"> Zyklusbedingt</label></div>
+      </div>
+
+      <label>Was kommt bei dir aktuell eher zu kurz?</label>
+      <div class="choice-grid">
+        <div class="choice"><label><input type="checkbox" name="tooLittle" value="protein"> Protein</label></div>
+        <div class="choice"><label><input type="checkbox" name="tooLittle" value="vegetables"> Gemüse</label></div>
+        <div class="choice"><label><input type="checkbox" name="tooLittle" value="fiber"> Ballaststoffe</label></div>
+        <div class="choice"><label><input type="checkbox" name="tooLittle" value="water"> Wasser</label></div>
+        <div class="choice"><label><input type="checkbox" name="tooLittle" value="regular"> Regelmäßige Mahlzeiten</label></div>
+      </div>
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="6">
+      <div class="brand">Getränke & Essverhalten</div>
+      <h2>Was begleitet deinen Alltag?</h2>
+      <div class="grid">
+        <div><label>Wasser pro Tag</label><select name="water"><option value="low">Unter 1 Liter</option><option value="mid">1–1,5 Liter</option><option value="good">1,5–2,5 Liter</option><option value="high">Mehr als 2,5 Liter</option></select></div>
+        <div><label>Kaffee pro Tag</label><select name="coffee"><option>0</option><option>1</option><option>2</option><option>3</option><option value="4+">4+</option></select></div>
+        <div><label>Softdrinks / Säfte / Energy</label><select name="liquidCalories"><option value="never">Nie</option><option value="rare">Selten</option><option value="occasional">Gelegentlich</option><option value="weekly">Mehrmals pro Woche</option></select></div>
+        <div><label>Alkohol</label><select name="alcohol"><option value="never">Nie</option><option value="rare">Selten</option><option value="occasional">Gelegentlich</option><option value="weekly">Mehrmals pro Woche</option></select></div>
+      </div>
+
+      <label>Isst du manchmal ohne körperlichen Hunger?</label>
+      <select name="emotionalEating"><option value="never">Nie</option><option value="rare">Selten</option><option value="occasional">Gelegentlich</option><option value="weekly">Mehrmals pro Woche</option></select>
+      <label>Wie gut bemerkst du deine Sättigung?</label>
+      <select name="satiety"><option value="good">Gut</option><option value="mid">Manchmal</option><option value="poor">Eher schlecht</option></select>
+      <label>Wie schnell isst du meistens?</label>
+      <select name="speed"><option value="slow">Langsam</option><option value="normal">Normal</option><option value="fast">Schnell</option></select>
+      <label>Wie fühlst du dich nach einer typischen Mahlzeit?</label>
+      <select name="afterMeal"><option value="good">Satt und gut</option><option value="hungry">Noch hungrig</option><option value="tired">Müde</option><option value="bloated">Aufgebläht</option><option value="tooFull">Sehr voll</option><option value="varies">Unterschiedlich</option></select>
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="7">
+      <div class="brand">Lebensmittel</div>
+      <h2>Was darf in deinen Plan?</h2>
+      <label>Ernährungsform</label>
+      <select name="dietType">
+        <option value="mixed">Mischkost</option>
+        <option value="vegetarian">Vegetarisch</option>
+        <option value="vegan">Vegan</option>
+        <option value="pesc">Pescetarisch</option>
+      </select>
+
+      <div class="grid">
+        <div><label>Allergien – bitte vollständig nennen</label><textarea name="allergies" placeholder="z. B. Nüsse"></textarea></div>
+        <div><label>Unverträglichkeiten</label><textarea name="intolerances" placeholder="z. B. Laktose, bestimmte Gemüsearten"></textarea></div>
+        <div><label>Was magst du gar nicht?</label><textarea name="dislikes"></textarea></div>
+        <div><label>Was isst du besonders gerne?</label><textarea name="likes"></textarea></div>
+      </div>
+
+      <div class="notice">
+        Die Rezepte arbeiten bewusst mit flexiblen Bausteinen. Gemüse, Obst, Proteinquelle und Beilage können innerhalb deiner Ernährungsform und Verträglichkeit ausgetauscht werden. Bei Allergien gilt trotzdem: Zutatenlisten und mögliche Spuren immer selbst prüfen.
+      </div>
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="8">
+      <div class="brand">Alltag</div>
+      <h2>Was passt wirklich in dein Leben?</h2>
+      <div class="grid">
+        <div><label>Wie gerne kochst du?</label><select name="cookLike"><option value="low">Gar nicht / wenig</option><option value="mid">Geht so</option><option value="high">Gerne</option></select></div>
+        <div><label>Maximale Kochzeit</label><select name="cookTime"><option value="10">5–10 Minuten</option><option value="20">15–20 Minuten</option><option value="30">30+ Minuten</option></select></div>
+        <div><label>Für wen kochst du meistens?</label><select name="household"><option value="self">Nur für mich</option><option value="couple">Für 2 Personen</option><option value="family">Für Familie</option></select></div>
+        <div><label>Für wie viele Personen soll deine Einkaufsliste rechnen?</label><select name="shoppingPeople"><option value="1">1 Person</option><option value="2">2 Personen</option><option value="3">3 Personen</option><option value="4">4 Personen</option><option value="5">5 Personen</option><option value="6">6 Personen</option></select></div>
+        <div><label>Wie oft isst du unterwegs?</label><select name="away"><option value="rare">Selten</option><option value="sometimes">Mehrmals pro Woche</option><option value="often">Fast täglich</option></select></div>
+        <div><label>Möchtest du Meal Prep nutzen?</label><select name="mealprep"><option value="yes">Ja</option><option value="sometimes">Manchmal</option><option value="no">Nein</option></select></div>
+      </div>
+
+      <label>Was hat dich bei früheren Versuchen am meisten gestört?</label>
+      <select name="pastBarrier">
+        <option value="hunger">Zu viel Hunger</option>
+        <option value="complex">Zu kompliziert</option>
+        <option value="time">Keine Zeit</option>
+        <option value="family">Nicht familientauglich</option>
+        <option value="strict">Zu streng / zu viele Verbote</option>
+        <option value="motivation">Motivation hat nachgelassen</option>
+        <option value="none">Noch nichts Bestimmtes</option>
+      </select>
+
+      <label>Was muss dein Plan erfüllen, damit du deinen ersten Zyklus wirklich leben kannst?</label>
+      <textarea name="mustHave" placeholder="Deine eigene Antwort"></textarea>
+
+      <h3>Optionales Startprotokoll</h3>
+      <label><input type="checkbox" name="tracking" value="yes" style="width:auto"> Ich möchte für 7–14 Tage zusätzlich Hunger, Sättigung, Energie und Heißhunger beobachten.</label>
+
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Weiter</button></div>
+    </section>
+
+    <section class="step" data-step="9">
+      <div class="brand">Persönlicher Rhythmus</div>
+      <h2>Essenspausen</h2>
+      <p class="lead">Diese Fragen erscheinen nur für Männer.</p>
+      <label>Hast du bereits Erfahrung mit längeren Essenspausen / Fasten?</label>
+      <select name="fastExperience"><option value="none">Nein</option><option value="some">Etwas</option><option value="good">Ja, regelmäßig</option></select>
+      <label>Wie fühlst du dich, wenn du morgens nichts isst?</label>
+      <select name="fastTolerance"><option value="poor">Nicht gut</option><option value="okay">Okay</option><option value="good">Sehr gut</option></select>
+      <label>Möchtest du ein Fastenfenster ausprobieren?</label>
+      <select name="fastWish"><option value="no">Nein</option><option value="yes">Ja</option></select>
+      <div class="actions"><button class="secondary" onclick="prevStep()">Zurück</button><button class="primary" onclick="nextStep()">Auswertung erstellen</button></div>
+    </section>
+  </form>
+
+  <section id="results" class="card hidden">
+    <div class="brand">Deine Auswertung</div>
+    <h1 id="resultTitle">Dein NÄHREN‑Plan</h1>
+    <p class="lead" id="resultLead">Dein persönlicher Startpunkt – auf Basis deiner heutigen Angaben.</p>
+
+    <div id="safetyResult"></div>
+
+    <div class="result-block">
+      <h2>Deine Ausgangslage</h2>
+      <div id="summaryText"></div>
+    </div>
+
+    <div class="result-block">
+      <h2>Was bei dir gerade auffällt</h2>
+      <div id="personalInsight"></div>
+    </div>
+
+    <div class="result-block">
+      <h2>Dein persönlicher Kalorienrahmen</h2>
+      <div class="kpis">
+        <div class="kpi"><span>Aktuelles Gewicht</span><b id="kWeight">–</b></div>
+        <div class="kpi"><span>Grundumsatz</span><b id="kBmr">–</b></div>
+        <div class="kpi"><span>Erhaltungsbedarf</span><b id="kTdee">–</b></div>
+        <div class="kpi"><span>Start</span><b id="kCalories">–</b></div>
+      </div>
+      <div id="calorieExplanation"></div>
+      <div id="deficitStages"></div>
+    </div>
+
+    <div class="result-block">
+      <h2>Dein Protein-Ziel</h2>
+      <div id="proteinResult"></div>
+    </div>
+
+    <div class="result-block">
+      <h2>Dein Essensrhythmus</h2>
+      <div id="rhythmResult"></div>
+    </div>
+
+    <div class="result-block">
+      <h2>Deine wichtigsten Stellschrauben</h2>
+      <div id="levers"></div>
+    </div>
+
+    <div class="result-block">
+      <h2 id="planHeading">Dein Plan</h2>
+      <p class="hint">Deine Tagesstruktur ist auf deinen Rhythmus abgestimmt. Die passenden einfachen Rezepte und deine wöchentlichen Einkaufslisten findest du direkt über die Buttons unter deiner Auswertung.</p>
+      <div class="scroll screen-only"><table id="planTable">
+        <thead><tr><th>Tag</th><th>Rhythmus</th><th>Frühstück / 1. Mahlzeit</th><th>Mittag</th><th>Snack</th><th>Abend</th><th>Fokus</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <div id="printPlan" class="print-only"></div>
+    </div>
+
+    <div class="result-block final-page-start final-page-keep">
+      <h2>Dein Plan wächst mit dir</h2>
+      <p>Dieser Plan ist eine Momentaufnahme. Du kannst ihn bei guter Verträglichkeit über mehrere für dich passende Zyklen wiederholen. Wenn Gewicht, Hunger, Energie, Alltag oder Ziel sich deutlich verändern, mach den Test früher erneut.</p>
+      <p><b>Dein Plan ist keine starre Vorschrift.</b> Hunger, Sättigung, Energie, Zyklus, Alltag und Veränderungen deines Körpers dürfen dir zeigen, wann etwas angepasst werden sollte. Es geht nicht darum, einen Plan möglichst perfekt durchzuhalten, sondern wieder besser wahrzunehmen, was dir gut tut und was langfristig zu dir passt.</p>
+      <p>Wenn dein Gewicht nach mehreren Wochen weiterhin in die gewünschte Richtung geht und du dich gut fühlst, darfst du mit deiner passenden Stufe weiterarbeiten. Nutze einen alten Plan aber nicht unbegrenzt: Wenn sich deine Situation deutlich verändert – und spätestens nach mehreren Monaten – lohnt sich eine neue Auswertung.</p>
+    </div>
+
+    <div class="result-block final-page-keep">
+      <h2>Einer von drei Schlüsseln</h2>
+      <p><b>NÄHREN</b> ist ein wichtiger Teil deiner Veränderung – aber nicht der einzige. Dein Körper funktioniert im Zusammenspiel aus <b>Ernährung, Bewegung und Versorgung</b>.</p>
+      <p>Deine Ernährung gibt deinem Körper Energie und Bausteine. Bewegung unterstützt dich dabei, Kraft und Muskulatur zu erhalten oder aufzubauen, beweglich zu bleiben und deinen Körper wieder bewusster wahrzunehmen. Genau deshalb gehören <b>NÄHREN und BEWEGEN</b> zusammen.</p>
+      <div class="notice ok">
+        <b>Dein nächster Schlüssel: BEWEGEN</b><br>
+        Im nächsten Wirkfeld schauen wir darauf, welche Bewegung zu deinem Körper, deinem Alltag und deinem Ziel passt – ohne kompliziertes Fitnessprogramm und ohne dass du dafür ein Fitnessstudio brauchst.
+      </div>
+      <p class="hint">Wenn du bereit bist, geh unten über den Button direkt weiter zu BEWEGEN.</p>
+    </div>
+
+    <div class="result-actions no-print">
+      <button class="secondary" onclick="restart()">Neu starten</button>
+      <button class="ghost" onclick="showRecipes()">Meine Rezepte</button>
+      <button class="ghost" onclick="showShopping()">Meine Einkaufsliste</button>
+      <button class="secondary" onclick="printResults()">Auswertung als PDF speichern / drucken</button>
+      <button class="primary wide" onclick="goToMovement()">Weiter zu BEWEGEN →</button>
+    </div>
+  </section>
+
+  <section id="recipeView" class="card hidden recipe-view">
+    <div class="brand">WIRKFELDER · NÄHREN</div>
+    <h1>Meine Rezepte</h1>
+    <div class="recipe-intro">
+      <p><b>Einfach, schnell und alltagstauglich.</b> Diese Rezepte sind bewusst keine Kochbuch-Challenge. Viele Gerichte funktionieren nach dem Prinzip: Zutaten in eine Schüssel, in eine Pfanne oder aufs Blech – kurz garen – fertig.</p>
+      <p>Wenn du gerne und gut kochst, darfst du würzen, kombinieren und verfeinern. Wichtig ist nur, dass die Grundstruktur aus <b>Proteinquelle + Gemüse/Obst + passender Sättigungsbeilage</b> erhalten bleibt.</p>
+      <p id="recipePersonalNote"></p>
+    </div>
+    <div class="single-print-header hidden">
+      <div class="brand">WIRKFELDER · NÄHREN</div>
+      <h1>Mein Rezept</h1>
+    </div>
+    <div id="recipeContent" class="recipe-groups"></div>
+    <div class="result-actions no-print">
+      <button class="secondary" onclick="backToResults()">Zurück zur Auswertung</button>
+      <button class="primary wide" onclick="printRecipes()">Alle Rezepte als PDF speichern / drucken</button>
+    </div>
+  </section>
+
+  <section id="shoppingView" class="card hidden shopping-view">
+    <div class="brand">WIRKFELDER · NÄHREN</div>
+    <h1>Meine Einkaufsliste</h1>
+    <div class="recipe-intro">
+      <p>Deine Einkaufsliste wird wochenweise aus deinem persönlichen Plan aufgebaut. Die Mengen sind <b>Basiswerte</b> für die von dir angegebene Personenzahl. Kinderportionen, Hunger, Portionsgröße und individuelle Tauschangebote können die tatsächliche Menge verändern.</p>
+      <p>Gemüse und Obst dürfen innerhalb deiner Verträglichkeit flexibel ausgetauscht werden. So bleibt die Liste praktisch und du musst nicht für jedes Gericht zehn Spezialzutaten kaufen.</p>
+    </div>
+    <div id="shoppingContent"></div>
+    <div class="result-actions no-print">
+      <button class="secondary" onclick="backToResults()">Zurück zur Auswertung</button>
+      <button class="primary wide" onclick="printShopping()">Einkaufsliste als PDF speichern / drucken</button>
+    </div>
+  </section>
+
+  <div class="footer no-print">WIRKFELDER · NÄHREN · Version 1.0 · Keine dauerhafte Speicherung deiner Fragebogenangaben</div>
+</div>
+
+<script>
+const ACCESS_CODE = "NAEHREN2026";
+const MOVEMENT_URL = "./bewegen/";
+let currentStep = 0;
+let currentPlanRows = [];
+let currentRecipeMap = {};
+let currentNutrition = {};
+let lastView = "results";
+
+const steps = () => [...document.querySelectorAll(".step")];
+
+function unlock(){
+  const v = document.getElementById("accessCode").value.trim();
+  if(v === ACCESS_CODE){
+    document.getElementById("gate").classList.add("hidden");
+    document.getElementById("tool").classList.remove("hidden");
+    showStep(0);
+  } else {
+    document.getElementById("codeError").textContent = "Der Code stimmt noch nicht.";
+  }
+}
+document.getElementById("accessCode").addEventListener("keydown",e=>{if(e.key==="Enter") unlock()});
+
+function checkedRadio(name){
+  const el=document.querySelector(`[name="${name}"]:checked`);
+  return el?el.value:"";
+}
+function getSex(){ return checkedRadio("sex"); }
+
+function stepOrder(){
+  const sex=getSex();
+  if(sex==="female") return [0,1,2,3,4,5,6,7,8];
+  if(sex==="male") return [0,2,3,4,5,6,7,8,9];
+  return [0];
+}
+function updateProgress(){
+  const order=stepOrder();
+  const pos=Math.max(0,order.indexOf(currentStep));
+  const p=((pos+1)/order.length)*100;
+  document.getElementById("progressBar").style.width=p+"%";
+}
+function showStep(n){
+  steps().forEach(s=>s.classList.toggle("active",+s.dataset.step===n));
+  currentStep=n;
+  updateProgress();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function selectSex(){
+  if(getSex()==="male"){
+    const ls=document.getElementById("lifeStage");
+    if(ls) ls.value="cycle";
+  }
+  updateProgress();
+}
+function validateCurrent(){
+  const active=document.querySelector(`.step[data-step="${currentStep}"]`);
+  if(currentStep===0 && !getSex()){
+    alert("Bitte wähle zuerst Mann oder Frau.");
+    return false;
+  }
+  const required=[...active.querySelectorAll("[required]")];
+  for(const el of required){
+    if(!el.value){ el.focus(); el.reportValidity(); return false; }
+  }
+  if(currentStep===2){
+    const age=+document.querySelector('[name="age"]').value;
+    if(age<18){alert("Diese Version erstellt automatische Pläne nur für Erwachsene ab 18 Jahren.");return false}
+  }
+  return true;
+}
+function nextStep(){
+  if(!validateCurrent()) return;
+  const order=stepOrder();
+  const pos=order.indexOf(currentStep);
+  if(pos===order.length-1){ generateResults(); return; }
+  showStep(order[pos+1]);
+}
+function prevStep(){
+  const order=stepOrder();
+  const pos=order.indexOf(currentStep);
+  if(pos>0) showStep(order[pos-1]);
+}
+function toggleGoal(){
+  const lose=document.getElementById("goal").value==="lose";
+  document.getElementById("lossFields").classList.toggle("hidden",!lose);
+}
+function updateFemaleBranches(){
+  const s=document.getElementById("lifeStage").value;
+  document.getElementById("cycleBranch").classList.toggle("hidden",s!=="cycle");
+  document.getElementById("femaleNoCycleInfo").classList.toggle("hidden",!(s==="irregular"||s==="nocycle"));
+  document.getElementById("moonBranch").classList.toggle("hidden",!(s==="peri"||s==="meno"));
+}
+function checked(name){return [...document.querySelectorAll(`[name="${name}"]:checked`)].map(x=>x.value)}
+function val(name){const el=document.querySelector(`[name="${name}"]`);return el?el.value:""}
+function round10(x){return Math.round(x/10)*10}
+function timeToMin(t){ if(!t) return 0; const [h,m]=t.split(":").map(Number); return h*60+m; }
+function minToTime(m){ m=((m%1440)+1440)%1440; const h=Math.floor(m/60), mm=Math.round(m%60); return String(h).padStart(2,"0")+":"+String(mm).padStart(2,"0"); }
+function mealTimes(start,end,count){
+  let s=timeToMin(start), e=timeToMin(end); if(e<=s)e+=1440;
+  if(count<=1)return [minToTime(s)];
+  const gap=(e-s)/(count-1);
+  return Array.from({length:count},(_,i)=>minToTime(s+i*gap));
+}
+function escapeHtml(s){
+  return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));
+}
+
+function restrictionFlags(){
+  const raw=`${val("allergies")} ${val("intolerances")} ${val("dislikes")}`.toLowerCase();
+  return {
+    raw,
+    egg:/\bei\b|\beier\b|hühnerei/.test(raw),
+    dairy:/laktose|milch|milcheiweiß|molke|whey|käse|joghurt|skyr|quark/.test(raw),
+    soy:/soja|tofu|tempeh|edamame/.test(raw),
+    fish:/fisch|lachs|thunfisch|forelle|kabeljau|meerestier|garnele/.test(raw),
+    gluten:/gluten|weizen|dinkel|roggen|gerste/.test(raw)
+  };
+}
+function rawDislikesProtein(name,flags){ return flags.raw && flags.raw.includes(name.toLowerCase()); }
+
+function chooseProtein(diet,index,flags){
+  const pools={
+    mixed:[
+      {name:"Hähnchenbrust",qty:150,unit:"g",tags:[]},
+      {name:"mageres Rind",qty:150,unit:"g",tags:[]},
+      {name:"Fisch",qty:160,unit:"g",tags:["fish"]},
+      {name:"Tofu",qty:180,unit:"g",tags:["soy"]},
+      {name:"Eier",qty:3,unit:"Stk.",tags:["egg"]},
+      {name:"Hüttenkäse",qty:200,unit:"g",tags:["dairy"]},
+      {name:"gekochte Linsen",qty:220,unit:"g",tags:[]}
+    ],
+    vegetarian:[
+      {name:"Tofu",qty:180,unit:"g",tags:["soy"]},
+      {name:"Eier",qty:3,unit:"Stk.",tags:["egg"]},
+      {name:"Hüttenkäse",qty:200,unit:"g",tags:["dairy"]},
+      {name:"Skyr",qty:250,unit:"g",tags:["dairy"]},
+      {name:"gekochte Linsen",qty:220,unit:"g",tags:[]},
+      {name:"gekochte Kichererbsen",qty:220,unit:"g",tags:[]}
+    ],
+    vegan:[
+      {name:"Tofu",qty:200,unit:"g",tags:["soy"]},
+      {name:"Tempeh",qty:180,unit:"g",tags:["soy"]},
+      {name:"gekochte Linsen",qty:240,unit:"g",tags:[]},
+      {name:"gekochte Kichererbsen",qty:240,unit:"g",tags:[]},
+      {name:"gekochte Bohnen",qty:240,unit:"g",tags:[]}
+    ],
+    pesc:[
+      {name:"Fisch",qty:160,unit:"g",tags:["fish"]},
+      {name:"Eier",qty:3,unit:"Stk.",tags:["egg"]},
+      {name:"Hüttenkäse",qty:200,unit:"g",tags:["dairy"]},
+      {name:"Tofu",qty:180,unit:"g",tags:["soy"]},
+      {name:"gekochte Linsen",qty:220,unit:"g",tags:[]}
+    ]
+  };
+  const pool=pools[diet]||pools.mixed;
+  for(let k=0;k<pool.length;k++){
+    const p=pool[(index+k)%pool.length];
+    const blocked=p.tags.some(t=>flags[t]) || rawDislikesProtein(p.name,flags);
+    if(!blocked) return p;
+  }
+  return {name:"Proteinquelle, die du gut verträgst",qty:1,unit:"Portion",tags:[]};
+}
+
+function I(qty,unit,item,cat,optional=false){return {qty,unit,item,cat,optional}}
+function R(id,type,title,time,ingredients,steps,swap){return {id,type,title,time,ingredients,steps,swap}}
+
+function buildRecipeLibrary(diet,flags){
+  const oat=flags.gluten?"glutenfreie Haferflocken":"Haferflocken";
+  const milk=flags.dairy?"ungesüßter Pflanzendrink":"Milch oder ungesüßter Pflanzendrink";
+  const yogurt=flags.dairy?"pflanzlicher Protein-Joghurt":"Skyr/Joghurt oder pflanzliche Alternative";
+  const cottage=flags.dairy?"pflanzliche proteinreiche Alternative":"Hüttenkäse";
+  const scramble=(diet==="vegan"||flags.egg)?(flags.soy?"Kichererbsen-Rührei":"Tofu-Rührei"):"Eier";
+  const proteinPowder="Proteinquelle / Proteinpulver passend zu deiner Ernährungsform";
+
+  const b=[
+    R("b1","breakfast","Porridge-Basis",7,[I(45,"g",oat,"Sättigungsbeilagen"),I(15,"g","Haferkleie","Sättigungsbeilagen"),I(10,"g","geschrotete Leinsamen","Vorrat"),I(200,"ml",milk,"Protein & Kühlung"),I(1,"Portion",proteinPowder,"Protein & Kühlung"),I(1,"Portion","Obst nach Wahl","Gemüse & Obst")],["Alles in einen Topf geben.","Kurz aufkochen oder 5 Minuten quellen lassen.","Obst dazu – fertig."],"Obst und Gewürze frei wechseln. Wenn du mehr Energie brauchst, etwas mehr Haferflocken; wenn du weniger brauchst, die Basis kleiner halten."),
+    R("b2","breakfast","Apfel-Zimt-Porridge",8,[I(45,"g",oat,"Sättigungsbeilagen"),I(200,"ml",milk,"Protein & Kühlung"),I(1,"Stk.","Apfel","Gemüse & Obst"),I(1,"Portion",proteinPowder,"Protein & Kühlung"),I(1,"Prise","Zimt","Vorrat")],["Apfel klein schneiden.","Mit Haferflocken und Drink kurz erwärmen.","Proteinquelle und Zimt unterrühren."],"Apfel gegen Birne oder Beeren tauschen."),
+    R("b3","breakfast","Beeren-Protein-Porridge",7,[I(45,"g",oat,"Sättigungsbeilagen"),I(200,"ml",milk,"Protein & Kühlung"),I(150,"g","Beeren frisch oder TK","Gemüse & Obst"),I(1,"Portion",proteinPowder,"Protein & Kühlung")],["Alles kurz erwärmen.","Beeren am Ende unterheben.","Direkt essen."],"TK-Beeren machen das Rezept ganzjährig einfach."),
+    R("b4","breakfast","Banane-Kakao-Porridge",7,[I(45,"g",oat,"Sättigungsbeilagen"),I(200,"ml",milk,"Protein & Kühlung"),I(0.5,"Stk.","Banane","Gemüse & Obst"),I(1,"TL","Backkakao","Vorrat"),I(1,"Portion",proteinPowder,"Protein & Kühlung")],["Haferflocken und Drink erwärmen.","Banane zerdrücken und einrühren.","Kakao und Proteinquelle dazu."],"Bei mehr Hunger ganze Banane verwenden."),
+    R("b5","breakfast","Overnight-Oats ohne Aufwand",3,[I(45,"g",oat,"Sättigungsbeilagen"),I(200,"ml",milk,"Protein & Kühlung"),I(10,"g","Leinsamen","Vorrat"),I(1,"Portion",proteinPowder,"Protein & Kühlung"),I(1,"Portion","Obst nach Wahl","Gemüse & Obst")],["Abends alles in ein Glas geben.","Über Nacht in den Kühlschrank.","Morgens Obst dazu."],"Ideal für Tage, an denen morgens keine Kochzeit da ist."),
+    R("b6","breakfast","Joghurt-Protein-Schüssel",5,[I(250,"g",yogurt,"Protein & Kühlung"),I(1,"Portion","Obst nach Wahl","Gemüse & Obst"),I(20,"g",oat,"Sättigungsbeilagen"),I(10,"g","Leinsamen","Vorrat")],["Alles in eine Schüssel geben.","Kurz umrühren.","Fertig."],"Wenn deine Alternative wenig Protein enthält, ergänze eine passende Proteinquelle."),
+    R("b7","breakfast","Hüttenkäse-Apfel-Schüssel",5,[I(200,"g",cottage,"Protein & Kühlung"),I(1,"Stk.","Apfel","Gemüse & Obst"),I(20,"g",oat,"Sättigungsbeilagen"),I(1,"Prise","Zimt","Vorrat")],["Apfel schneiden.","Mit der Proteinbasis mischen.","Zimt darüber."],"Apfel kann durch Beeren oder Birne ersetzt werden."),
+    R("b8","breakfast",`${scramble} auf Linsenwaffeln`,8,[I(scramble==="Eier"?3:180,scramble==="Eier"?"Stk.":"g",scramble,"Protein & Kühlung"),I(2,"Stk.","Linsenwaffeln","Sättigungsbeilagen"),I(150,"g","Gemüse nach Verträglichkeit","Gemüse & Obst"),I(1,"TL","Öl","Vorrat")],["Proteinbasis kurz in der Pfanne zubereiten.","Gemüse kurz dazugeben oder separat essen.","Auf die Linsenwaffeln geben."],"Schnittlauch, Kräuter oder Gewürze nach Geschmack."),
+    R("b9","breakfast",`${scramble}-Omelett / Pfanne`,10,[I(scramble==="Eier"?3:180,scramble==="Eier"?"Stk.":"g",scramble,"Protein & Kühlung"),I(200,"g","Gemüse nach Verträglichkeit","Gemüse & Obst"),I(1,"TL","Öl","Vorrat"),I(150,"g","Kartoffeln gekocht","Sättigungsbeilagen",true)],["Gemüse kurz anbraten.","Proteinbasis dazugeben und garen.","Bei Bedarf Kartoffeln dazu."],"Die Kartoffelbeilage ist optional und richtet sich nach Hunger und Energiebedarf."),
+    R("b10","breakfast","Schnelle Frühstücks-Bowl",6,[I(200,"g",yogurt,"Protein & Kühlung"),I(1,"Portion",proteinPowder,"Protein & Kühlung"),I(1,"Portion","Beeren oder Obst","Gemüse & Obst"),I(30,"g",oat,"Sättigungsbeilagen")],["Alles in eine Schüssel geben.","Gut verrühren.","Fertig."],"Wenn du lieber herzhaft isst, tausche gegen Rezept 8 oder 9."),
+    R("b11","breakfast","Warmer Reis-Frühstückstopf",10,[I(150,"g","gekochter Reis","Sättigungsbeilagen"),I(180,"ml",milk,"Protein & Kühlung"),I(1,"Portion",proteinPowder,"Protein & Kühlung"),I(1,"Portion","Obst nach Wahl","Gemüse & Obst"),I(1,"Prise","Zimt","Vorrat")],["Reis mit Drink erwärmen.","Proteinquelle einrühren.","Obst und Zimt dazu."],"Praktisch, wenn vom vorgekochten Reis bewusst eine Portion für morgens eingeplant wurde."),
+    R("b12","breakfast","Proteinshake + Obst + kleine Haferportion",5,[I(1,"Portion",proteinPowder,"Protein & Kühlung"),I(250,"ml",milk,"Protein & Kühlung"),I(1,"Portion","Obst nach Wahl","Gemüse & Obst"),I(30,"g",oat,"Sättigungsbeilagen")],["Alles mixen oder Shake separat trinken.","Obst dazu essen.","Fertig."],"Für Tage mit sehr wenig Zeit."),
+    R("b13","breakfast","Schnelle Hafer-Pancakes",10,[I(50,"g",oat,"Sättigungsbeilagen"),I(scramble==="Eier"?2:100,scramble==="Eier"?"Stk.":"g",scramble,"Protein & Kühlung"),I(0.5,"Stk.","Banane","Gemüse & Obst"),I(1,"TL","Öl","Vorrat")],["Zutaten grob verrühren oder mixen.","Kleine Pancakes in der Pfanne ausbacken.","Mit Obst servieren."],"Wenn du es noch einfacher willst, nimm stattdessen Porridge."),
+    R("b14","breakfast","Herzhafte Kartoffel-Frühstückspfanne",10,[I(180,"g","Kartoffeln gekocht","Sättigungsbeilagen"),I(scramble==="Eier"?3:180,scramble==="Eier"?"Stk.":"g",scramble,"Protein & Kühlung"),I(150,"g","Gemüse nach Verträglichkeit","Gemüse & Obst"),I(1,"TL","Öl","Vorrat")],["Kartoffeln klein schneiden und anbraten.","Gemüse kurz dazu.","Proteinbasis dazugeben und fertig garen."],"Kann genauso mittags gegessen werden.")
+  ];
+
+  const lunchTemplates=[
+    ["Reis-Bowl",70,"g","Reis (trocken)",250,"Alles garen und in einer Schüssel zusammenbauen."],
+    ["Kartoffel-Bowl",250,"g","Kartoffeln",250,"Kartoffeln garen, Gemüse und Protein dazu."],
+    ["Quinoa-Bowl",70,"g","Quinoa (trocken)",250,"Quinoa kochen, alles in eine Schüssel geben."],
+    ["Gebratener Reis",70,"g","Reis (trocken)",200,"Reis vorkochen oder vorgegarten Reis nutzen, alles kurz in die Pfanne."],
+    ["Süßkartoffel-Bowl",250,"g","Süßkartoffel",250,"Süßkartoffel würfeln, garen und mit den restlichen Zutaten kombinieren."],
+    ["Schnelle Gemüse-Suppe",200,"g","Kartoffeln",300,"Alles klein schneiden, in Brühe weich kochen, Protein am Ende dazu."],
+    ["Kürbis-Reis-Schüssel",70,"g","Reis (trocken)",250,"Kürbis/Gemüse garen, Reis und Protein dazu."],
+    ["Warme Kartoffel-Gemüse-Schüssel",250,"g","Kartoffeln",250,"Alles garen, würzen und warm in einer Schüssel servieren."],
+    ["Schnelle Wok-Pfanne",70,"g","Reis (trocken)",250,"Gemüse und Protein kurz anbraten, Reis dazu."],
+    ["Gemüse-Reis-Teller",70,"g","Reis (trocken)",300,"Reis kochen, Gemüse garen, Protein dazu – fertig."],
+    ["Ofen-Bowl",250,"g","Kartoffeln",300,"Kartoffeln und Gemüse aufs Blech, Protein passend mitgaren oder separat."],
+    ["One-Pot-Reis",70,"g","Reis (trocken)",250,"Reis, Gemüse und Flüssigkeit in einen Topf; Protein passend dazugeben."],
+    ["Schnelle Pfanne",200,"g","Kartoffeln",250,"Alles klein schneiden und in einer Pfanne garen."],
+    ["Bunte Sattmacher-Schüssel",70,"g","Quinoa oder Reis (trocken)",300,"Basis kochen, Gemüse und Protein daraufgeben."]
+  ];
+  const dinnerTemplates=[
+    ["Einfaches Ofenblech",250,"g","Kartoffeln",300,"Kartoffeln, Gemüse und passende Proteinquelle würzen, aufs Blech, ca. 20–25 Minuten garen."],
+    ["Schnelle Kartoffelpfanne",250,"g","Kartoffeln",250,"Kartoffeln, Gemüse und Protein in einer Pfanne garen."],
+    ["Mildes Curry",70,"g","Reis (trocken)",300,"Gemüse garen, Protein dazu, mit etwas Kokosmilch/Brühe abschmecken und mit Reis servieren."],
+    ["Wok in 15 Minuten",70,"g","Reis (trocken)",300,"Gemüse und Protein heiß anbraten, Reis dazu."],
+    ["Sättigende Gemüsesuppe",200,"g","Kartoffeln",350,"Gemüse und Kartoffeln weich kochen, Protein ergänzen."],
+    ["Gefüllte Süßkartoffel",300,"g","Süßkartoffel",250,"Süßkartoffel garen, aufschneiden, Gemüse und Protein darauf."],
+    ["Pilz-Reis-Pfanne",70,"g","Reis (trocken)",250,"Reis kochen, Pilze/Gemüse und Protein kurz anbraten und mischen."],
+    ["Zucchini-Gemüse-Pfanne",200,"g","Kartoffeln",300,"Gemüse, Kartoffeln und Protein in einer Pfanne garen."],
+    ["Kürbis vom Blech",250,"g","Kürbis",250,"Kürbis, weiteres Gemüse und Protein aufs Blech, ca. 20–25 Minuten."],
+    ["One-Pot-Kartoffel-Gemüse",250,"g","Kartoffeln",300,"Alles in einen Topf geben und weich garen; Protein passend ergänzen."],
+    ["Schnelle Protein-Gemüse-Pfanne",70,"g","Reis (trocken)",300,"Protein und Gemüse anbraten, Reis dazu."],
+    ["Ofenkartoffel mit Protein-Topping",300,"g","Kartoffeln",250,"Kartoffel garen, öffnen, Gemüse und Protein daraufgeben."],
+    ["Familien-Reis-Pfanne",70,"g","Reis (trocken)",300,"Alles in einer großen Pfanne zubereiten; Portionen später individuell anpassen."],
+    ["Ganz einfache Abend-Bowl",250,"g","Kartoffeln oder Süßkartoffeln",300,"Beilage garen, Gemüse und Protein dazu – fertig."]
+  ];
+
+  const lunch=[], dinner=[];
+  lunchTemplates.forEach((t,i)=>{
+    const p=chooseProtein(diet,i,flags);
+    lunch.push(R(`l${i+1}`,"lunch",`${t[0]} mit ${p.name}`,15,
+      [I(p.qty,p.unit,p.name,"Protein & Kühlung"),I(t[1],t[2],t[3],"Sättigungsbeilagen"),I(t[4],"g","Gemüse nach Wahl / Verträglichkeit","Gemüse & Obst"),I(1,"TL","Öl","Vorrat")],
+      [t[5],"Würzen, abschmecken, essen."],
+      "Proteinquelle, Gemüse und Sättigungsbeilage dürfen innerhalb deiner Ernährungsform flexibel getauscht werden.")
+    );
+  });
+  dinnerTemplates.forEach((t,i)=>{
+    const p=chooseProtein(diet,i+3,flags);
+    dinner.push(R(`d${i+1}`,"dinner",`${t[0]} mit ${p.name}`,20,
+      [I(p.qty,p.unit,p.name,"Protein & Kühlung"),I(t[1],t[2],t[3],"Sättigungsbeilagen"),I(t[4],"g","Gemüse nach Wahl / Verträglichkeit","Gemüse & Obst"),I(1,"TL","Öl","Vorrat")],
+      [t[5],"Würzen nach Geschmack. Fertig."],
+      "Wenn du für die Familie kochst: dasselbe Gericht für alle, nur Protein- und Beilagenmenge individuell anpassen.")
+    );
+  });
+  return [...b,...lunch,...dinner];
+}
+
+function generateResults(){
+  if(!validateCurrent()) return;
+
+  const sex=getSex();
+  const name=val("firstName")||"du";
+  const age=+val("age"), height=+val("height"), weight=+val("weight");
+  const hM=height/100, bmi=weight/(hM*hM);
+  const stage=sex==="male"?"male":val("lifeStage");
+  const isMale=sex==="male";
+  const activity=+val("activity");
+  const goal=val("goal");
+  const target=+val("targetWeight")||null;
+  const bmr=10*weight + 6.25*height - 5*age + (isMale?5:-161);
+  const tdee=bmr*activity;
+
+  const safety=checked("safety");
+  const health=checked("health").filter(x=>x!=="none");
+  const meds=val("meds")==="yes";
+  const strongSafety=safety.some(x=>["pregnancy","eatingdisorder","acute","medicaldiet"].includes(x));
+
+  let startCalories=tdee;
+  if(goal==="lose") startCalories=tdee*0.90;
+  if(goal==="gain") startCalories=tdee*1.08;
+  if(goal==="composition") startCalories=tdee*0.95;
+  if(goal==="energy") startCalories=tdee;
+  startCalories=Math.max(startCalories,bmr);
+  startCalories=round10(startCalories);
+
+  const stage1=round10(Math.max(tdee*.90,bmr));
+  const stage2=round10(Math.max(tdee*.85,bmr));
+  const stage3=round10(Math.max(tdee*.80,bmr));
+
+  const ref25=25*hM*hM;
+  const proteinCalcWeight = bmi>=30 ? Math.max(ref25, target||ref25) : weight;
+  let lowFactor=1.4, highFactor=1.6;
+  if(age>=50){lowFactor=1.5;highFactor=1.6}
+  if(age>=65){lowFactor=1.6;highFactor=1.7}
+  if(goal==="maintain"||goal==="energy"){lowFactor=Math.max(1.2,lowFactor-.2);highFactor=Math.max(1.4,highFactor-.2)}
+  const pLow=Math.round(proteinCalcWeight*lowFactor);
+  const pHigh=Math.round(proteinCalcWeight*highFactor);
+
+  const cycleLengthRaw=+val("cycleLength")||28;
+  const planLength = stage==="cycle" ? Math.max(20,Math.min(45,cycleLengthRaw)) : 28;
+  const planLabel = `${planLength}-Tage-Plan`;
+
+  currentNutrition={startCalories,pLow,pHigh,goal,planLength,name,diet:val("dietType")};
+
+  document.getElementById("resultTitle").textContent=`${name}s NÄHREN‑Plan`;
+  document.getElementById("resultLead").textContent=`Dein persönlicher ${planLabel} – auf Basis deiner heutigen Angaben.`;
+  document.getElementById("planHeading").textContent=`Dein ${planLabel}`;
+
+  const goalText={lose:"Gewicht reduzieren",maintain:"Gewicht halten",gain:"Gewicht zunehmen",composition:"Körperzusammensetzung verbessern",energy:"mehr Energie und Struktur"}[goal];
+  const stageText={
+    male:"Mann",
+    cycle:"Frau mit regelmäßigem / gut einschätzbarem Zyklus",
+    irregular:"Frau mit unregelmäßigem / aktuell nicht einschätzbarem Zyklus",
+    nocycle:"Frau ohne aktuellen Zyklus",
+    peri:"Frau in der Perimenopause",
+    meno:"Frau in der Menopause"
+  }[stage];
+
+  document.getElementById("summaryText").innerHTML=`
+    <p>Du bist <b>${age} Jahre</b>, ${height} cm groß und wiegst aktuell <b>${weight.toFixed(1)} kg</b>. Dein Hauptziel ist <b>${goalText}</b>${target?` und dein angegebenes Wunschgewicht liegt bei <b>${target.toFixed(1)} kg</b>`:""}.</p>
+    <p>Für diese Auswertung wurdest du der Gruppe <b>${stageText}</b> zugeordnet. Deine aktuelle Alltagseinschätzung fließt in die Berechnung deines geschätzten Energiebedarfs ein.</p>
+    ${val("mustHave")?`<div class="notice"><b>Was dein Plan für dich erfüllen muss:</b><br>${escapeHtml(val("mustHave"))}</div>`:""}
+  `;
+
+  document.getElementById("kWeight").textContent=weight.toFixed(1)+" kg";
+  document.getElementById("kBmr").textContent=round10(bmr)+" kcal";
+  document.getElementById("kTdee").textContent=round10(tdee)+" kcal";
+  document.getElementById("kCalories").textContent=startCalories+" kcal";
+  document.querySelector("#results .kpi:last-child span").textContent=`${planLength}-Tage-Start`;
+
+  const safetyNames={
+    pregnancy:"Schwangerschaft / Stillzeit",
+    eatingdisorder:"aktuelle oder kürzliche Essstörung",
+    chronicstable:"chronische Erkrankung – aktuell stabil / behandelt",
+    acute:"akute, schwere oder aktuell ungeklärte Erkrankung",
+    medicaldiet:"ärztlich verordnete Spezialdiät"
+  };
+  const healthNames={
+    prediabetes:"Insulinresistenz / Prädiabetes",
+    diabetes2:"Typ‑2‑Diabetes",
+    thyroid:"Schilddrüsenthema",
+    bp:"Bluthochdruck",
+    lipids:"erhöhte Blutfette",
+    reflux:"Reflux / empfindlicher Magen",
+    gut:"Reizdarm / häufige Verdauungsbeschwerden"
+  };
+  const selectedHealth=[...safety.map(x=>safetyNames[x]).filter(Boolean),...health.map(x=>healthNames[x]).filter(Boolean)];
+  if(meds) selectedHealth.push("relevante Medikamente");
+
+  if(selectedHealth.length){
+    const extra = strongSafety
+      ? "Gerade bei akuten, schweren oder sensiblen gesundheitlichen Situationen sollte daraus nicht automatisch ein Defizit- oder Fastenplan übernommen werden."
+      : "Bei einer stabilen, bekannten chronischen Situation kann die Rechnung trotzdem eine hilfreiche Orientierung sein – sie ersetzt aber nicht die individuelle Einschätzung deiner behandelnden Fachperson.";
+    document.getElementById("safetyResult").innerHTML=`<div class="notice warn"><b>Deine Gesundheitsangaben mitdenken:</b><br>Du hast angegeben: <b>${selectedHealth.join(", ")}</b>. Die Kalorien- und Defizitwerte werden dir bewusst trotzdem als rechnerische Orientierung angezeigt. ${extra} Wenn du unsicher bist oder Medikamente betroffen sind, kläre stärkere Defizite, längere Fastenphasen oder größere Ernährungsänderungen fachlich ab.</div>`;
+  } else document.getElementById("safetyResult").innerHTML="";
+
+  const insight=[];
+  if(goal==="lose"&&target){
+    const diff=Math.max(0,weight-target);
+    insight.push(`Du möchtest ungefähr <b>${diff.toFixed(1)} kg</b> verändern. Für deinen Start ist deshalb nicht entscheidend, möglichst stark zu reduzieren, sondern einen Rahmen zu finden, den du über Wochen wirklich leben kannst.`);
+  }
+  if(val("hungerPeak")==="afternoon") insight.push("Dein stärkster Hunger liegt eher am Nachmittag. Deshalb sollte dein Mittagessen ausreichend Protein und Sättigung liefern; ein geplanter Snack kann sinnvoller sein als späterer Heißhunger.");
+  if(val("hungerPeak")==="evening") insight.push("Dein Hunger sitzt eher am Abend. Hier lohnt es sich besonders, tagsüber nicht zu knapp zu essen, damit der Abend nicht zum Nachholen wird.");
+  if(val("cravings")==="often") insight.push("Du hast häufigeren Heißhunger angegeben. Der Plan setzt deshalb stärker auf Rhythmus, ausreichend Protein und bewusst sättigende Hauptmahlzeiten statt auf zusätzliche Verbote.");
+  if(val("emotionalEating")==="weekly") insight.push("Du hast angegeben, mehrmals pro Woche ohne klaren körperlichen Hunger zu essen. Deshalb wird neben der Mahlzeitenstruktur auch wichtig, Hunger, Gewohnheit, Stress und echten Bedarf besser auseinanderzuhalten.");
+  if(val("pastBarrier")==="complex"||val("cookLike")==="low") insight.push("Einfachheit ist für dich ein Schlüssel. Deshalb sind die Rezepte bewusst kurz, unkompliziert und mit wenigen Zutaten aufgebaut.");
+  if(val("household")==="family") insight.push("Du kochst für eine Familie. Deshalb arbeitet NÄHREN mit Gerichten, die grundsätzlich alle essen können; individualisiert werden vor allem Menge, Proteinanteil und passende Beilage.");
+  if(stage==="cycle") insight.push(`Dein Plan folgt deinem angegebenen Zyklus von etwa <b>${planLength} Tagen</b>, statt dich künstlich in einen 28‑Tage‑Plan zu pressen.`);
+  if(stage==="irregular"||stage==="nocycle") insight.push("Dein Zyklus gibt aktuell keinen klaren Rhythmus vor. Deshalb nutzen wir bewusst einen 28‑Tage‑Rhythmus als verlässliche Alltagsstruktur.");
+  document.getElementById("personalInsight").innerHTML=(insight.length?insight:["Deine Angaben ergeben aktuell einen gut umsetzbaren Ausgangspunkt. Der Fokus liegt auf Regelmäßigkeit, ausreichender Versorgung und einem Rahmen, den du wirklich leben kannst."]).map(x=>`<p>${x}</p>`).join("");
+
+  let calcText=`<p>Dein geschätzter Grundumsatz liegt bei rund <b>${round10(bmr)} kcal</b>. Mit deinem angegebenen Alltag ergibt sich ein geschätzter Erhaltungsbedarf von rund <b>${round10(tdee)} kcal pro Tag</b>.</p>`;
+  if(goal==="lose"){
+    calcText+=`<p>Rein rechnerisch startet die sanfte Stufe bei etwa <b>${stage1} kcal pro Tag</b>: ${round10(tdee)} − ${round10(tdee-stage1)} = ca. ${stage1} kcal. Ziel ist nicht maximaler Mangel, sondern eine Struktur, die du tatsächlich leben kannst.</p>`;
+    if(strongSafety) calcText+=`<div class="notice warn"><b>Für dich besonders wichtig:</b> Weil du bei den Gesundheitsfragen einen sensiblen Punkt angegeben hast, ist dieser Wert eine Rechengröße und nicht automatisch eine persönliche Empfehlung. Prüfe vor einer deutlichen Kalorienreduktion, was in deiner konkreten Situation sinnvoll ist.</div>`;
+  } else if(goal==="maintain") calcText+=`<p>Du möchtest dein Gewicht halten. Deshalb arbeitet der Plan ungefähr in deinem Erhaltungsbereich und nicht mit einem Abnehmdefizit.</p>`;
+  else if(goal==="gain") calcText+=`<p>Für Gewichtszunahme arbeitet diese Version mit einem kleinen Energieaufschlag. Nutze bei den Rezepten entsprechend die größere Portion der Sättigungsbeilage.</p>`;
+  document.getElementById("calorieExplanation").innerHTML=calcText;
+
+  if(goal==="lose"){
+    document.getElementById("deficitStages").innerHTML=`
+      <h3>Deine drei möglichen Stufen</h3>
+      <div class="grid3">
+        <div class="kpi"><span>Stufe 1 · sanft · ca. 10 %</span><b>${stage1} kcal</b><small>Startpunkt</small></div>
+        <div class="kpi"><span>Stufe 2 · mittel · ca. 15 %</span><b>${stage2} kcal</b><small>Nur wenn nötig und gut vertragen</small></div>
+        <div class="kpi"><span>Stufe 3 · stärker · ca. 20 %</span><b>${stage3} kcal</b><small>Nicht automatisch</small></div>
+      </div>
+      <div class="notice"><b>Wichtig:</b> Wenn dein Gewicht mit Stufe 1 kontinuierlich sinkt und du dich gut fühlst, musst du nicht in Stufe 2 oder 3 wechseln. Mehr Defizit ist nicht automatisch besser. Bei starkem Hunger, Erschöpfung oder schlechter Verträglichkeit gehst du einen Schritt zurück und prüfst die Situation neu.</div>`;
+  } else document.getElementById("deficitStages").innerHTML="";
+
+  document.getElementById("proteinResult").innerHTML=`
+    <p>Dein momentaner Orientierungsbereich liegt bei ungefähr <b>${pLow}–${pHigh} g Protein pro Tag</b>.</p>
+    <p>Bei Gewichtsreduktion legen wir den Fokus bewusst auf ausreichend Protein, damit Sättigung und insbesondere der Erhalt von Muskelmasse mitgedacht werden.</p>
+    <div class="notice"><b>Praktisch gedacht:</b> Bei drei Hauptmahlzeiten kann das grob etwa ${Math.round(pHigh*.28)}–${Math.round(pHigh*.32)} g morgens, ${Math.round(pHigh*.28)}–${Math.round(pHigh*.32)} g mittags und ${Math.round(pHigh*.35)}–${Math.round(pHigh*.40)} g abends bedeuten. Ein Snack oder Shake kann bei Bedarf einen Teil davon übernehmen.</div>`;
+
+  let rhythm="";
+  const meals=+val("meals")||3;
+  const first=val("firstMeal")||"08:00", last=val("lastMeal")||"19:00";
+  if(isMale){
+    const wish=val("fastWish"), exp=val("fastExperience"), tol=val("fastTolerance");
+    let fasting="normaler Rhythmus / etwa 12 Stunden Nachtpause";
+    if(wish==="yes"){
+      if(exp==="good"&&tol==="good") fasting="16:8 als mögliche Struktur; 18:6 höchstens als spätere Option bei weiterhin guter Verträglichkeit";
+      else fasting="14:10 als sanfter Einstieg";
+    }
+    rhythm=`<p>Für dich ist aktuell <b>${fasting}</b> vorgesehen. Fasten ist hier eine Struktur, kein Wettbewerb und kein Muss.</p>`;
+  } else {
+    rhythm=`<p>Für dich wird grundsätzlich mit einer <b>sanften nächtlichen Essenspause von etwa 10–12 Stunden</b> gearbeitet. Längere Fastenfenster sind nicht die Grundlage dieses Plans.</p>`;
+    if(stage==="cycle"){
+      rhythm+=`<p>Dein Plan berücksichtigt deinen angegebenen Zyklus von etwa <b>${planLength} Tagen</b> und startet ungefähr an Zyklustag <b>${val("cycleDay")}</b>. Deine Planlänge passt sich damit deinem tatsächlichen Rhythmus an.</p>`;
+    } else if(stage==="irregular"||stage==="nocycle"){
+      rhythm+=`<p>Da dein Zyklus aktuell keinen klaren Rhythmus vorgibt, arbeiten wir mit einem <b>28‑Tage‑Rhythmus</b> als alltagstauglicher Struktur.</p>`;
+    } else {
+      rhythm+=val("moonWish")==="yes"?`<p>Zusätzlich wird der 28‑Tage‑Weg in vier symbolische Mond-/Rhythmusphasen gegliedert.</p>`:`<p>Wir arbeiten einfach mit Tag 1–28 ohne zusätzliche Mondorientierung.</p>`;
+    }
+  }
+  rhythm+=`<p>Deine bisherige Essenszeit liegt ungefähr zwischen <b>${first}</b> und <b>${last}</b>. Der Plan versucht, diesen Alltag nicht unnötig auf den Kopf zu stellen.</p>`;
+  document.getElementById("rhythmResult").innerHTML=rhythm;
+
+  const levers=[];
+  const tooLittle=checked("tooLittle");
+  if(tooLittle.includes("protein")) levers.push("Protein bewusster über den Tag verteilen.");
+  if(tooLittle.includes("water")||val("water")==="low") levers.push("Trinkroutine verbessern und Wasser sichtbar in den Alltag einbauen.");
+  if(tooLittle.includes("regular")) levers.push("Einen verlässlicheren Mahlzeitenrhythmus aufbauen.");
+  if(val("hungerPeak")==="afternoon"||val("cravings")==="often") levers.push("Mittagessen proteinreicher planen und bei Bedarf einen bewussten Nachmittagssnack nutzen.");
+  if(val("hungerPeak")==="evening") levers.push("Tagesverteilung prüfen: tagsüber nicht zu knapp essen, damit der Abend nicht zum Nachholen wird.");
+  if(val("liquidCalories")==="weekly") levers.push("Flüssige Kalorien reduzieren oder bewusster einsetzen.");
+  if(val("speed")==="fast"||val("satiety")==="poor") levers.push("Langsamer essen und Sättigung bewusster wahrnehmen.");
+  if(val("pastBarrier")==="complex"||val("cookLike")==="low") levers.push("So einfach wie möglich kochen: wenige Zutaten, kurze Wege, wiederholbare Standardgerichte.");
+  if(val("pastBarrier")==="family") levers.push("Familiengerichte priorisieren und nur Portionsgrößen bzw. Proteinanteile individualisieren.");
+  if(levers.length<3) levers.push("Einen ganzen Zyklus beobachten statt täglich perfektionieren.");
+  document.getElementById("levers").innerHTML="<ol>"+levers.slice(0,5).map(x=>`<li>${x}</li>`).join("")+"</ol>";
+
+  buildPlan({stage,meals,first,last,pHigh,goal,cycleLength:planLength,cycleDay:+val("cycleDay")||1,moon:val("moonWish"),diet:val("dietType"),planLength});
+
+  document.getElementById("appForm").classList.add("hidden");
+  document.getElementById("results").classList.remove("hidden");
+  document.getElementById("recipeView").classList.add("hidden");
+  document.getElementById("shoppingView").classList.add("hidden");
+  lastView="results";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function buildPlan(o){
+  const tbody=document.querySelector("#planTable tbody");
+  const printPlan=document.getElementById("printPlan");
+  tbody.innerHTML="";
+  printPlan.innerHTML="";
+
+  const times=mealTimes(o.first,o.last,o.meals);
+  const dietLabel={mixed:"Mischkost",vegetarian:"vegetarisch",vegan:"vegan",pesc:"pescetarisch"}[o.diet];
+  const flags=restrictionFlags();
+  const library=buildRecipeLibrary(o.diet,flags);
+  currentRecipeMap=Object.fromEntries(library.map(r=>[r.id,r]));
+  const breakfasts=library.filter(r=>r.type==="breakfast");
+  const lunches=library.filter(r=>r.type==="lunch");
+  const dinners=library.filter(r=>r.type==="dinner");
+  const focuses=["Rhythmus finden","Protein verteilen","Trinken beobachten","Hunger wahrnehmen","Einfach halten","Sättigung beachten","Vorbereiten statt improvisieren"];
+
+  const rows=[];
+  for(let d=1;d<=o.planLength;d++){
+    let phase=`${o.planLength}-Tage-Rhythmus`;
+    if(o.stage==="cycle"){
+      const day=((o.cycleDay+d-2)%o.cycleLength)+1;
+      const ovu=Math.max(10,o.cycleLength-14);
+      if(day<=5) phase=`Menstruation · ca. Zyklustag ${day}`;
+      else if(day<ovu-1) phase=`Follikelphase · ca. Zyklustag ${day}`;
+      else if(day<=ovu+1) phase=`Ovulationsphase · ca. Zyklustag ${day}`;
+      else phase=`Lutealphase · ca. Zyklustag ${day}`;
+    } else if(o.stage==="irregular"||o.stage==="nocycle"){
+      const block=Math.ceil(d/7);
+      phase=`28‑Tage‑Rhythmus · Phase ${Math.min(block,4)}`;
+    } else if((o.stage==="peri"||o.stage==="meno")&&o.moon==="yes"){
+      phase=d<=7?"Phase 1 · Neumond-orientiert":d<=14?"Phase 2 · zunehmend":d<=21?"Phase 3 · Vollmond-orientiert":"Phase 4 · abnehmend";
+    }
+    const b=breakfasts[(d-1)%breakfasts.length];
+    const l=lunches[(d-1)%lunches.length];
+    const dn=dinners[(d+4)%dinners.length];
+    const snack=o.meals>=4?"Optionaler proteinreicher Snack":"Nur bei echtem Hunger / Bedarf";
+    const row={d,phase,rhythm:times.join(" · "),breakfast:b.title,lunch:l.title,snack,dinner:dn.title,focus:focuses[(d-1)%focuses.length],dietLabel,bId:b.id,lId:l.id,dId:dn.id};
+    rows.push(row);
+
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td><b>${d}</b><br><span class="tag">${phase}</span></td>
+      <td>${row.rhythm}</td>
+      <td>${b.title}</td>
+      <td>${l.title}</td>
+      <td>${snack}</td>
+      <td>${dn.title}</td>
+      <td>${row.focus}<br><small>${dietLabel}</small></td>`;
+    tbody.appendChild(tr);
+  }
+  currentPlanRows=rows;
+
+  for(let start=0; start<rows.length; start+=7){
+    const week=Math.floor(start/7)+1;
+    const section=document.createElement("section");
+    section.className="print-week";
+    const end=Math.min(start+7,rows.length);
+    section.innerHTML=`<h3>Woche ${week} · Tage ${start+1}–${end}</h3>
+      <p class="print-rhythm"><b>Dein Essensrhythmus:</b> ${rows[start].rhythm}</p>
+      <table class="print-table">
+        <thead><tr><th>Tag & Zyklus</th><th>Frühstück / 1. Mahlzeit</th><th>Mittag</th><th>Snack</th><th>Abend</th></tr></thead>
+        <tbody></tbody>
+      </table>`;
+    const ptbody=section.querySelector("tbody");
+    rows.slice(start,end).forEach(r=>{
+      let phaseHtml=r.phase;
+      const match=r.phase.match(/^(.*?) · ca\. Zyklustag (\d+)$/);
+      if(match) phaseHtml=`<span class="print-tag">${match[1]}</span><br><span class="print-sub">Zyklustag ${match[2]}</span>`;
+      else phaseHtml=`<span class="print-tag">${r.phase}</span>`;
+      const tr=document.createElement("tr");
+      tr.innerHTML=`<td><b>Tag ${r.d}</b><br>${phaseHtml}<span class="print-sub">Fokus: ${r.focus}</span></td>
+        <td>${r.breakfast}</td><td>${r.lunch}</td><td>${r.snack}</td><td>${r.dinner}</td>`;
+      ptbody.appendChild(tr);
+    });
+    printPlan.appendChild(section);
+  }
+  renderRecipes();
+  renderShopping();
+}
+
+function recipeCard(r){
+  const ingredientHtml=r.ingredients.map(x=>`<li>${formatQty(x.qty)} ${escapeHtml(x.unit)} ${escapeHtml(x.item)}${x.optional?" <span class='hint'>(optional)</span>":""}</li>`).join("");
+  const stepHtml=r.steps.map(x=>`<li>${escapeHtml(x)}</li>`).join("");
+  return `<details class="recipe-card" id="recipe-${r.id}">
+    <summary>${escapeHtml(r.title)}</summary>
+    <div class="recipe-body">
+      <div class="recipe-meta"><span>ca. ${r.time} Min.</span><span>${r.type==="breakfast"?"Frühstück":r.type==="lunch"?"Mittag":"Abendessen"}</span></div>
+      <h3>Zutaten · Basisportion</h3><ul>${ingredientHtml}</ul>
+      <h3>So einfach geht's</h3><ol>${stepHtml}</ol>
+      <div class="notice"><b>Flexibel bleiben:</b> ${escapeHtml(r.swap)}</div>
+      <div class="recipe-actions no-print"><button class="ghost" onclick="printSingleRecipe('${r.id}')">Dieses Rezept als PDF / drucken</button></div>
+    </div>
+  </details>`;
+}
+function renderRecipes(){
+  const usedIds=[...new Set(currentPlanRows.flatMap(r=>[r.bId,r.lId,r.dId]))];
+  const used=usedIds.map(id=>currentRecipeMap[id]).filter(Boolean);
+  const groups=[
+    ["Frühstück",used.filter(r=>r.type==="breakfast")],
+    ["Mittag",used.filter(r=>r.type==="lunch")],
+    ["Abendessen",used.filter(r=>r.type==="dinner")]
+  ];
+  const note=[];
+  note.push(`Dein Protein-Ziel liegt aktuell bei ungefähr ${currentNutrition.pLow}–${currentNutrition.pHigh} g pro Tag.`);
+  if(currentNutrition.startCalories<=1650) note.push("Bei den Sättigungsbeilagen kannst du eher mit der kleineren Basisportion starten.");
+  else if(currentNutrition.startCalories>=2200) note.push("Bei höherem Energiebedarf darf deine Sättigungsbeilage entsprechend größer ausfallen.");
+  else note.push("Die angegebenen Basisportionen passen als Startpunkt; Hunger, Sättigung und Ziel dürfen die Menge mitsteuern.");
+  const exclusions=[val("allergies"),val("intolerances"),val("dislikes")].filter(x=>x.trim()).join(" · ");
+  if(exclusions) note.push(`Bitte besonders beachten: ${escapeHtml(exclusions)}.`);
+  document.getElementById("recipePersonalNote").innerHTML=note.join(" ");
+  document.getElementById("recipeContent").innerHTML=groups.map(([title,arr])=>`
+    <section><h2>${title}</h2>${arr.map(recipeCard).join("")}</section>`).join("");
+}
+
+function formatQty(q){
+  if(Number.isInteger(q)) return String(q);
+  return String(Math.round(q*10)/10).replace(".",",");
+}
+function addIngredient(map,ing,factor){
+  if(ing.optional) return;
+  const key=`${ing.item}|${ing.unit}|${ing.cat}`;
+  if(!map[key]) map[key]={item:ing.item,unit:ing.unit,cat:ing.cat,qty:0};
+  map[key].qty += Number(ing.qty)*factor;
+}
+function renderShopping(){
+  const people=+val("shoppingPeople")||1;
+  const weeks=[];
+  for(let start=0;start<currentPlanRows.length;start+=7){
+    const map={};
+    currentPlanRows.slice(start,start+7).forEach(row=>{
+      [row.bId,row.lId,row.dId].forEach(id=>{
+        const r=currentRecipeMap[id];
+        if(r) r.ingredients.forEach(ing=>addIngredient(map,ing,people));
+      });
+      if((+val("meals")||3)>=4){
+        const snackItem=val("dietType")==="vegan"?"pflanzlicher proteinreicher Snack":"Skyr/Hüttenkäse oder passende Alternative";
+        addIngredient(map,I(1,"Portion",snackItem,"Protein & Kühlung"),people);
+        addIngredient(map,I(1,"Portion","Obst für Snack","Gemüse & Obst"),people);
+      }
+    });
+    weeks.push(map);
+  }
+  document.getElementById("shoppingContent").innerHTML=weeks.map((map,i)=>{
+    const cats=["Protein & Kühlung","Gemüse & Obst","Sättigungsbeilagen","Vorrat"];
+    const groups=cats.map(cat=>{
+      const items=Object.values(map).filter(x=>x.cat===cat).sort((a,b)=>a.item.localeCompare(b.item));
+      if(!items.length) return "";
+      return `<div class="shopping-group"><h4>${cat}</h4><ul>${items.map(x=>`<li>${formatQty(x.qty)} ${escapeHtml(x.unit)} ${escapeHtml(x.item)}</li>`).join("")}</ul></div>`;
+    }).join("");
+    const end=Math.min((i+1)*7,currentPlanRows.length);
+    return `<section class="shopping-week"><h3>Woche ${i+1} · Tage ${i*7+1}–${end}</h3><div class="shopping-grid">${groups}</div></section>`;
+  }).join("");
+}
+
+function showRecipes(){
+  document.getElementById("results").classList.add("hidden");
+  document.getElementById("shoppingView").classList.add("hidden");
+  document.getElementById("recipeView").classList.remove("hidden");
+  lastView="recipe";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function showShopping(){
+  document.getElementById("results").classList.add("hidden");
+  document.getElementById("recipeView").classList.add("hidden");
+  document.getElementById("shoppingView").classList.remove("hidden");
+  lastView="shopping";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function backToResults(){
+  document.getElementById("recipeView").classList.add("hidden");
+  document.getElementById("shoppingView").classList.add("hidden");
+  document.getElementById("results").classList.remove("hidden");
+  lastView="results";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function cleanupPrint(){
+  document.body.classList.remove("recipe-print","shopping-print","single-recipe-print");
+  document.querySelectorAll(".recipe-card.print-target").forEach(x=>x.classList.remove("print-target"));
+}
+window.addEventListener("afterprint",cleanupPrint);
+function printResults(){ cleanupPrint(); window.print(); }
+function printRecipes(){
+  cleanupPrint();
+  document.querySelectorAll("#recipeView details.recipe-card").forEach(x=>x.open=true);
+  document.body.classList.add("recipe-print");
+  setTimeout(()=>window.print(),50);
+}
+function printShopping(){
+  cleanupPrint();
+  document.body.classList.add("shopping-print");
+  setTimeout(()=>window.print(),50);
+}
+function printSingleRecipe(id){
+  cleanupPrint();
+  const el=document.getElementById(`recipe-${id}`);
+  if(!el) return;
+  el.open=true;
+  el.classList.add("print-target");
+  document.body.classList.add("single-recipe-print");
+  setTimeout(()=>window.print(),50);
+}
+function goToMovement(){ window.location.href=MOVEMENT_URL; }
+function restart(){ location.reload(); }
+
+toggleGoal();
+updateFemaleBranches();
+</script>
+</body>
+</html>
