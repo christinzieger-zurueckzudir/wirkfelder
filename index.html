@@ -199,7 +199,6 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
     <section class="step active" data-step="0">
       <div class="brand">Schritt 1</div>
       <h2>Beginnen wir bei dir</h2>
-      <p class="lead">Die erste Frage entscheidet nur, welche Fragen du im nächsten Schritt siehst. Männer gehen direkt in den allgemeinen Teil, Frauen bekommen zuerst die Fragen zu Zyklus und Lebensphase.</p>
       <label>Bist du Mann oder Frau?</label>
       <div class="sex-choice">
         <label><input type="radio" name="sex" value="male" onchange="selectSex()"> Mann</label>
@@ -211,8 +210,6 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
     <section class="step" data-step="1">
       <div class="brand">Frauen-Bereich</div>
       <h2>Dein Rhythmus</h2>
-      <p class="lead">Diese Fragen erscheinen nur für Frauen. Danach geht es mit denselben allgemeinen Fragen weiter.</p>
-
       <label>Welche Situation beschreibt dich aktuell am besten?</label>
       <select name="lifeStage" id="lifeStage" onchange="updateFemaleBranches()">
         <option value="cycle">Regelmäßiger / gut einschätzbarer Zyklus</option>
@@ -320,6 +317,7 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
         <div class="choice"><label><input type="checkbox" name="health" value="lipids"> Erhöhte Blutfette</label></div>
         <div class="choice"><label><input type="checkbox" name="health" value="reflux"> Reflux / empfindlicher Magen</label></div>
         <div class="choice"><label><input type="checkbox" name="health" value="gut"> Reizdarm / häufige Verdauungsbeschwerden</label></div>
+        <div class="choice"><label><input type="checkbox" name="health" value="kidneyliver"> Nieren- oder Lebererkrankung</label></div>
         <div class="choice"><label><input type="checkbox" name="health" value="none"> Nichts davon</label></div>
       </div>
 
@@ -449,7 +447,6 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
     <section class="step" data-step="9">
       <div class="brand">Persönlicher Rhythmus</div>
       <h2>Essenspausen</h2>
-      <p class="lead">Diese Fragen erscheinen nur für Männer.</p>
       <label>Hast du bereits Erfahrung mit längeren Essenspausen / Fasten?</label>
       <select name="fastExperience"><option value="none">Nein</option><option value="some">Etwas</option><option value="good">Ja, regelmäßig</option></select>
       <label>Wie fühlst du dich, wenn du morgens nichts isst?</label>
@@ -574,12 +571,12 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
     </div>
   </section>
 
-  <div class="footer no-print">WIRKFELDER · NÄHREN · Version 1.0 · Keine dauerhafte Speicherung deiner Fragebogenangaben</div>
+  <div class="footer no-print">WIRKFELDER · NÄHREN · Deine Fragebogenangaben werden nicht dauerhaft gespeichert.</div>
 </div>
 
 <script>
 const ACCESS_CODE = "NAEHREN2026";
-const MOVEMENT_URL = "./bewegen/";
+const MOVEMENT_URL = "https://christinzieger-zurueckzudir.github.io/wirkfelder/bewegen/";
 let currentStep = 0;
 let currentPlanRows = [];
 let currentRecipeMap = {};
@@ -643,7 +640,7 @@ function validateCurrent(){
   }
   if(currentStep===2){
     const age=+document.querySelector('[name="age"]').value;
-    if(age<18){alert("Diese Version erstellt automatische Pläne nur für Erwachsene ab 18 Jahren.");return false}
+    if(age<18){alert("NÄHREN erstellt automatische Pläne für Erwachsene ab 18 Jahren.");return false}
   }
   return true;
 }
@@ -839,13 +836,14 @@ function generateResults(){
   const safety=checked("safety");
   const health=checked("health").filter(x=>x!=="none");
   const meds=val("meds")==="yes";
-  const strongSafety=safety.some(x=>["pregnancy","eatingdisorder","acute","medicaldiet"].includes(x));
+  const strongSafety=safety.some(x=>["pregnancy","eatingdisorder","acute","medicaldiet"].includes(x)) || health.includes("kidneyliver");
 
   let startCalories=tdee;
   if(goal==="lose") startCalories=tdee*0.90;
   if(goal==="gain") startCalories=tdee*1.08;
   if(goal==="composition") startCalories=tdee*0.95;
   if(goal==="energy") startCalories=tdee;
+  if(strongSafety && goal==="lose") startCalories=tdee;
   startCalories=Math.max(startCalories,bmr);
   startCalories=round10(startCalories);
 
@@ -884,14 +882,14 @@ function generateResults(){
 
   document.getElementById("summaryText").innerHTML=`
     <p>Du bist <b>${age} Jahre</b>, ${height} cm groß und wiegst aktuell <b>${weight.toFixed(1)} kg</b>. Dein Hauptziel ist <b>${goalText}</b>${target?` und dein angegebenes Wunschgewicht liegt bei <b>${target.toFixed(1)} kg</b>`:""}.</p>
-    <p>Für diese Auswertung wurdest du der Gruppe <b>${stageText}</b> zugeordnet. Deine aktuelle Alltagseinschätzung fließt in die Berechnung deines geschätzten Energiebedarfs ein.</p>
+    <p>Dein aktueller Alltag und dein persönlicher Rhythmus werden bei der Orientierung zu Energiebedarf, Mahlzeitenstruktur und Planlänge mitberücksichtigt.</p>
     ${val("mustHave")?`<div class="notice"><b>Was dein Plan für dich erfüllen muss:</b><br>${escapeHtml(val("mustHave"))}</div>`:""}
   `;
 
   document.getElementById("kWeight").textContent=weight.toFixed(1)+" kg";
   document.getElementById("kBmr").textContent=round10(bmr)+" kcal";
   document.getElementById("kTdee").textContent=round10(tdee)+" kcal";
-  document.getElementById("kCalories").textContent=startCalories+" kcal";
+  document.getElementById("kCalories").textContent=(strongSafety && goal==="lose") ? "individuell" : startCalories+" kcal";
   document.querySelector("#results .kpi:last-child span").textContent=`${planLength}-Tage-Start`;
 
   const safetyNames={
@@ -908,7 +906,8 @@ function generateResults(){
     bp:"Bluthochdruck",
     lipids:"erhöhte Blutfette",
     reflux:"Reflux / empfindlicher Magen",
-    gut:"Reizdarm / häufige Verdauungsbeschwerden"
+    gut:"Reizdarm / häufige Verdauungsbeschwerden",
+    kidneyliver:"Nieren- oder Lebererkrankung"
   };
   const selectedHealth=[...safety.map(x=>safetyNames[x]).filter(Boolean),...health.map(x=>healthNames[x]).filter(Boolean)];
   if(meds) selectedHealth.push("relevante Medikamente");
@@ -937,13 +936,16 @@ function generateResults(){
 
   let calcText=`<p>Dein geschätzter Grundumsatz liegt bei rund <b>${round10(bmr)} kcal</b>. Mit deinem angegebenen Alltag ergibt sich ein geschätzter Erhaltungsbedarf von rund <b>${round10(tdee)} kcal pro Tag</b>.</p>`;
   if(goal==="lose"){
-    calcText+=`<p>Rein rechnerisch startet die sanfte Stufe bei etwa <b>${stage1} kcal pro Tag</b>: ${round10(tdee)} − ${round10(tdee-stage1)} = ca. ${stage1} kcal. Ziel ist nicht maximaler Mangel, sondern eine Struktur, die du tatsächlich leben kannst.</p>`;
-    if(strongSafety) calcText+=`<div class="notice warn"><b>Für dich besonders wichtig:</b> Weil du bei den Gesundheitsfragen einen sensiblen Punkt angegeben hast, ist dieser Wert eine Rechengröße und nicht automatisch eine persönliche Empfehlung. Prüfe vor einer deutlichen Kalorienreduktion, was in deiner konkreten Situation sinnvoll ist.</div>`;
+    if(strongSafety){
+      calcText+=`<div class="notice warn"><b>Für dich wird hier bewusst kein automatisches Kaloriendefizit festgelegt.</b><br>Du hast einen gesundheitlichen Punkt angegeben, bei dem eine individuelle medizinische oder ernährungsmedizinische Einschätzung sinnvoll ist. Der geschätzte Energiebedarf kann dir als Gesprächs- und Strukturhilfe dienen; eine gezielte Kalorienreduktion sollte an deine konkrete Situation angepasst werden.</div>`;
+    } else {
+      calcText+=`<p>Rein rechnerisch startet die sanfte Stufe bei etwa <b>${stage1} kcal pro Tag</b>: ${round10(tdee)} − ${round10(tdee-stage1)} = ca. ${stage1} kcal. Ziel ist nicht maximaler Mangel, sondern eine Struktur, die du tatsächlich leben kannst.</p>`;
+    }
   } else if(goal==="maintain") calcText+=`<p>Du möchtest dein Gewicht halten. Deshalb arbeitet der Plan ungefähr in deinem Erhaltungsbereich und nicht mit einem Abnehmdefizit.</p>`;
-  else if(goal==="gain") calcText+=`<p>Für Gewichtszunahme arbeitet diese Version mit einem kleinen Energieaufschlag. Nutze bei den Rezepten entsprechend die größere Portion der Sättigungsbeilage.</p>`;
+  else if(goal==="gain") calcText+=`<p>Für Gewichtszunahme arbeitet dein Plan mit einem kleinen Energieaufschlag. Nutze bei den Rezepten entsprechend die größere Portion der Sättigungsbeilage.</p>`;
   document.getElementById("calorieExplanation").innerHTML=calcText;
 
-  if(goal==="lose"){
+  if(goal==="lose" && !strongSafety){
     document.getElementById("deficitStages").innerHTML=`
       <h3>Deine drei möglichen Stufen</h3>
       <div class="grid3">
@@ -957,7 +959,8 @@ function generateResults(){
   document.getElementById("proteinResult").innerHTML=`
     <p>Dein momentaner Orientierungsbereich liegt bei ungefähr <b>${pLow}–${pHigh} g Protein pro Tag</b>.</p>
     <p>Bei Gewichtsreduktion legen wir den Fokus bewusst auf ausreichend Protein, damit Sättigung und insbesondere der Erhalt von Muskelmasse mitgedacht werden.</p>
-    <div class="notice"><b>Praktisch gedacht:</b> Bei drei Hauptmahlzeiten kann das grob etwa ${Math.round(pHigh*.28)}–${Math.round(pHigh*.32)} g morgens, ${Math.round(pHigh*.28)}–${Math.round(pHigh*.32)} g mittags und ${Math.round(pHigh*.35)}–${Math.round(pHigh*.40)} g abends bedeuten. Ein Snack oder Shake kann bei Bedarf einen Teil davon übernehmen.</div>`;
+    <div class="notice"><b>Praktisch gedacht:</b> Bei drei Hauptmahlzeiten kann das grob etwa ${Math.round(pHigh*.28)}–${Math.round(pHigh*.32)} g morgens, ${Math.round(pHigh*.28)}–${Math.round(pHigh*.32)} g mittags und ${Math.round(pHigh*.35)}–${Math.round(pHigh*.40)} g abends bedeuten. Ein Snack oder Shake kann bei Bedarf einen Teil davon übernehmen.</div>
+    ${strongSafety?`<div class="notice warn"><b>Bitte individuell abstimmen:</b> Bei Schwangerschaft/Stillzeit, Nieren- oder Lebererkrankungen, einer aktuellen Essstörung, akuten Erkrankungen oder einer medizinisch verordneten Spezialdiät kann dein persönlicher Bedarf abweichen.</div>`:""}`;
 
   let rhythm="";
   const meals=+val("meals")||3;
