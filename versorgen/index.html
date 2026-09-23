@@ -61,6 +61,13 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .tag{font-size:.78rem;background:#f1ede6;border-radius:999px;padding:4px 8px;white-space:nowrap;display:inline-block;margin:3px 4px 3px 0}
 .product-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 11px;margin:4px 5px 4px 0;font-weight:700;font-size:.92rem}
 .product-chip.advisor{border-style:dashed}
+.product-chip.warning-chip{background:#fff8e8;border-color:#d4b06f}
+.theme-card{border:1px solid var(--line);border-radius:18px;padding:17px;background:#faf8f4;margin:12px 0}
+.theme-card h3{margin:0 0 7px}
+.theme-card p{margin:6px 0 10px}
+.mini-warning{font-size:.82rem;color:#775d2d;margin-top:7px}
+.print-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+@media(max-width:760px){.print-tools{grid-template-columns:1fr}}
 .month-card{border:1px solid var(--line);border-radius:18px;padding:18px;background:#fff;margin:12px 0}
 .month-num{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:800}
 .month-card h3{margin:6px 0 8px}
@@ -141,7 +148,6 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
     <section class="step active" data-step="0">
       <div class="brand">Schritt 1</div>
       <h2>Für wen möchtest du VERSORGEN nutzen?</h2>
-      <p class="lead">Jeder Weg ist anders. Deshalb verzweigt VERSORGEN direkt in einen eigenen Fragebogen für Erwachsene, Kinder oder Tiere.</p>
       <div class="sex-choice">
         <label><input type="radio" name="audience" value="male"> Mann</label>
         <label><input type="radio" name="audience" value="female"> Frau</label>
@@ -336,19 +342,19 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
       <div class="actions"><button class="secondary" type="button" onclick="prevStep()">Zurück</button><button class="primary" type="button" onclick="nextStep()">Weiter</button></div>
     </section>
 
-    <section class="step" data-step="7">
-      <div class="brand">Haut · Haare · Bindegewebe</div>
-      <h2>Was möchtest du von innen unterstützen?</h2>
+    <section class="step" data-step="7" id="beautyStep">
+      <div class="brand" id="beautyBrand">Haut · Haare · Bindegewebe</div>
+      <h2 id="beautyTitle">Was möchtest du von innen unterstützen?</h2>
       <div class="choice-grid">
-        <div class="choice"><label><input type="checkbox" name="beautyTopics" value="dry_skin"> Trockene Haut</label></div>
-        <div class="choice"><label><input type="checkbox" name="beautyTopics" value="impure"> Unreine Haut</label></div>
-        <div class="choice"><label><input type="checkbox" name="beautyTopics" value="elasticity"> Elastizität / Bindegewebe</label></div>
-        <div class="choice"><label><input type="checkbox" name="beautyTopics" value="aging"> Falten / Healthy Aging</label></div>
-        <div class="choice"><label><input type="checkbox" name="beautyTopics" value="cellulite"> Cellulite / Gewebestruktur</label></div>
-        <div class="choice"><label><input type="checkbox" name="beautyTopics" value="hair"> Haare</label></div>
-        <div class="choice"><label><input type="checkbox" name="beautyTopics" value="hair_loss"> Haarausfall / dünnes Haar</label></div>
-        <div class="choice"><label><input type="checkbox" name="beautyTopics" value="nails"> Brüchige Nägel</label></div>
-        <div class="choice"><label><input type="checkbox" name="beautyTopics" value="external_care"> Äußere Haut-/Haarpflege interessiert mich</label></div>
+        <div class="choice beauty-female-only"><label><input type="checkbox" name="beautyTopics" value="dry_skin"> Trockene Haut</label></div>
+        <div class="choice beauty-female-only"><label><input type="checkbox" name="beautyTopics" value="impure"> Unreine Haut</label></div>
+        <div class="choice beauty-female-only"><label><input type="checkbox" name="beautyTopics" value="elasticity"> Elastizität / Bindegewebe</label></div>
+        <div class="choice beauty-female-only"><label><input type="checkbox" name="beautyTopics" value="aging"> Falten / Healthy Aging</label></div>
+        <div class="choice beauty-female-only"><label><input type="checkbox" name="beautyTopics" value="cellulite"> Cellulite / Gewebestruktur</label></div>
+        <div class="choice"><label><input type="checkbox" name="beautyTopics" value="hair"> Haare / Haarqualität</label></div>
+        <div class="choice"><label><input type="checkbox" name="beautyTopics" value="hair_loss"> Haarausfall / dünner werdendes Haar</label></div>
+        <div class="choice beauty-female-only"><label><input type="checkbox" name="beautyTopics" value="nails"> Brüchige Nägel</label></div>
+        <div class="choice beauty-female-only"><label><input type="checkbox" name="beautyTopics" value="external_care"> Äußere Haut-/Haarpflege interessiert mich</label></div>
         <div class="choice"><label><input type="checkbox" name="beautyTopics" value="none"> Kein Schwerpunkt</label></div>
       </div>
       <div class="actions"><button class="secondary" type="button" onclick="prevStep()">Zurück</button><button class="primary" type="button" onclick="nextStep()">Weiter</button></div>
@@ -561,12 +567,11 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
 
     <section class="step" data-step="20">
       <div class="brand">Kind · Ausgangslage</div>
-      <h2>Ein kurzer Kinder-Kompass</h2>
-      <p class="lead">Bei Kindern halten wir den Weg bewusst einfach: zuerst Grundversorgung, danach nur bei Bedarf einzelne Schwerpunkte gemeinsam mit dem Berater anschauen.</p>
+      <h2>Deine Angaben</h2>
       <div class="grid">
         <div><label>Vorname <span class="hint">(optional)</span></label><input name="childName" placeholder="z. B. Mia"></div>
         <div><label>Alter</label><input name="childAge" type="number" min="1" max="17" step="1" placeholder="z. B. 8"></div>
-        <div><label>Gewicht in kg <span class="hint">(optional)</span></label><input name="childWeight" type="number" min="8" max="120" step="0.1"></div>
+        <div><label>Gewicht in kg <span class="hint">(optional)</span></label><input name="childWeight" type="number" min="5" max="150" step="0.1"></div>
         <div><label>Kann dein Kind Kapseln sicher schlucken?</label><select name="childCaps"><option value="no">Nein / lieber flüssig oder Kauform</option><option value="yes">Ja</option></select></div>
       </div>
       <label>Wie möchtest du finanziell starten?</label>
@@ -620,30 +625,70 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
       <div class="brand">Tier · Ausgangslage</div>
       <h2>Für welches Tier möchtest du schauen?</h2>
       <div class="grid">
-        <div><label>Tierart</label><select name="petType"><option value="dog">Hund</option><option value="cat">Katze</option><option value="other">Anderes Tier</option></select></div>
-        <div><label>Alter in Jahren <span class="hint">(optional)</span></label><input name="petAge" type="number" min="0" max="30" step="0.5"></div>
-        <div><label>Gewicht in kg <span class="hint">(optional)</span></label><input name="petWeight" type="number" min="0.5" max="120" step="0.1"></div>
+        <div><label>Tierart</label><select name="petType"><option value="dog">Hund</option><option value="cat">Katze</option><option value="horse">Pferd</option></select></div>
+        <div><label>Alter in Jahren <span class="hint">(optional)</span></label><input name="petAge" type="number" min="0" max="45" step="0.5"></div>
+        <div><label>Gewicht in kg <span class="hint">(optional)</span></label><input name="petWeight" type="number" min="0.5" max="1200" step="0.1"></div>
         <div><label>Name <span class="hint">(optional)</span></label><input name="petName"></div>
       </div>
       <div class="actions"><button class="secondary" type="button" onclick="prevStep()">Zurück</button><button class="primary" type="button" onclick="nextStep()">Weiter</button></div>
     </section>
 
     <section class="step" data-step="31">
-      <div class="brand">Tier · Schwerpunkte</div>
+      <div class="brand">Hund</div>
       <h2>Was möchtest du unterstützen?</h2>
       <div class="choice-grid">
-        <div class="choice"><label><input type="checkbox" name="petTopics" value="basis"> Allgemeine Basis / Vitalität</label></div>
-        <div class="choice"><label><input type="checkbox" name="petTopics" value="digestion"> Verdauung / Darm</label></div>
-        <div class="choice"><label><input type="checkbox" name="petTopics" value="coprophagia"> Frisst Kot / auffälliges Fressverhalten</label></div>
-        <div class="choice"><label><input type="checkbox" name="petTopics" value="joints"> Gelenke / Beweglichkeit</label></div>
-        <div class="choice"><label><input type="checkbox" name="petTopics" value="calm"> Unruhe / Stress</label></div>
-        <div class="choice"><label><input type="checkbox" name="petTopics" value="skin"> Haut / Fell / Omega</label></div>
-        <div class="choice"><label><input type="checkbox" name="petTopics" value="care"> Äußere Pflege</label></div>
+        <div class="choice"><label><input type="checkbox" name="dogTopics" value="basis"> Allgemeine Basis / Vitalität</label></div>
+        <div class="choice"><label><input type="checkbox" name="dogTopics" value="digestion"> Verdauung / Darm</label></div>
+        <div class="choice"><label><input type="checkbox" name="dogTopics" value="coprophagia"> Frisst Kot / auffälliges Fressverhalten</label></div>
+        <div class="choice"><label><input type="checkbox" name="dogTopics" value="joints"> Gelenke / Beweglichkeit</label></div>
+        <div class="choice"><label><input type="checkbox" name="dogTopics" value="calm"> Unruhe / Stress</label></div>
+        <div class="choice"><label><input type="checkbox" name="dogTopics" value="skin"> Haut / Fell / Fettsäuren</label></div>
+        <div class="choice"><label><input type="checkbox" name="dogTopics" value="outdoor"> Viel Wald / Outdoor / Insekten- & Parasitenmanagement</label></div>
+        <div class="choice"><label><input type="checkbox" name="dogTopics" value="dental"> Zahnpflege</label></div>
+        <div class="choice"><label><input type="checkbox" name="dogTopics" value="snack"> Snack / Belohnung</label></div>
       </div>
-      <label>Bestehen Erkrankungen oder bekommt dein Tier Medikamente?</label>
-      <select name="petMedical"><option value="no">Nein / nichts bekannt</option><option value="yes">Ja</option></select>
-      <div class="notice"><b>Tier-Produkte werden separat betrachtet.</b> Die LifePlus-Pets-Serie ist speziell für Tiere entwickelt. Daily BioBasics kann in unserem Erfahrungsbereich zusätzlich auftauchen, ist aber kein speziell für Tiere entwickeltes Produkt und wird deshalb immer individuell abgestimmt.</div>
-      <div class="actions"><button class="secondary" type="button" onclick="prevStep()">Zurück</button><button class="primary" type="button" onclick="buildResults()">Tier-Auswertung erstellen</button></div>
+      <label>Bestehen Erkrankungen oder bekommt dein Hund Medikamente?</label>
+      <select name="dogMedical"><option value="no">Nein / nichts bekannt</option><option value="yes">Ja</option></select>
+      <div class="actions"><button class="secondary" type="button" onclick="prevStep()">Zurück</button><button class="primary" type="button" onclick="buildResults()">Auswertung erstellen</button></div>
+    </section>
+
+    <section class="step" data-step="32">
+      <div class="brand">Katze</div>
+      <h2>Was möchtest du unterstützen?</h2>
+      <div class="choice-grid">
+        <div class="choice"><label><input type="checkbox" name="catTopics" value="basis"> Allgemeine Basis / Versorgung</label></div>
+        <div class="choice"><label><input type="checkbox" name="catTopics" value="skin"> Haut / Fell / trockene Haut</label></div>
+        <div class="choice"><label><input type="checkbox" name="catTopics" value="joints"> Gelenke / Beweglichkeit</label></div>
+        <div class="choice"><label><input type="checkbox" name="catTopics" value="older"> Ältere Katze / altersbedingte Unterstützung</label></div>
+      </div>
+      <label>Bestehen Erkrankungen oder bekommt deine Katze Medikamente?</label>
+      <select name="catMedical"><option value="no">Nein / nichts bekannt</option><option value="yes">Ja</option></select>
+      <div class="notice small-note">Alter, Gewicht, Fütterung und Stoffwechsel spielen bei Katzen eine große Rolle. Deshalb werden hier nur mögliche Produktbereiche gezeigt; Menge und Kombination werden individuell abgestimmt.</div>
+      <div class="actions"><button class="secondary" type="button" onclick="prevStep()">Zurück</button><button class="primary" type="button" onclick="buildResults()">Auswertung erstellen</button></div>
+    </section>
+
+    <section class="step" data-step="33">
+      <div class="brand">Pferd</div>
+      <h2>Welche Basis und welche Schwerpunkte passen?</h2>
+      <label>Gewünschter Umfang der Grundversorgung</label>
+      <div class="choice-grid three">
+        <div class="choice"><label><input type="radio" name="horseBase" value="XS"> XS · Basis</label></div>
+        <div class="choice"><label><input type="radio" name="horseBase" value="S"> S · erweiterte Basis</label></div>
+        <div class="choice"><label><input type="radio" name="horseBase" value="M"> M · breite Basis</label></div>
+      </div>
+      <label>Gibt es einen besonderen Schwerpunkt?</label>
+      <div class="choice-grid">
+        <div class="choice"><label><input type="checkbox" name="horseTopics" value="hardkeeper"> Schwerfuttrigkeit / schwer zuzunehmen</label></div>
+        <div class="choice"><label><input type="checkbox" name="horseTopics" value="muscle"> Muskelaufbau</label></div>
+        <div class="choice"><label><input type="checkbox" name="horseTopics" value="weightgain"> Gewichtszunahme</label></div>
+        <div class="choice"><label><input type="checkbox" name="horseTopics" value="skin"> Haut / Fell</label></div>
+        <div class="choice"><label><input type="checkbox" name="horseTopics" value="mauke"> Mauke / wiederkehrende Hautthemen</label></div>
+        <div class="choice"><label><input type="checkbox" name="horseTopics" value="joints"> Gelenke / Beweglichkeit</label></div>
+        <div class="choice"><label><input type="checkbox" name="horseTopics" value="arthrosis"> Arthrose / ausgeprägter Gelenkschwerpunkt</label></div>
+      </div>
+      <label>Bestehen Erkrankungen oder bekommt dein Pferd Medikamente?</label>
+      <select name="horseMedical"><option value="no">Nein / nichts bekannt</option><option value="yes">Ja</option></select>
+      <div class="actions"><button class="secondary" type="button" onclick="prevStep()">Zurück</button><button class="primary" type="button" onclick="buildResults()">Auswertung erstellen</button></div>
     </section>
   </form>
 
@@ -694,16 +739,12 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
     </div>
 
     <div class="result-block">
-      <h2>Produkte, die für deinen weiteren Weg interessant sein könnten</h2>
-      <p>Diese Auswahl basiert auf deinen Antworten. Sie bedeutet <b>nicht</b>, dass du alle Produkte jetzt einnehmen sollst. Sie zeigt dir, welche Produkte nach deiner dreimonatigen Grundphase – oder bei einem besonders starken Schwerpunkt eventuell früher – gemeinsam mit deinem Mentor genauer angeschaut werden können.</p>
-      <div id="futureProducts"></div>
-      <details class="info-box" id="moreProductsBox">
-        <summary>Weitere mögliche Produkte anzeigen</summary>
-        <div class="details-body" id="moreProducts"></div>
-      </details>
+      <h2>Deine persönlichen Themen für danach</h2>
+      <p>Hier siehst du nicht einfach eine lange Produktliste, sondern <b>warum</b> bestimmte Produkte für dich später interessant sein könnten. Du musst nicht alles gleichzeitig nehmen. Nach den ersten drei Monaten wird gemeinsam mit deinem Mentor neu geschaut, welche Themen überhaupt noch relevant sind.</p>
+      <div id="themeRecommendations"></div>
       <div class="notice">
         <b>Einnahme, Menge und Dauer gehören in die persönliche Beratung.</b><br>
-        Welche Produkte tatsächlich sinnvoll sind, wie viele davon gleichzeitig passen, wie lange sie eingesetzt werden und welche Einnahmemenge zu dir gehört, besprichst du mit deinem Mentor oder Berater. Er hat außerdem Zugang zu Produkt-Zooms, Aufzeichnungen, Live-Events und weiterführenden Informationen.
+        Diese Auswahl ist eine Orientierung und kein Einnahmeplan. Welche Produkte wirklich Priorität haben, wie sie kombiniert werden und wie lange sie eingesetzt werden, besprichst du mit deinem Mentor. Er hat außerdem Zugang zu Produkt-Zooms, Aufzeichnungen, Live-Events und weiterführenden Informationen.
       </div>
     </div>
 
@@ -740,12 +781,13 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
     </div>
 
     <div class="result-block">
-      <h2>Dein nächster Schritt: zurück zu deinem Mentor</h2>
-      <p>Dieser Kompass ist eine Einstiegshilfe und eine Orientierung – er soll die persönliche Begleitung nicht ersetzen. Wenn dir jemand diesen Zugang empfohlen, geschickt oder LifePlus ursprünglich gezeigt hat, ist genau diese Person dein erster Ansprechpartner.</p>
-      <p>Uns ist wichtig, bestehende Beziehungen zu stärken. Niemand ist „besser“ oder „schlechter“. Jeder Mentor bringt seine eigene Erfahrung, seine Geschichte und seine Art der Begleitung mit. Vielleicht war genau dieser Mensch in dem Moment da, in dem du offen für diesen Weg warst.</p>
-      <p><b>Nimm deshalb deine Auswertung mit zu deinem Mentor.</b> Gemeinsam könnt ihr entscheiden, was jetzt wirklich sinnvoll ist, welche Produkte später dazukommen, wie lange sie eingesetzt werden und wann wieder reduziert wird.</p>
+      <h2>Was machst du jetzt mit deiner Auswertung?</h2>
+      <p><b>Wenn du den Kompass gemeinsam mit deinem Mentor oder Berater gemacht hast:</b> Perfekt. Dann könnt ihr euch jetzt direkt zusammensetzen und gemeinsam entscheiden, womit du startest.</p>
+      <p><b>Wenn du den Kompass alleine ausgefüllt hast:</b> Speichere deine Auswertung und melde dich jetzt bei der Person, von der du diesen Zugang erhalten hast. Schick ihr deinen Bogen oder geht ihn gemeinsam durch.</p>
+      <p>Wir starten grundsätzlich mit der Grundversorgung und dem 3-Monats-Fundament. Wenn sich bereits zu Beginn ein besonders ausgeprägter Schwerpunkt zeigt, kann gemeinsam entschieden werden, ob ein einzelnes zusätzliches Produkt früher dazukommt.</p>
+      <p>Dein Mentor hilft dir anschließend bei Priorität, Produktauswahl, Kombination, Einnahme und Dauer und kann dir die passenden Produkt-Zooms, Aufzeichnungen und Live-Informationen zur Verfügung stellen.</p>
       <blockquote style="margin:18px 0;padding:14px 16px;border-left:4px solid var(--accent);background:var(--soft);border-radius:10px"><b>Der Kompass gibt Orientierung. Die persönliche Begleitung macht daraus deinen Weg.</b></blockquote>
-      <p class="small-note">Du möchtest zu einem Produkt mehr wissen? Frag deinen Mentor nach Produkt-Zooms, Aufzeichnungen oder dem nächsten Live-Event. So bekommst du genau die Informationen, die zu deiner Situation passen.</p>
+      <div class="notice blue"><b>Hier gibt es bewusst keinen Bestelllink.</b><br>Dein Berater begleitet auch die erste Anmeldung und Bestellung und erklärt dir die wichtigen Möglichkeiten wie Shopper, Member, Sponsor-Zuordnung und – wenn relevant – ASAP bzw. die passenden Bestelloptionen. So wird dein Einstieg von Anfang an richtig eingerichtet.</div>
     </div>
 
     <div class="result-block">
@@ -791,7 +833,9 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
 
     <div class="result-actions no-print">
       <button class="secondary" type="button" onclick="editAnswers()">Antworten ändern</button>
-      <button class="primary" type="button" onclick="window.print()">Auswertung als PDF speichern</button>
+      <button class="primary" type="button" onclick="window.print()">Gesamte Auswertung als PDF speichern</button>
+      <button class="ghost" type="button" onclick="printStartEvaluation()">Meine Start-Auswertung drucken</button>
+      <button class="ghost" type="button" onclick="printTrackingSheet()">12-Monats-Verlaufsbogen drucken</button>
       <button class="ghost wide" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})">Nach oben</button>
     </div>
 
@@ -804,55 +848,51 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
   <section id="childResults" class="card hidden results-section">
     <div class="brand">Kinder · persönliche Orientierung</div>
     <h1>VERSORGEN</h1>
-    <p class="lead" id="childIntro"></p>
     <div id="childSafetyBanner"></div>
     <div class="result-block">
-      <h2>Die Kinder-Basis</h2>
-      <p>Bei Kindern halten wir die Grundversorgung bewusst einfach. Je nach Budget wird die Basis stufenweise aufgebaut. Omega wird zusätzlich an Alter und daran angepasst, ob Kapseln sicher geschluckt werden können.</p>
+      <h2>Deine Kinder-Basis</h2>
+      <p>Auf Grundlage der Angaben wurde eine passende Basis zusammengestellt. Welche Variante sinnvoll ist, richtet sich unter anderem nach Alter, Ernährung, Schluckfähigkeit und Budget.</p>
       <div id="childBaseProducts"></div>
       <p class="small-note">Die konkrete Einnahmemenge wird nicht automatisch festgelegt. Bitte Etikett, Alter und individuelle Situation mit deinem Berater abstimmen.</p>
     </div>
     <div class="result-block" id="childExtrasBlock">
-      <h2>Zusätzliche Produkte, die ihr mit dem Berater anschauen könnt</h2>
+      <h2>Zusätzliche Bereiche für das Beratungsgespräch</h2>
       <div id="childExtraProducts"></div>
-      <p>Diese Produkte sind keine automatische Behandlung einer Diagnose. Sie zeigen nur, welche Bereiche aufgrund der Antworten im persönlichen Gespräch noch einmal angeschaut werden können.</p>
+      <p>Diese Produkte sind keine automatische Behandlung einer Diagnose. Sie zeigen, welche Bereiche aufgrund der Antworten im persönlichen Gespräch noch einmal angeschaut werden können.</p>
     </div>
     <div class="result-block">
-      <h2>Besondere Themen brauchen persönliche Begleitung</h2>
-      <p>Bei Konzentrations- oder Lernschwierigkeiten, ADHS/ADS, starken Bauchbeschwerden, Medikamenten oder anderen Diagnosen soll die Produktauswahl immer individuell besprochen werden. Dein Berater kann zusätzlich Produkt-Zooms, Aufzeichnungen und weitere Informationen bereitstellen.</p>
-      <blockquote style="margin:18px 0;padding:14px 16px;border-left:4px solid var(--accent);background:var(--soft);border-radius:10px"><b>Die Basis darf einfach sein. Alles Weitere wird persönlich passend gemacht.</b></blockquote>
-    </div>
-    <div class="result-block">
-      <h2>Zurück zu deinem Mentor</h2>
-      <p>Bitte nimm diese Auswertung mit zu der Person, die euch den Zugang gegeben hat. Sie kann mit euch die genaue Auswahl, Dauer und Einnahme besprechen. Bei medizinischen Diagnosen, Medikamenten oder anhaltenden Beschwerden gehört zusätzlich die behandelnde Fachperson dazu.</p>
+      <h2>Was ist jetzt der nächste Schritt?</h2>
+      <p>Wenn ihr den Kompass gemeinsam mit eurem Berater gemacht habt, könnt ihr die Empfehlung direkt zusammen auswerten. Wenn ihr ihn alleine gemacht habt, speichert die Auswertung und schickt sie an die Person, von der ihr den Zugang erhalten habt.</p>
+      <p>Gerade bei Kindern werden Eignung, Kombination und Menge individuell festgelegt. Bei Diagnosen, Medikamenten oder anhaltenden Beschwerden gehört zusätzlich die behandelnde Fachperson dazu.</p>
+      <div class="notice blue"><b>Hier gibt es bewusst keinen Bestelllink.</b><br>Die Produktauswahl und – wenn ihr neu bei LifePlus seid – auch Anmeldung und erste Bestellung werden gemeinsam mit eurem Berater abgestimmt.</div>
     </div>
     <div class="result-actions no-print"><button class="secondary" type="button" onclick="editAnswers()">Antworten ändern</button><button class="primary" type="button" onclick="window.print()">Auswertung als PDF speichern</button></div>
     <div class="result-block" style="border-top:0"><p class="small-note"><i>Du hast keinen Mentor und bist direkt über meine eigenen Kanäle hierhergekommen? Dann kannst du dich gerne direkt an mich wenden. Wenn ihr bereits einen Mentor oder Sponsor habt, bleibt bitte bei dieser Person.</i></p></div>
   </section>
 
   <section id="petResults" class="card hidden results-section">
-    <div class="brand">LifePlus Pets · persönliche Orientierung</div>
+    <div class="brand" id="petResultBrand">Tier · persönliche Orientierung</div>
     <h1>VERSORGEN</h1>
-    <p class="lead" id="petIntro"></p>
     <div id="petSafetyBanner"></div>
     <div class="result-block">
-      <h2>Passende Produkte aus der Pets-Serie</h2>
+      <h2 id="petMainHeading">Deine möglichen Produktbereiche</h2>
       <div id="petProducts"></div>
     </div>
     <div class="result-block" id="petDailyBlock">
-      <h2>Zusätzliche Beratungsoption</h2>
+      <h2 id="petExtraHeading">Zusätzliche Beratungsoptionen</h2>
       <div id="petDailyProduct"></div>
-      <p class="small-note">Daily BioBasics ist ein Humanprodukt und kein speziell für Tiere entwickeltes Produkt. Wenn es im Erfahrungsbereich zusätzlich genutzt wird, werden Eignung und Menge individuell mit Berater und bei gesundheitlichen Themen mit dem Tierarzt abgestimmt.</p>
     </div>
     <div class="result-block">
-      <h2>Persönlich abstimmen</h2>
-      <p>Tierart, Alter, Gewicht, Fütterung und gesundheitliche Situation machen einen großen Unterschied. Deshalb zeigt dir dieser Zweig nur die passenden Produktbereiche. Die genaue Anwendung besprichst du mit deinem Berater; bei Erkrankungen, Medikamenten, Schmerzen oder anhaltenden Beschwerden bitte zusätzlich tierärztlich abklären.</p>
+      <h2>Was ist jetzt der nächste Schritt?</h2>
+      <p>Alter, Gewicht, Fütterung, Aktivität und gesundheitliche Situation können bei Tieren einen großen Unterschied machen. Deshalb zeigt dir dieser Zweig Produktbereiche, aber keine pauschale Dosierung.</p>
+      <p>Speichere die Auswertung und besprich sie mit der Person, von der du diesen Zugang erhalten hast. Dein Berater kann mit dir Auswahl, Kombination und Menge festlegen. Bei Erkrankungen, Medikamenten, Schmerzen oder anhaltenden Beschwerden bitte zusätzlich tierärztlich abklären.</p>
+      <div class="notice blue"><b>Hier gibt es bewusst keinen Bestelllink.</b><br>Die Auswertung ist die Grundlage für die anschließende Beratung und Bestellung über deinen Ansprechpartner.</div>
     </div>
     <div class="result-actions no-print"><button class="secondary" type="button" onclick="editAnswers()">Antworten ändern</button><button class="primary" type="button" onclick="window.print()">Auswertung als PDF speichern</button></div>
     <div class="result-block" style="border-top:0"><p class="small-note"><i>Du hast keinen Mentor und bist direkt über meine eigenen Kanäle hierhergekommen? Dann kannst du dich gerne direkt an mich wenden. Wenn ihr bereits einen Mentor oder Sponsor habt, bleibt bitte bei dieser Person.</i></p></div>
   </section>
 
-  <div class="footer">Zurück zu dir · WIRKFELDER · VERSORGEN · Testversion V2</div>
+  <div class="footer">Zurück zu dir · WIRKFELDER · VERSORGEN · Testversion V3</div>
 </div>
 </div>
 
@@ -881,14 +921,28 @@ function visibleStepOrder(){
   if(a==='female') return [0,1,2,3,4,5,6,7,8,9,10,11,12,13];
   if(a==='male') return [0,2,3,4,5,6,7,8,9,10,11,12,13];
   if(a==='child') return [0,20,21,22];
-  if(a==='pet') return [0,30,31];
+  if(a==='pet'){
+    const t=val('petType')||'dog';
+    if(t==='cat') return [0,30,32];
+    if(t==='horse') return [0,30,33];
+    return [0,30,31];
+  }
   return [0];
+}
+function configureAudienceUI(){
+  const male=getAudience()==='male';
+  document.querySelectorAll('.beauty-female-only').forEach(el=>el.classList.toggle('hidden',male));
+  const title=document.getElementById('beautyTitle');
+  const brand=document.getElementById('beautyBrand');
+  if(title) title.textContent=male?'Gibt es ein Thema rund um deine Haare?':'Was möchtest du von innen unterstützen?';
+  if(brand) brand.textContent=male?'Haare':'Haut · Haare · Bindegewebe';
 }
 function showStep(stepNum){
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
   const el=document.querySelector(`.step[data-step="${stepNum}"]`);
   if(el) el.classList.add('active');
   currentStep=stepNum;
+  configureAudienceUI();
   updateProgress();
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -1004,7 +1058,12 @@ const PRODUCTS = {
   petsMove:{name:'LifePlus Pets Move', tags:['pets','joints']},
   petsDigest:{name:'LifePlus Pets Digest', tags:['pets','gut']},
   petsCare:{name:'LifePlus Pets Care & Comfort', tags:['pets','care']},
-  petsAhi:{name:'LifePlus Pets Ahiflower Oil', tags:['pets','omega','skin']}
+  petsAhi:{name:'LifePlus Pets Ahiflower Oil', tags:['pets','omega','skin']},
+  petsBasics:{name:'LifePlus Pets Basics', tags:['pets','base'], advisor:true, availability:true},
+  petsShine:{name:'LifePlus Pets Shine', tags:['pets','skin'], advisor:true, availability:true},
+  petsDental:{name:'LifePlus Pets Dental', tags:['pets','care'], advisor:true, availability:true},
+  petsBiscuits:{name:'LifePlus Pets Peanut Butter Biscuits', tags:['pets','snack']},
+  colloidalSilver:{name:'Kolloidales Silber', tags:['skin','horse'], advisor:true, availability:true}
 };
 
 function pickBasis(){
@@ -1171,79 +1230,110 @@ function buildProductScores(){
   if(val('ironStatus')!=='yes') delete p.iron;
   if(safety.includes('liver')||safety.includes('other')) delete p.ryr;
   if(safety.includes('kidney')) ['phplus','calmag','micromins'].forEach(k=>delete p[k]);
-  if(herpes==='yes'){ Object.keys(p).forEach(k=>{ if(PRODUCTS[k]?.arginine) delete p[k]; }); }
 
   return p;
 }
 
-function renderChip(name,advisor=false){return `<span class="product-chip${advisor?' advisor':''}">${name}</span>`}
-
+function renderChip(name,advisor=false,warning=false){
+  return `<span class="product-chip${advisor?' advisor':''}${warning?' warning-chip':''}">${warning?'⚠️ ':''}${name}</span>`;
+}
+function renderProductKey(k){
+  const p=PRODUCTS[k]; if(!p) return '';
+  const warning=val('herpes')==='yes' && p.arginine;
+  return renderChip(p.name,p.advisor||p.highCheck||p.lab||p.availability,warning);
+}
 function rankedProducts(){
   const scores=buildProductScores();
-  return Object.entries(scores)
-    .filter(([k,v])=>PRODUCTS[k] && v>0)
-    .sort((a,b)=>b[1]-a[1] || PRODUCTS[a[0]].name.localeCompare(PRODUCTS[b[0]].name,'de'));
+  return Object.entries(scores).filter(([k,v])=>PRODUCTS[k]&&v>0).sort((a,b)=>b[1]-a[1]||PRODUCTS[a[0]].name.localeCompare(PRODUCTS[b[0]].name,'de'));
 }
-
 function sportProductKeys(){
   const ranked=rankedProducts();
-  return ranked.filter(([k])=>PRODUCTS[k].tags.includes('sport')).slice(0,7).map(([k])=>k);
+  return ranked.filter(([k])=>PRODUCTS[k].tags.includes('sport')).slice(0,8).map(([k])=>k);
+}
+function safeKeys(keys){
+  const scores=buildProductScores();
+  return [...new Set(keys)].filter(k=>PRODUCTS[k] && scores[k]>0);
+}
+function themeCard(title,reason,keys){
+  const clean=safeKeys(keys); if(!clean.length) return '';
+  const herpesWarn=val('herpes')==='yes' && clean.some(k=>PRODUCTS[k].arginine);
+  return `<div class="theme-card"><h3>${title}</h3><p class="small-note">${reason}</p><div>${clean.map(renderProductKey).join('')}</div>${herpesWarn?'<div class="mini-warning">⚠️ Mindestens eines dieser Produkte enthält Arginin/Citrullin. Bei deinem Herpes-Thema bitte nicht automatisch ausschließen, sondern vor der Verwendung mit deinem Berater prüfen und individuell beobachten.</div>':''}</div>`;
+}
+function buildThemeRecommendations(){
+  const groups=[];
+  const gut=vals('gutTopics'), beauty=vals('beautyTopics'), body=vals('bodyTopics'), mind=vals('mindTopics'), vital=vals('vitalTopics'), female=vals('femaleTopics');
+  const protein=val('protein'), diet=val('diet'), needs=vals('foodNeeds'), caffeine=val('caffeine'), stage=val('femaleStage'), sex=getSex();
+  const sport=val('sportFrequency')!=='none';
+  const proteinKey=(diet==='vegan'||needs.includes('vegan_pref'))?'veganProtein':'triple';
+  const add=(key,title,reason,keys)=>groups.push({key,title,reason,keys});
+
+  if(val('herpes')==='yes') add('herpes','Herpes / wiederkehrende Lippenbläschen','Dieser Bereich wurde von dir angegeben. In unserem Beratungssystem wird dabei besonders auf Stress/Nervensystem und auf mögliche Arginin-/Citrullin-Überschneidungen geachtet.',['support','immune','zinc','vitc']);
+  if(mind.includes('tired')||mind.includes('exhausted')) add('energy','Müdigkeit / Energie','Diese Produkte tauchen auf, weil du Müdigkeit oder schnelle Erschöpfung angegeben hast.',['ubiquinol','coq10','support','purpleFlash',...(caffeine==='avoid'?[]:['realnrg','enerxan'])]);
+  if(mind.includes('focus')||vital.includes('brain')) add('focus','Konzentration / Fokus','Diese Produkte werden in unserem System bei mentaler Belastung, Konzentration und Fokus betrachtet.',['brain','support','ubiquinol','coq10']);
+  if(mind.includes('restless')||['high','very_high'].includes(val('stressLevel'))) add('stress','Stress / Nervensystem','Hier geht es um Belastung, innere Unruhe und Regeneration.',['support','calmag','cacao','goldenMilk']);
+  if(mind.includes('sleep')||mind.includes('recovery')) add('sleep','Schlaf / Regeneration','Diese Produkte können im Beratungsgespräch rund um Erholung und Abendroutine betrachtet werden.',['calmag','goldenMilk','cacao']);
+  if(vital.includes('immunity')||['seasonal','often','very_often'].includes(val('immunityLevel'))) add('immunity','Immunsystem / saisonale Unterstützung','Diese Auswahl erscheint, weil du dein Immunsystem als Schwerpunkt angegeben hast.',['immune','zinc','vitc','dk','purpleFlash','biotic']);
+  if(gut.some(x=>['bloat','sensitive','constipation','loose','variable','after_antibiotics'].includes(x))) add('gut','Darm / Verdauung','Diese Produkte werden bei deinen Angaben zu Verdauung und Darm als mögliche Bereiche betrachtet.',['biotic','digestive','cogelin','goldenMilk']);
+  if(gut.includes('cleanse')) add('cleanse','Darmreinigung / Reinigungsphase','Du hast Interesse an einer zusätzlichen Darm-/Reinigungsphase angegeben.',['cogelin','parabalance','biotic','greenMedley']);
+  if(val('urinary')!=='none') add('urinary','Harnwege / Blase','Diesen Bereich hast du als zusätzlichen Schwerpunkt markiert.',['dmannose']);
+  if(sex==='female' && beauty.some(x=>['dry_skin','impure','elasticity','aging','cellulite'].includes(x))) add('beauty','Haut / Bindegewebe / Beauty','Diese Produkte passen zu deinen Angaben rund um Haut, Bindegewebe und Healthy Aging.',['skin','msm','vitc','vite','eveningPrimrose','discovery']);
+  if(beauty.some(x=>['hair','hair_loss','nails'].includes(x))||female.includes('hair')) add('hair','Haare / Nägel','Dieser Bereich wurde von dir ausgewählt.',['zinc','msm',proteinKey,'shampoo','conditioner']);
+  if(body.some(x=>['joints','cartilage','back','stiff','recovery'].includes(x))||female.includes('joints')) add('joints','Gelenke / Bewegungsapparat','Diese Produkte werden bei Gelenken, Beweglichkeit und Regeneration betrachtet.',['joint','msm','lyprinex','vitc','somazyme']);
+  if(body.includes('bones')) add('bones','Knochen / Mineralstoffversorgung','Du hast Knochen bzw. Mineralstoffversorgung als Thema angegeben.',['dk','calmag','micromins']);
+  if(sport) add('sport','Sport / Muskelaufbau / Regeneration','Sport wird zusätzlich zur normalen Alltagsversorgung betrachtet. Welche Produkte du wirklich brauchst, hängt von Trainingsart, Umfang und Ziel ab.',[proteinKey,'beRefueled','beSustained','beRecharged',...(caffeine==='avoid'?[]:['beFocused']),'xcell']);
+  if(protein==='low'||protein==='unknown') add('protein','Proteinversorgung','Du hast angegeben, dass deine Proteinversorgung eher niedrig oder schwer einzuschätzen ist.',[proteinKey,'beRefueled']);
+  if(vital.includes('heart')) add('heart','Herz / Kreislauf / Omega','Dieser Bereich wurde von dir als Schwerpunkt ausgewählt.',['heart','ubiquinol','circulation','epa','vite']);
+  if(vital.includes('cholesterol')) add('cholesterol','Blutfette / Cholesterin','Diese Produkte sind mögliche Gesprächsbereiche; gerade RYR Plus gehört in eine individuelle Prüfung.',['ryr','ubiquinol','coq10','heart']);
+  if(vital.includes('eyes')) add('eyes','Augen / Sehkraft','Dieser Bereich wurde von dir angegeben.',['eye']);
+  if(vital.includes('healthy_age')||val('mainGoal')==='healthy_age'||(+val('age')||0)>=35) add('healthy_age','Healthy Aging / Prävention 35+','Diese Produkte werden im längerfristigen Healthy-Aging- und Zellenergie-Kontext betrachtet.',['ubiquinol','coq10','discovery','xtra','vite']);
+  if(vital.includes('antioxidants')) add('antioxidants','Antioxidantien / Zellschutz','Du möchtest Antioxidantien und Zellschutz stärker berücksichtigen.',['xtra','purpleFlash','vite','pro200']);
+  if(sex==='female' && (stage==='peri'||stage==='meno'||female.includes('hot'))) add('women','Wechseljahre / Frauenbalance','Deine Lebensphase bzw. deine Angaben machen diesen Bereich für das Beratungsgespräch relevant.',['menaplus','eveningPrimrose','calmag','womensGold']);
+  if(sex==='female' && female.includes('heavy_period')) add('iron','Starke Monatsblutung / Eisen im Blick behalten','Eisen wird nicht automatisch ergänzt. Bei entsprechendem Bedarf bzw. passenden Blutwerten kann Iron Plus besprochen werden.',['iron']);
+  if(sex==='male' && (+val('age')||0)>=35) add('men','Männer 35+','Für Männer ab mittlerem Alter können zusätzliche Männer-/Healthy-Aging-Produkte interessant sein.',['mensGold','mensFormula','ubiquinol','lycopin']);
+  if(female.includes('weight')||val('sportGoal')==='weight'||['weight'].includes(val('priority1'))||['weight'].includes(val('priority2'))) add('weight','Gewicht / Stoffwechsel','Diese Produkte können im Rahmen deines Ernährungs-, Protein- und Stoffwechselkonzepts besprochen werden.',[proteinKey,'phaseomine',...(caffeine==='avoid'?[]:['enerxan','realnrg','keytonic'])]);
+
+  const p1=val('priority1'), p2=val('priority2');
+  const orderMap={healthy_age:'healthy_age',sport:'sport',weight:'weight',beauty:'beauty',hair:'hair',gut:'gut',cleanse:'cleanse',joints:'joints',stress:'stress',sleep:'sleep',energy:'energy',focus:'focus',immunity:'immunity',heart:'heart',women:'women',men:'men'};
+  groups.sort((a,b)=>{const aa=a.key===orderMap[p1]?0:a.key===orderMap[p2]?1:2; const bb=b.key===orderMap[p1]?0:b.key===orderMap[p2]?1:2; return aa-bb;});
+  const html=groups.map(g=>themeCard(g.title,g.reason,g.keys)).filter(Boolean).join('');
+  document.getElementById('themeRecommendations').innerHTML=html||'<p class="small-note">Aktuell zeigt sich kein starker zusätzlicher Schwerpunkt. Nach drei Monaten kann trotzdem noch einmal neu geschaut werden.</p>';
 }
 
 function buildAdultResults(){
   const first=val('firstName')||'';
   const introName=first?`${first}, `:'';
   document.getElementById('resultIntro').textContent=`${introName}deine Antworten ergeben eine erste Orientierung für deinen VERSORGEN-Weg. Wir starten bewusst mit einem klaren Fundament und nutzen deine weiteren Angaben als Vorauswahl für die Zeit danach.`;
-
   const basis=pickBasis();
   const safetyNow=vals('safetyTopics');
   const stageNow=val('femaleStage');
-  const manualStart = ['pregnant','breastfeeding'].includes(stageNow) || safetyNow.some(x=>['kidney','liver','anticoagulant','other'].includes(x));
+  const manualStart=['pregnant','breastfeeding'].includes(stageNow)||safetyNow.some(x=>['kidney','liver','anticoagulant','other'].includes(x));
   if(manualStart){
-    document.getElementById('month1Products').innerHTML='<span class="product-chip advisor">Start bitte zuerst persönlich abstimmen</span>';
-    document.getElementById('month2Products').innerHTML='<span class="product-chip advisor">Nach Freigabe passend aufbauen</span>';
-    document.getElementById('month3Products').innerHTML='<span class="product-chip advisor">Grundversorgung individuell festlegen</span>';
+    document.getElementById('month1Products').innerHTML=renderChip('Start bitte zuerst persönlich abstimmen',true);
+    document.getElementById('month2Products').innerHTML=renderChip('Nach Freigabe passend aufbauen',true);
+    document.getElementById('month3Products').innerHTML=renderChip('Grundversorgung individuell festlegen',true);
   }else{
     document.getElementById('month1Products').innerHTML=[basis.pro,basis.omega,'pH Plus','Aloe Vera Caps'].map(x=>renderChip(x)).join('');
     document.getElementById('month2Products').innerHTML=[basis.pro,basis.omega,basis.multi,'MSM Plus'].map(x=>renderChip(x)).join('');
     document.getElementById('month3Products').innerHTML=[basis.pro,basis.omega,basis.multi].map(x=>renderChip(x)).join('');
   }
-
-  const ranked=rankedProducts();
-  const baseNames=new Set([basis.pro,basis.omega,basis.multi,'pH Plus','Aloe Vera Caps','MSM Plus']);
-  const filtered=ranked.filter(([k])=>!baseNames.has(PRODUCTS[k].name));
-  const primary=filtered.slice(0,5);
-  const additional=filtered.slice(5,14);
-  const fp=document.getElementById('futureProducts');
-  if(primary.length){
-    fp.innerHTML=primary.map(([k])=>renderChip(PRODUCTS[k].name,PRODUCTS[k].advisor||PRODUCTS[k].highCheck||PRODUCTS[k].lab)).join('');
-  }else{
-    fp.innerHTML='<p class="small-note">Aktuell zeigt sich kein starker zusätzlicher Schwerpunkt. Nach drei Monaten kann trotzdem noch einmal neu geschaut werden.</p>';
-  }
-  const moreBox=document.getElementById('moreProductsBox');
-  if(additional.length){
-    document.getElementById('moreProducts').innerHTML=additional.map(([k])=>renderChip(PRODUCTS[k].name,PRODUCTS[k].advisor||PRODUCTS[k].highCheck||PRODUCTS[k].lab)).join('');
-    moreBox.classList.remove('hidden');
-  }else moreBox.classList.add('hidden');
+  buildThemeRecommendations();
 
   const sKeys=sportProductKeys();
   const sportBlock=document.getElementById('sportResultBlock');
-  if(val('sportFrequency')!=='none' && sKeys.length){
-    document.getElementById('sportProducts').innerHTML=sKeys.map(k=>renderChip(PRODUCTS[k].name,PRODUCTS[k].advisor)).join('');
+  if(val('sportFrequency')!=='none'&&sKeys.length){
+    document.getElementById('sportProducts').innerHTML=sKeys.map(renderProductKey).join('');
+    if(val('herpes')==='yes'&&sKeys.some(k=>PRODUCTS[k].arginine)) document.getElementById('sportProducts').innerHTML+='<div class="mini-warning">⚠️ Arginin-/Citrullin-haltige Sportprodukte bleiben sichtbar, damit du die Optionen kennst. Bei deinem Herpes-Thema bitte mit dem Berater prüfen und individuell testen.</div>';
     sportBlock.classList.remove('hidden');
   }else sportBlock.classList.add('hidden');
 
-  const safety=vals('safetyTopics');
-  const stage=val('femaleStage');
-  const banners=[];
-  if(safety.length && !safety.includes('none')) banners.push('Du hast gesundheitliche Besonderheiten oder Medikamente angegeben. Bitte prüfe den Start und spätere Zusatzprodukte mit deinem Mentor und – wo nötig – mit Arzt oder Apotheke.');
+  const safety=vals('safetyTopics'), stage=val('femaleStage'), banners=[];
+  if(safety.length&&!safety.includes('none')) banners.push('Du hast gesundheitliche Besonderheiten oder Medikamente angegeben. Bitte prüfe den Start und spätere Zusatzprodukte mit deinem Mentor und – wo nötig – mit Arzt oder Apotheke.');
   if(stage==='pregnant'||stage==='breastfeeding') banners.push('Schwangerschaft bzw. Stillzeit wurde angegeben. Zusätzliche Produkte werden deshalb bewusst zurückhaltend vorgeschlagen und sollten individuell geprüft werden.');
   if(val('iodine')==='yes'||val('iodine')==='unknown') banners.push('Jod ist bei dir ein Prüfthema. Deshalb wird die passende TVM-/Daily-Variante nicht pauschal festgelegt.');
-  if(val('herpes')==='yes') banners.push('Wiederkehrender Herpes wurde angegeben. In unserer Beratungslogik werden bekannte argininhaltige Produkte deshalb nicht automatisch vorgeschlagen und vor einer Verwendung separat geprüft.');
+  if(val('herpes')==='yes') banners.push('Wiederkehrender Herpes wurde angegeben. Arginin-/Citrullin-haltige Produkte werden deshalb sichtbar gekennzeichnet und vor einer Verwendung separat geprüft.');
   const mt=vals('mindTopics');
-  if(mt.includes('depression')||mt.includes('burnout')) banners.push('Starke psychische Belastung, Depression oder Burn-out gehören nicht in eine reine Supplement-Selbstberatung. Die angezeigten Produkte sind nur Gesprächsbereiche und ersetzen keine ärztliche oder therapeutische Begleitung.');
+  if(mt.includes('depression')||mt.includes('burnout')) banners.push('Starke psychische Belastung, Depression oder Burn-out gehören nicht in eine reine Supplement-Selbstberatung. Die angezeigten Produkte sind Gesprächsbereiche und ersetzen keine ärztliche oder therapeutische Begleitung.');
   document.getElementById('safetyBanner').innerHTML=banners.map(t=>`<div class="notice warn"><b>Bitte individuell prüfen:</b><br>${t}</div>`).join('');
-
   document.querySelectorAll('.results-section').forEach(x=>x.classList.add('hidden'));
   document.getElementById('appForm').classList.add('hidden');
   document.getElementById('adultResults').classList.remove('hidden');
@@ -1252,38 +1342,29 @@ function buildAdultResults(){
 }
 
 function childOmega(){
-  const age=+val('childAge')||0;
-  const caps=val('childCaps');
-  return (age>=7 && caps==='yes') ? 'OmeGold' : 'mangOmega / Mango-Omega';
+  const age=+val('childAge')||0, caps=val('childCaps');
+  return (age>=7&&caps==='yes')?'OmeGold':'mangOmega / Mango-Omega';
 }
-
 function buildChildResults(){
-  const name=val('childName');
-  const age=+val('childAge')||0;
-  const budget=val('childBudget')||'M';
-  const topics=vals('childTopics');
-  const safety=vals('childSafety');
-  const diet=val('childDiet');
-  const omega=childOmega();
+  const age=+val('childAge')||0, budget=val('childBudget')||'M', topics=vals('childTopics'), safety=vals('childSafety'), diet=val('childDiet'), omega=childOmega();
   const base=[];
   if(budget==='B') base.push('Yummies');
   if(budget==='S') base.push('Yummies',omega);
   if(budget==='M') base.push('Yummies',omega,'Vita-Saurus');
   if(budget==='L') base.push('Yummies',omega,'Vita-Saurus','Fusions Red');
-  document.getElementById('childIntro').textContent=`${name?name+', ':''}für Kinder nutzen wir einen eigenen, deutlich kürzeren Versorgungsweg. Die Basis bleibt einfach; besondere Themen werden anschließend persönlich mit dem Berater angeschaut.`;
   document.getElementById('childBaseProducts').innerHTML=base.map(x=>renderChip(x)).join('');
-  const extras=[];
-  const add=x=>{if(!extras.includes(x)) extras.push(x)};
-  if(topics.some(x=>['picky','digestion','stomach','focus','adhd'].includes(x))) add('Daily BioBasics');
-  if(topics.some(x=>['focus','adhd'].includes(x))){ add('Support Tabs Plus'); add('Brain Formula'); add(diet==='vegan'?'Vegan Protein Shake':'Triple Protein Shake'); }
-  if(topics.some(x=>['protein','sport'].includes(x))) add(diet==='vegan'?'Vegan Protein Shake':'Triple Protein Shake');
-  if(topics.includes('immune')) add('Fusions Red');
-  if(age>=10 && topics.some(x=>['sport','restless','sleep'].includes(x))) add('Be Recharged');
-  document.getElementById('childExtraProducts').innerHTML=extras.length?extras.map(x=>renderChip(x,true)).join(''):'<p class="small-note">Aktuell zeigt sich kein zusätzlicher Schwerpunkt. Die Kinder-Basis kann zunächst im Mittelpunkt stehen.</p>';
+  const blocks=[];
+  const protein=diet==='vegan'?'Vegan Protein Shake':'Triple Protein Shake';
+  if(topics.some(x=>['picky','digestion','stomach','focus','adhd'].includes(x))) blocks.push(`<div class="theme-card"><h3>Breite Versorgung / Daily</h3><p class="small-note">Bei einseitigem Essen, Verdauung oder Konzentration kann Daily BioBasics als zusätzliche Beratungsoption betrachtet werden.</p>${renderChip('Daily BioBasics',true)}</div>`);
+  if(topics.some(x=>['focus','adhd'].includes(x))) blocks.push(`<div class="theme-card"><h3>Konzentration / Lernen</h3><p class="small-note">Diese Produkte werden in unserem Beratungssystem bei Konzentration, Lernphasen und mentaler Belastung betrachtet.</p>${renderChip('Support Tabs Plus',true)}${renderChip('Brain Formula',true)}${renderChip(protein,true)}</div>`);
+  if(topics.some(x=>['protein','sport'].includes(x))) blocks.push(`<div class="theme-card"><h3>Protein / Sport</h3><p class="small-note">Bei wenig proteinreichen Lebensmitteln oder viel Sport kann Protein zusätzlich besprochen werden.</p>${renderChip(protein,true)}</div>`);
+  if(topics.includes('immune')) blocks.push(`<div class="theme-card"><h3>Immunsystem</h3><p class="small-note">Dieser Schwerpunkt wurde angegeben.</p>${renderChip('Fusions Red',true)}</div>`);
+  if(age>=10&&topics.some(x=>['sport','restless','sleep'].includes(x))) blocks.push(`<div class="theme-card"><h3>Weitere Option bei älteren Kindern / Jugendlichen</h3><p class="small-note">Be Recharged kann als zusätzliche Beratungsoption auftauchen. Eignung und Einsatz bitte individuell prüfen.</p>${renderChip('Be Recharged',true)}</div>`);
+  document.getElementById('childExtraProducts').innerHTML=blocks.join('')||'<p class="small-note">Aktuell zeigt sich kein zusätzlicher Schwerpunkt. Die Kinder-Basis kann zunächst im Mittelpunkt stehen.</p>';
   const banners=[];
   if(topics.includes('adhd')) banners.push('ADHS/ADS wurde angegeben. Die genannten Produkte sind keine ADHS-Behandlung. Bitte Auswahl und Verträglichkeit mit Berater und behandelnder Fachperson abstimmen.');
-  if(safety.length && !safety.includes('none')) banners.push('Medikamente, Diagnose oder Allergien wurden angegeben. Bitte vor zusätzlichen Produkten persönlich prüfen.');
-  if(age<2) banners.push('Bei sehr jungen Kindern empfehlen wir keine automatische Ergänzungslogik. Bitte den Start immer persönlich mit Berater und Kinderarzt abstimmen.');
+  if(safety.length&&!safety.includes('none')) banners.push('Medikamente, Diagnose oder Allergien wurden angegeben. Bitte vor zusätzlichen Produkten persönlich prüfen.');
+  if(age<2) banners.push('Bei sehr jungen Kindern bitte den Start immer persönlich mit Berater und Kinderarzt abstimmen.');
   document.getElementById('childSafetyBanner').innerHTML=banners.map(t=>`<div class="notice warn"><b>Bitte individuell prüfen:</b><br>${t}</div>`).join('');
   document.querySelectorAll('.results-section').forEach(x=>x.classList.add('hidden'));
   document.getElementById('appForm').classList.add('hidden');
@@ -1293,26 +1374,54 @@ function buildChildResults(){
 }
 
 function buildPetResults(){
-  const name=val('petName');
-  const type=val('petType');
-  const topics=vals('petTopics');
-  const label=type==='dog'?'Hund':type==='cat'?'Katze':'Tier';
-  document.getElementById('petIntro').textContent=`${name?name+', ':''}für dein Tier nutzen wir ausschließlich einen eigenen Tier-Zweig. Die Produktauswahl orientiert sich an den Schwerpunkten und wird anschließend individuell abgestimmt.`;
-  const products=[];
-  const add=x=>{if(!products.includes(x)) products.push(x)};
-  if(topics.includes('digestion')||topics.includes('coprophagia')) add('LifePlus Pets Digest');
-  if(topics.includes('joints')) add('LifePlus Pets Move');
-  if(topics.includes('calm')) add('LifePlus Pets Calm');
-  if(topics.includes('skin')) add('LifePlus Pets Ahiflower Oil');
-  if(topics.includes('care')) add('LifePlus Pets Care & Comfort');
-  if(topics.includes('basis') && !products.length){ add('LifePlus Pets Ahiflower Oil'); add('LifePlus Pets Digest'); }
-  document.getElementById('petProducts').innerHTML=products.length?products.map(x=>renderChip(x)).join(''):'<p class="small-note">Wähle einen Schwerpunkt oder besprich eine allgemeine Basis direkt mit deinem Berater.</p>';
-  const dailyRelevant=topics.some(x=>['basis','digestion','coprophagia','joints'].includes(x));
-  document.getElementById('petDailyProduct').innerHTML=dailyRelevant?renderChip('Daily BioBasics',true):'<p class="small-note">Aktuell nicht automatisch eingeblendet.</p>';
-  const banners=[];
-  if(type==='other') banners.push('Für andere Tierarten als Hund/Katze bitte keine Standardempfehlung übernehmen. Eignung immer individuell prüfen.');
-  if(val('petMedical')==='yes') banners.push('Erkrankungen oder Medikamente wurden angegeben. Bitte die Produktauswahl mit Tierarzt und Berater abstimmen.');
-  if(topics.includes('coprophagia')) banners.push('Kotfressen kann unterschiedliche Ursachen haben und wird nicht automatisch als Nährstoffmangel gewertet. Bei anhaltendem Verhalten bitte tierärztlich abklären.');
+  const type=val('petType')||'dog', name=val('petName')||'', age=+val('petAge')||0, weight=+val('petWeight')||0;
+  const products=[], extras=[], banners=[];
+  const add=(arr,x,advisor=false)=>{if(!arr.some(v=>v.name===x))arr.push({name:x,advisor});};
+  let brand='Tier · persönliche Orientierung', heading='Deine möglichen Produktbereiche';
+  if(type==='dog'){
+    brand='Hund · persönliche Orientierung';
+    const t=vals('dogTopics');
+    if(t.includes('basis')) add(products,'LifePlus Pets Basics',true);
+    if(t.includes('digestion')||t.includes('coprophagia')) add(products,'LifePlus Pets Digest');
+    if(t.includes('joints')) add(products,'LifePlus Pets Move');
+    if(t.includes('calm')) add(products,'LifePlus Pets Calm');
+    if(t.includes('skin')){add(products,'LifePlus Pets Shine',true);add(products,'LifePlus Pets Ahiflower Oil');}
+    if(t.includes('outdoor')) add(products,'LifePlus Pets Care & Comfort');
+    if(t.includes('dental')) add(products,'LifePlus Pets Dental',true);
+    if(t.includes('snack')) add(products,'LifePlus Pets Peanut Butter Biscuits');
+    if(t.some(x=>['basis','digestion','coprophagia','joints'].includes(x))) add(extras,'Daily BioBasics',true);
+    if(t.includes('coprophagia')) banners.push('Kotfressen kann unterschiedliche Ursachen haben und wird nicht automatisch als Nährstoffmangel gewertet. Bei anhaltendem Verhalten bitte tierärztlich abklären.');
+    if(val('dogMedical')==='yes') banners.push('Erkrankungen oder Medikamente wurden angegeben. Bitte Auswahl und Anwendung mit Tierarzt und Berater abstimmen.');
+    if(t.some(x=>['basis','skin','dental'].includes(x))) banners.push('Einzelne Pets-Produkte können je nach Land unterschiedlich verfügbar sein. Bitte die aktuelle Verfügbarkeit mit dem Berater prüfen.');
+  }else if(type==='cat'){
+    brand='Katze · persönliche Orientierung';
+    heading='Mögliche Beratungsbereiche für deine Katze';
+    const t=vals('catTopics');
+    if(t.includes('basis')) add(products,'Daily BioBasics',true);
+    if(t.includes('skin')) add(products,'Nachtkerzenöl',true);
+    if(t.includes('joints')||t.includes('older')){add(products,'Lyprinex',true);add(products,'Joint Formula',true);add(products,'MSM Plus',true);}
+    if(t.includes('older')&& !t.includes('basis')) add(extras,'Daily BioBasics',true);
+    if(val('catMedical')==='yes') banners.push('Erkrankungen oder Medikamente wurden angegeben. Bitte Auswahl und Anwendung mit Tierarzt und Berater abstimmen.');
+    banners.push('Bei Katzen werden Alter, Gewicht, Fütterung und individuelle Verträglichkeit besonders berücksichtigt. Die angezeigten Produkte sind Beratungsoptionen und keine pauschale Tierdosierung.');
+  }else{
+    brand='Pferd · persönliche Orientierung';
+    heading='Deine Pferde-Basis und mögliche Zusatzbereiche';
+    const base=val('horseBase')||'S', t=vals('horseTopics');
+    if(base==='XS'){add(products,'MSM Plus',true);add(products,'Nachtkerzenöl',true);}
+    if(base==='S'){add(products,'MSM Plus',true);add(products,'Nachtkerzenöl',true);add(products,'Daily BioBasics',true);}
+    if(base==='M'){add(products,'MSM Plus',true);add(products,'Nachtkerzenöl',true);add(products,'Daily BioBasics',true);add(products,'Proanthenols 50',true);}
+    if(t.some(x=>['hardkeeper','muscle','weightgain'].includes(x))) add(extras,'Triple Protein Shake Vanille',true);
+    if(t.includes('skin')||t.includes('mauke')) add(extras,'Kolloidales Silber · Haut-Zusatzoption',true);
+    if(t.includes('arthrosis')){add(extras,'MSM Plus',true);add(extras,'Lyprinex',true);add(extras,'Joint Formula',true);add(extras,'Nachtkerzenöl',true);}
+    else if(t.includes('joints')){add(extras,'MSM Plus',true);add(extras,'Lyprinex',true);add(extras,'Joint Formula',true);}
+    if(val('horseMedical')==='yes') banners.push('Erkrankungen oder Medikamente wurden angegeben. Bitte Auswahl und Anwendung mit Tierarzt und Berater abstimmen.');
+    banners.push('Bei Pferden spielen Gewicht, Fütterung, Trainingsbelastung und aktueller Zustand eine große Rolle. Die konkrete Menge wird deshalb immer individuell festgelegt.');
+  }
+  document.getElementById('petResultBrand').textContent=brand;
+  document.getElementById('petMainHeading').textContent=heading;
+  document.getElementById('petProducts').innerHTML=products.length?products.map(x=>renderChip(x.name,x.advisor)).join(''):'<p class="small-note">Aktuell wurde kein konkreter Produktbereich ausgewählt. Bitte die Basis mit dem Berater besprechen.</p>';
+  document.getElementById('petDailyProduct').innerHTML=extras.length?extras.map(x=>renderChip(x.name,x.advisor)).join(''):'<p class="small-note">Aktuell keine zusätzliche Option ausgewählt.</p>';
+  document.getElementById('petExtraHeading').textContent=type==='horse'?'Zusätzliche Schwerpunkte':'Zusätzliche Beratungsoptionen';
   document.getElementById('petSafetyBanner').innerHTML=banners.map(t=>`<div class="notice warn"><b>Bitte individuell prüfen:</b><br>${t}</div>`).join('');
   document.querySelectorAll('.results-section').forEach(x=>x.classList.add('hidden'));
   document.getElementById('appForm').classList.add('hidden');
@@ -1320,19 +1429,52 @@ function buildPetResults(){
   document.getElementById('progressBar').style.width='100%';
   window.scrollTo({top:0,behavior:'smooth'});
 }
-
 function buildResults(){
-  const a=getAudience();
-  if(a==='child') return buildChildResults();
-  if(a==='pet') return buildPetResults();
-  return buildAdultResults();
+  const a=getAudience(); if(a==='child')return buildChildResults(); if(a==='pet')return buildPetResults(); return buildAdultResults();
 }
-
 function editAnswers(){
   document.querySelectorAll('.results-section').forEach(x=>x.classList.add('hidden'));
   document.getElementById('appForm').classList.remove('hidden');
-  const order=visibleStepOrder();
-  showStep(order[order.length-1]);
+  const order=visibleStepOrder(); showStep(order[order.length-1]);
+}
+function selectedLabels(name){
+  return [...document.querySelectorAll(`[name="${name}"]:checked`)].map(el=>el.closest('label')?.innerText.trim()||el.value).join(', ');
+}
+function selectedOptionText(name){
+  const el=document.querySelector(`[name="${name}"]`); return el?.selectedOptions?.[0]?.textContent?.trim()||'';
+}
+function esc(v){return String(v||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function printWindow(title,body){
+  const w=window.open('','_blank'); if(!w){alert('Bitte Pop-ups für den Druck kurz erlauben.');return;}
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(title)}</title><style>@page{size:A4;margin:15mm}body{font-family:Arial,sans-serif;color:#2d2a26;line-height:1.4;font-size:10.5pt}h1{font-size:22pt;margin:0 0 5mm}h2{font-size:14pt;margin:7mm 0 3mm}h3{font-size:11.5pt}.box{border:1px solid #ccc;border-radius:10px;padding:10px;margin:8px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.line{border-bottom:1px solid #aaa;min-height:18px;margin:4px 0}.page{page-break-after:always}.page:last-child{page-break-after:auto}.score{width:100%;border-collapse:collapse}.score td,.score th{border:1px solid #ccc;padding:5px;text-align:left}.muted{color:#666;font-size:9pt}@media print{button{display:none}}</style></head><body>${body}<script>setTimeout(()=>window.print(),350)<\/script></body></html>`); w.document.close();
+}
+function adultQuestionSummary(){
+  const rows=[]; const add=(l,v)=>{if(v)rows.push(`<div class="box"><b>${esc(l)}</b><br>${esc(v)}</div>`)};
+  add('Person',`${val('firstName')||'—'} · ${val('age')||'—'} Jahre · ${val('height')||'—'} cm · ${val('weight')||'—'} kg`);
+  add('Hauptziel',selectedOptionText('mainGoal')); add('Budget',selectedLabels('budget'));
+  add('Aktuelle Ergänzungen',selectedLabels('suppTypes')); add('Ernährungsform',selectedOptionText('diet')); add('Ernährungsqualität',selectedOptionText('dietQuality')); add('Protein',selectedOptionText('protein')); add('Fisch / Omega',selectedOptionText('fish'));
+  add('Darm / Verdauung',selectedLabels('gutTopics')); add('Harnwege / Blase',selectedOptionText('urinary')); add('Haut / Haare',selectedLabels('beautyTopics')); add('Gelenke / Körper',selectedLabels('bodyTopics'));
+  add('Stress',selectedOptionText('stressLevel')); add('Schlaf / Energie / Fokus',selectedLabels('mindTopics')); add('Immunsystem',selectedOptionText('immunityLevel')); add('Herpes',selectedOptionText('herpes')); add('Weitere Präventionsbereiche',selectedLabels('vitalTopics'));
+  add('Sporthäufigkeit',selectedOptionText('sportFrequency')); add('Sportart',selectedLabels('sportTypes')); add('Sportziel',selectedOptionText('sportGoal')); add('Gesundheit / Medikamente',selectedLabels('safetyTopics')); add('Jod',selectedOptionText('iodine')); add('Priorität 1',selectedOptionText('priority1')); add('Priorität 2',selectedOptionText('priority2'));
+  if(getSex()==='female'){add('Lebensphase',selectedOptionText('femaleStage'));add('Frauenthemen',selectedLabels('femaleTopics'));}
+  return rows.join('');
+}
+function printStartEvaluation(){
+  if(getAudience()!=='male'&&getAudience()!=='female'){alert('Der Start-Ausdruck ist aktuell für die Erwachsenen-Auswertung vorgesehen.');return;}
+  const m1=document.getElementById('month1Products').innerText, m2=document.getElementById('month2Products').innerText, m3=document.getElementById('month3Products').innerText, themes=document.getElementById('themeRecommendations').innerText;
+  const body=`<h1>VERSORGEN · Meine Start-Auswertung</h1><p class="muted">Ausgangszustand und persönliche Orientierung zum Start.</p><h2>Meine Angaben</h2>${adultQuestionSummary()}<h2>Mein 3-Monats-Start</h2><div class="grid"><div class="box"><b>Monat 1</b><br>${esc(m1)}</div><div class="box"><b>Monat 2</b><br>${esc(m2)}</div></div><div class="box"><b>Monat 3</b><br>${esc(m3)}</div><h2>Meine späteren Gesprächsbereiche</h2><div class="box">${esc(themes).replace(/\n/g,'<br>')}</div><h2>Mein persönliches Ziel</h2><p>Was möchte ich in den nächsten drei Monaten besonders verändern?</p><div class="line"></div><div class="line"></div><p>Was wäre für mich ein richtig gutes Ergebnis?</p><div class="line"></div><div class="line"></div><h2>Notizen aus meinem Mentorengespräch</h2>${'<div class="line"></div>'.repeat(6)}`;
+  printWindow('VERSORGEN Start-Auswertung',body);
+}
+function printTrackingSheet(){
+  const metrics=['Energie im Alltag','Schlafqualität','Erholung am Morgen','Stress / innere Ruhe','Konzentration / Fokus','Stimmung / allgemeines Wohlbefinden','Verdauung','Haut / Bindegewebe','Haare / Nägel','Gelenke / Beweglichkeit','Immunsystem / Widerstandskraft','Sportliche Regeneration','Gesamtgefühl im Körper'];
+  const scoreRows=metrics.map(m=>`<tr><td>${esc(m)}</td><td style="width:42%">0&nbsp;&nbsp;1&nbsp;&nbsp;2&nbsp;&nbsp;3&nbsp;&nbsp;4&nbsp;&nbsp;5&nbsp;&nbsp;6&nbsp;&nbsp;7&nbsp;&nbsp;8&nbsp;&nbsp;9&nbsp;&nbsp;10</td></tr>`).join('');
+  let pages='';
+  for(let i=1;i<=12;i++){
+    const special=[3,6,12].includes(i)?`<h3>Größerer Zwischencheck</h3><p>Welche Themen sind inzwischen kein Schwerpunkt mehr?</p><div class="line"></div><p>Welche Themen sind weiterhin relevant?</p><div class="line"></div><p>Welche Zusatzprodukte sollen mit dem Mentor neu beurteilt, reduziert oder ergänzt werden?</p><div class="line"></div><div class="line"></div>`:'';
+    pages+=`<section class="page"><h1>VERSORGEN · Check ${i} von 12</h1><p class="muted">ca. ${i*4} Wochen nach Start · Datum: __________________</p><table class="score"><tr><th>Bereich</th><th>Meine Einschätzung 0–10</th></tr>${scoreRows}</table><h3>Was hat sich seit dem letzten Check verbessert?</h3>${'<div class="line"></div>'.repeat(2)}<h3>Was ist gleich geblieben oder schlechter geworden?</h3>${'<div class="line"></div>'.repeat(2)}<h3>Welche Produkte nehme ich aktuell?</h3>${'<div class="line"></div>'.repeat(2)}<h3>Was wurde seit dem letzten Check verändert?</h3>${'<div class="line"></div>'.repeat(2)}<h3>Gab es Besonderheiten?</h3><p class="muted">z. B. Krankheit, Medikamente, Stressphase, Urlaub, Ernährungsumstellung, Training</p>${'<div class="line"></div>'.repeat(2)}<h3>Was möchte ich mit meinem Mentor besprechen?</h3>${'<div class="line"></div>'.repeat(2)}${special}</section>`;
+  }
+  let overview='<h1>VERSORGEN · Jahresübersicht</h1><p>Trage hier nach jedem Check deine wichtigsten Werte ein.</p><table class="score"><tr><th>Check</th><th>Energie</th><th>Schlaf</th><th>Stress</th><th>Verdauung</th><th>Gesamt</th></tr>'+Array.from({length:12},(_,i)=>`<tr><td>${i+1}</td><td></td><td></td><td></td><td></td><td></td></tr>`).join('')+'</table><h2>Wo bin ich gestartet – wo stehe ich heute?</h2>'+('<div class="line"></div>'.repeat(8));
+  printWindow('VERSORGEN 12-Monats-Verlaufsbogen',pages+overview);
 }
 
 function part4Placeholder(topic){
