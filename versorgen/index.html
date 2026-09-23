@@ -372,6 +372,21 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
         <div class="choice"><label><input type="checkbox" name="bodyTopics" value="recovery"> Regeneration nach Belastung</label></div>
         <div class="choice"><label><input type="checkbox" name="bodyTopics" value="none"> Kein Schwerpunkt</label></div>
       </div>
+      <label>Neigst du zu Wassereinlagerungen?</label>
+      <select name="waterRetention">
+        <option value="none">Nein / kaum</option>
+        <option value="sometimes">Gelegentlich</option>
+        <option value="often">Häufig</option>
+        <option value="strong">Deutlich / stark</option>
+      </select>
+      <label>Wo bemerkst du sie hauptsächlich? <span class="hint">Mehrfachauswahl</span></label>
+      <div class="choice-grid">
+        <div class="choice"><label><input type="checkbox" name="waterAreas" value="legs"> Beine / Füße</label></div>
+        <div class="choice"><label><input type="checkbox" name="waterAreas" value="hands"> Hände / Finger</label></div>
+        <div class="choice"><label><input type="checkbox" name="waterAreas" value="face"> Gesicht</label></div>
+        <div class="choice"><label><input type="checkbox" name="waterAreas" value="general"> Bauch / allgemein aufgeschwemmt</label></div>
+        <div class="choice female-water-only"><label><input type="checkbox" name="waterAreas" value="cycle"> Vor allem zyklusabhängig</label></div>
+      </div>
       <div class="actions"><button class="secondary" type="button" onclick="prevStep()">Zurück</button><button class="primary" type="button" onclick="nextStep()">Weiter</button></div>
     </section>
 
@@ -421,7 +436,7 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
         <option value="no">Nein</option>
         <option value="yes">Ja, wiederkehrend</option>
       </select>
-      <div class="notice small-note"><b>Hinweis:</b> Bei wiederkehrendem Herpes prüfen wir bestimmte Aminosäure-Produkte besonders sorgfältig und geben keine automatische Empfehlung für bekannte argininhaltige Produkte aus.</div>
+      <div class="notice small-note"><b>Hinweis:</b> Bei wiederkehrendem Herpes bleiben relevante Produkte sichtbar. Produkte mit Arginin/Citrullin werden gekennzeichnet und vor der Verwendung gemeinsam mit dem Berater individuell geprüft.</div>
       <label>Welche Bereiche möchtest du zusätzlich im Blick behalten?</label>
       <div class="choice-grid">
         <div class="choice"><label><input type="checkbox" name="vitalTopics" value="immunity"> Immunsystem / saisonale Unterstützung</label></div>
@@ -528,6 +543,7 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
         <option value="gut">Darm / Verdauung</option>
         <option value="cleanse">Darmreinigung / Reinigungsphase</option>
         <option value="joints">Gelenke / Bewegungsapparat</option>
+        <option value="water">Wassereinlagerungen / Flüssigkeitshaushalt</option>
         <option value="stress">Stress / Nervensystem</option>
         <option value="sleep">Schlaf / Regeneration</option>
         <option value="energy">Energie / Vitalität</option>
@@ -548,6 +564,7 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
         <option value="gut">Darm / Verdauung</option>
         <option value="cleanse">Darmreinigung / Reinigungsphase</option>
         <option value="joints">Gelenke / Bewegungsapparat</option>
+        <option value="water">Wassereinlagerungen / Flüssigkeitshaushalt</option>
         <option value="stress">Stress / Nervensystem</option>
         <option value="sleep">Schlaf / Regeneration</option>
         <option value="energy">Energie / Vitalität</option>
@@ -707,6 +724,7 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
         <div class="kpi"><span>Monat 4–6</span><b>Gezielt ergänzen</b></div>
         <div class="kpi"><span>Monat 7–12</span><b>Stabilisieren & reduzieren</b></div>
       </div>
+      <div id="foundationQuick"></div>
       <p class="small-note">Das Ziel ist nicht, dauerhaft immer mehr Produkte zu nehmen. Zusatzprodukte werden im Verlauf neu bewertet. Langfristig soll eine passende Grundversorgung übrig bleiben, die zu deinem Leben passt.</p>
     </div>
 
@@ -736,12 +754,24 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
         <b>Die ersten drei Monate sind bewusst einfach.</b><br>
         Du kannst deinen Mentor jederzeit kontaktieren. Spätestens kurz vor Ende des dritten Monats empfehlen wir aber eine gemeinsame Bestandsaufnahme: Was hat sich verändert? Was ist noch relevant? Was braucht noch Aufmerksamkeit?
       </div>
+      <p class="small-note">„Entsäuerung“ und „Entgiftungs-Unterstützung“ sind Bezeichnungen für unsere Wellness-Phasen. Sie ersetzen keine medizinische Diagnose oder Behandlung.</p>
     </div>
 
     <div class="result-block">
-      <h2>Deine persönlichen Themen für danach</h2>
-      <p>Hier siehst du nicht einfach eine lange Produktliste, sondern <b>warum</b> bestimmte Produkte für dich später interessant sein könnten. Du musst nicht alles gleichzeitig nehmen. Nach den ersten drei Monaten wird gemeinsam mit deinem Mentor neu geschaut, welche Themen überhaupt noch relevant sind.</p>
-      <div id="themeRecommendations"></div>
+      <h2>Deine wichtigsten Ergänzungen</h2>
+      <p>Aus deinen Antworten bündeln wir die Überschneidungen bewusst auf wenige Produkte. Besonders interessant sind Produkte, die zu mehreren deiner persönlichen Bereiche gleichzeitig passen.</p>
+      <div id="topRecommendations"></div>
+      <div class="notice">
+        <b>Weniger, aber gezielter.</b><br>
+        Diese 3–4 Produkte sind die wichtigsten Gesprächskandidaten zusätzlich zu deinem Fundament. Wenn ein Produkt mehrere deiner Themen abdeckt, wird es hier nur einmal genannt. Ob etwas davon schon zu Beginn dazukommt oder erst nach dem 3-Monats-Check, entscheidet ihr gemeinsam mit deinem Berater.
+      </div>
+      <details class="info-box">
+        <summary>Weitere Möglichkeiten nach Themen · Mehr erfahren</summary>
+        <div class="details-body">
+          <p>Hier findest du die Produkte, die wir den einzelnen von dir gewählten Bereichen grundsätzlich zuordnen. Diese Übersicht bedeutet nicht, dass du alle Produkte brauchst. Sie soll dir zeigen, was es gibt und welche Themen du später mit deinem Berater vertiefen kannst.</p>
+          <div id="themeRecommendations"></div>
+        </div>
+      </details>
       <div class="notice">
         <b>Einnahme, Menge und Dauer gehören in die persönliche Beratung.</b><br>
         Diese Auswahl ist eine Orientierung und kein Einnahmeplan. Welche Produkte wirklich Priorität haben, wie sie kombiniert werden und wie lange sie eingesetzt werden, besprichst du mit deinem Mentor. Er hat außerdem Zugang zu Produkt-Zooms, Aufzeichnungen, Live-Events und weiterführenden Informationen.
@@ -816,18 +846,21 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
         <div class="route">
           <h3>Prävention zum Nulltarif</h3>
           <p>Ich möchte meine eigene Versorgung durch Empfehlungen teilweise oder möglichst weit refinanzieren.</p>
-          <button class="ghost no-print" type="button" onclick="part4Placeholder('Prävention zum Nulltarif')">Mehr erfahren</button>
+          <button class="ghost no-print" type="button" onclick="goToWirken(1)">Mehr erfahren</button>
         </div>
         <div class="route">
           <h3>Zusätzliches Einkommen</h3>
           <p>Ich möchte mir ein zusätzliches Einkommen aufbauen und schauen, was daraus langfristig entstehen kann.</p>
-          <button class="ghost no-print" type="button" onclick="part4Placeholder('Zusätzliches Einkommen')">Mehr erfahren</button>
+          <button class="ghost no-print" type="button" onclick="goToWirken(2)">Mehr erfahren</button>
         </div>
         <div class="route">
           <h3>Meine Passion leben</h3>
           <p>Ich möchte Menschen begleiten, mich entwickeln und herausfinden, ob daraus etwas Größeres für mein Leben entstehen darf.</p>
-          <button class="ghost no-print" type="button" onclick="part4Placeholder('Meine Passion leben')">Mehr erfahren</button>
+          <button class="ghost no-print" type="button" onclick="goToWirken(3)">Mehr erfahren</button>
         </div>
+      </div>
+      <div class="result-actions no-print" style="margin-top:16px">
+        <button class="primary wide" type="button" onclick="goToWirken()">Weiter zu WIRKEN →</button>
       </div>
     </div>
 
@@ -892,7 +925,7 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
     <div class="result-block" style="border-top:0"><p class="small-note"><i>Du hast keinen Mentor und bist direkt über meine eigenen Kanäle hierhergekommen? Dann kannst du dich gerne direkt an mich wenden. Wenn ihr bereits einen Mentor oder Sponsor habt, bleibt bitte bei dieser Person.</i></p></div>
   </section>
 
-  <div class="footer">Zurück zu dir · WIRKFELDER · VERSORGEN · Testversion V3</div>
+  <div class="footer">Zurück zu dir · WIRKFELDER · VERSORGEN</div>
 </div>
 </div>
 
@@ -931,7 +964,7 @@ function visibleStepOrder(){
 }
 function configureAudienceUI(){
   const male=getAudience()==='male';
-  document.querySelectorAll('.beauty-female-only').forEach(el=>el.classList.toggle('hidden',male));
+  document.querySelectorAll('.beauty-female-only,.female-water-only').forEach(el=>el.classList.toggle('hidden',male));
   const title=document.getElementById('beautyTitle');
   const brand=document.getElementById('beautyBrand');
   if(title) title.textContent=male?'Gibt es ein Thema rund um deine Haare?':'Was möchtest du von innen unterstützen?';
@@ -1237,11 +1270,6 @@ function buildProductScores(){
 function renderChip(name,advisor=false,warning=false){
   return `<span class="product-chip${advisor?' advisor':''}${warning?' warning-chip':''}">${warning?'⚠️ ':''}${name}</span>`;
 }
-function renderProductKey(k){
-  const p=PRODUCTS[k]; if(!p) return '';
-  const warning=val('herpes')==='yes' && p.arginine;
-  return renderChip(p.name,p.advisor||p.highCheck||p.lab||p.availability,warning);
-}
 function rankedProducts(){
   const scores=buildProductScores();
   return Object.entries(scores).filter(([k,v])=>PRODUCTS[k]&&v>0).sort((a,b)=>b[1]-a[1]||PRODUCTS[a[0]].name.localeCompare(PRODUCTS[b[0]].name,'de'));
@@ -1251,13 +1279,55 @@ function sportProductKeys(){
   return ranked.filter(([k])=>PRODUCTS[k].tags.includes('sport')).slice(0,8).map(([k])=>k);
 }
 function safeKeys(keys){
-  const scores=buildProductScores();
-  return [...new Set(keys)].filter(k=>PRODUCTS[k] && scores[k]>0);
+  return [...new Set(keys)].filter(k=>PRODUCTS[k]);
 }
+function productCautions(k){
+  const p=PRODUCTS[k]; if(!p) return [];
+  const notes=[];
+  const safety=vals('safetyTopics'), stage=val('femaleStage');
+  if(val('herpes')==='yes' && p.arginine) notes.push('Arginin/Citrullin bei deinem Herpes-Thema individuell prüfen');
+  if(val('caffeine')==='avoid' && p.caffeine) notes.push('enthält Koffein – du möchtest Koffein vermeiden');
+  if((stage==='pregnant'||stage==='breastfeeding') && ['realnrg','enerxan','keytonic','beFocused','ryr','parabalance','menaplus','discovery'].includes(k)) notes.push('in Schwangerschaft/Stillzeit nur nach individueller Prüfung');
+  if((safety.includes('liver')||safety.includes('other')) && k==='ryr') notes.push('bei deiner Gesundheitsangabe nur fachlich geprüft verwenden');
+  if(safety.includes('kidney') && ['phplus','calmag','micromins'].includes(k)) notes.push('bei Nierenthemen individuell prüfen');
+  if(k==='iron' && val('ironStatus')!=='yes') notes.push('Eisen nur bei tatsächlichem Bedarf bzw. passenden Werten');
+  if(p.availability) notes.push('Verfügbarkeit prüfen');
+  if(p.highCheck||p.lab) notes.push('besonders individuell prüfen');
+  return notes;
+}
+function renderProductKey(k){
+  const p=PRODUCTS[k]; if(!p) return '';
+  const notes=productCautions(k);
+  const warning=notes.length>0;
+  return `<span class="product-chip${(p.advisor||warning)?' advisor':''}${warning?' warning-chip':''}" title="${notes.join(' · ').replace(/\"/g,'&quot;')}">${warning?'⚠️ ':''}${p.name}</span>`;
+}
+let currentThemeGroups=[];
 function themeCard(title,reason,keys){
-  const clean=safeKeys(keys); if(!clean.length) return '';
-  const herpesWarn=val('herpes')==='yes' && clean.some(k=>PRODUCTS[k].arginine);
-  return `<div class="theme-card"><h3>${title}</h3><p class="small-note">${reason}</p><div>${clean.map(renderProductKey).join('')}</div>${herpesWarn?'<div class="mini-warning">⚠️ Mindestens eines dieser Produkte enthält Arginin/Citrullin. Bei deinem Herpes-Thema bitte nicht automatisch ausschließen, sondern vor der Verwendung mit deinem Berater prüfen und individuell beobachten.</div>':''}</div>`;
+  const clean=safeKeys(keys);
+  const warnings=clean.flatMap(k=>productCautions(k).map(n=>`${PRODUCTS[k].name}: ${n}`));
+  return `<div class="theme-card"><h3>${title}</h3><p class="small-note">${reason}</p>${clean.length?`<div>${clean.map(renderProductKey).join('')}</div>`:'<div class="small-note"><b>Hier wird bewusst kein pauschales Einzelprodukt automatisch gesetzt.</b> Der Bereich wird im Beratungsgespräch gemeinsam mit den übrigen Angaben eingeordnet.</div>'}${warnings.length?`<div class="mini-warning">⚠️ ${[...new Set(warnings)].join(' · ')}</div>`:''}</div>`;
+}
+function buildTopRecommendations(groups){
+  const scores=buildProductScores();
+  const freq={}, themes={};
+  groups.forEach(g=>safeKeys(g.keys).forEach(k=>{freq[k]=(freq[k]||0)+1;(themes[k]||(themes[k]=[])).push(g.title);}));
+  const candidates=Object.keys(freq).filter(k=>PRODUCTS[k]);
+  const severe=k=>{
+    const notes=productCautions(k);
+    return notes.some(n=>/Koffein|Schwangerschaft|Nierenthemen|fachlich geprüft|Eisen nur/.test(n));
+  };
+  candidates.sort((a,b)=>{
+    const as=severe(a)?-100:0, bs=severe(b)?-100:0;
+    return (freq[b]-freq[a]) || ((scores[b]||0)+bs-(scores[a]||0)-as) || PRODUCTS[a].name.localeCompare(PRODUCTS[b].name,'de');
+  });
+  const top=candidates.filter(k=>!severe(k)).slice(0,4);
+  const box=document.getElementById('topRecommendations');
+  if(!top.length){box.innerHTML='<p class="small-note">Aktuell ergibt sich keine klare zusätzliche Produktauswahl. Dein 3-Monats-Fundament kann zunächst im Mittelpunkt stehen.</p>';return;}
+  box.innerHTML=top.map((k,i)=>{
+    const count=freq[k]||1;
+    const why=count>1?`Passt zu ${count} deiner ausgewählten Bereiche: ${themes[k].slice(0,3).join(' · ')}.`:`Passt besonders zu: ${themes[k][0]}.`;
+    return `<div class="theme-card"><h3>${i+1}. ${PRODUCTS[k].name}</h3><p class="small-note">${why}</p><div>${renderProductKey(k)}</div></div>`;
+  }).join('');
 }
 function buildThemeRecommendations(){
   const groups=[];
@@ -1265,10 +1335,10 @@ function buildThemeRecommendations(){
   const protein=val('protein'), diet=val('diet'), needs=vals('foodNeeds'), caffeine=val('caffeine'), stage=val('femaleStage'), sex=getSex();
   const sport=val('sportFrequency')!=='none';
   const proteinKey=(diet==='vegan'||needs.includes('vegan_pref'))?'veganProtein':'triple';
-  const add=(key,title,reason,keys)=>groups.push({key,title,reason,keys});
+  const add=(key,title,reason,keys=[])=>groups.push({key,title,reason,keys});
 
   if(val('herpes')==='yes') add('herpes','Herpes / wiederkehrende Lippenbläschen','Dieser Bereich wurde von dir angegeben. In unserem Beratungssystem wird dabei besonders auf Stress/Nervensystem und auf mögliche Arginin-/Citrullin-Überschneidungen geachtet.',['support','immune','zinc','vitc']);
-  if(mind.includes('tired')||mind.includes('exhausted')) add('energy','Müdigkeit / Energie','Diese Produkte tauchen auf, weil du Müdigkeit oder schnelle Erschöpfung angegeben hast.',['ubiquinol','coq10','support','purpleFlash',...(caffeine==='avoid'?[]:['realnrg','enerxan'])]);
+  if(mind.includes('tired')||mind.includes('exhausted')) add('energy','Müdigkeit / Energie','Diese Produkte tauchen auf, weil du Müdigkeit oder schnelle Erschöpfung angegeben hast.',['ubiquinol','coq10','support','purpleFlash','realnrg','enerxan']);
   if(mind.includes('focus')||vital.includes('brain')) add('focus','Konzentration / Fokus','Diese Produkte werden in unserem System bei mentaler Belastung, Konzentration und Fokus betrachtet.',['brain','support','ubiquinol','coq10']);
   if(mind.includes('restless')||['high','very_high'].includes(val('stressLevel'))) add('stress','Stress / Nervensystem','Hier geht es um Belastung, innere Unruhe und Regeneration.',['support','calmag','cacao','goldenMilk']);
   if(mind.includes('sleep')||mind.includes('recovery')) add('sleep','Schlaf / Regeneration','Diese Produkte können im Beratungsgespräch rund um Erholung und Abendroutine betrachtet werden.',['calmag','goldenMilk','cacao']);
@@ -1280,7 +1350,8 @@ function buildThemeRecommendations(){
   if(beauty.some(x=>['hair','hair_loss','nails'].includes(x))||female.includes('hair')) add('hair','Haare / Nägel','Dieser Bereich wurde von dir ausgewählt.',['zinc','msm',proteinKey,'shampoo','conditioner']);
   if(body.some(x=>['joints','cartilage','back','stiff','recovery'].includes(x))||female.includes('joints')) add('joints','Gelenke / Bewegungsapparat','Diese Produkte werden bei Gelenken, Beweglichkeit und Regeneration betrachtet.',['joint','msm','lyprinex','vitc','somazyme']);
   if(body.includes('bones')) add('bones','Knochen / Mineralstoffversorgung','Du hast Knochen bzw. Mineralstoffversorgung als Thema angegeben.',['dk','calmag','micromins']);
-  if(sport) add('sport','Sport / Muskelaufbau / Regeneration','Sport wird zusätzlich zur normalen Alltagsversorgung betrachtet. Welche Produkte du wirklich brauchst, hängt von Trainingsart, Umfang und Ziel ab.',[proteinKey,'beRefueled','beSustained','beRecharged',...(caffeine==='avoid'?[]:['beFocused']),'xcell']);
+  if(val('waterRetention')!=='none' || ['water'].includes(val('priority1')) || ['water'].includes(val('priority2'))) add('water','Wassereinlagerungen / Flüssigkeitshaushalt','Wassereinlagerungen können viele unterschiedliche Ursachen haben. Deshalb wird dieser Bereich gemeinsam mit Ernährung, Bewegung, Lebensphase, Medikamenten und gesundheitlichen Besonderheiten betrachtet; ein pauschales „Entwässerungsprodukt“ wird hier bewusst nicht automatisch gesetzt.',[]);
+  if(sport) add('sport','Sport / Muskelaufbau / Regeneration','Sport wird zusätzlich zur normalen Alltagsversorgung betrachtet. Welche Produkte du wirklich brauchst, hängt von Trainingsart, Umfang und Ziel ab.',[proteinKey,'beRefueled','beSustained','beRecharged','beFocused','xcell']);
   if(protein==='low'||protein==='unknown') add('protein','Proteinversorgung','Du hast angegeben, dass deine Proteinversorgung eher niedrig oder schwer einzuschätzen ist.',[proteinKey,'beRefueled']);
   if(vital.includes('heart')) add('heart','Herz / Kreislauf / Omega','Dieser Bereich wurde von dir als Schwerpunkt ausgewählt.',['heart','ubiquinol','circulation','epa','vite']);
   if(vital.includes('cholesterol')) add('cholesterol','Blutfette / Cholesterin','Diese Produkte sind mögliche Gesprächsbereiche; gerade RYR Plus gehört in eine individuelle Prüfung.',['ryr','ubiquinol','coq10','heart']);
@@ -1290,13 +1361,14 @@ function buildThemeRecommendations(){
   if(sex==='female' && (stage==='peri'||stage==='meno'||female.includes('hot'))) add('women','Wechseljahre / Frauenbalance','Deine Lebensphase bzw. deine Angaben machen diesen Bereich für das Beratungsgespräch relevant.',['menaplus','eveningPrimrose','calmag','womensGold']);
   if(sex==='female' && female.includes('heavy_period')) add('iron','Starke Monatsblutung / Eisen im Blick behalten','Eisen wird nicht automatisch ergänzt. Bei entsprechendem Bedarf bzw. passenden Blutwerten kann Iron Plus besprochen werden.',['iron']);
   if(sex==='male' && (+val('age')||0)>=35) add('men','Männer 35+','Für Männer ab mittlerem Alter können zusätzliche Männer-/Healthy-Aging-Produkte interessant sein.',['mensGold','mensFormula','ubiquinol','lycopin']);
-  if(female.includes('weight')||val('sportGoal')==='weight'||['weight'].includes(val('priority1'))||['weight'].includes(val('priority2'))) add('weight','Gewicht / Stoffwechsel','Diese Produkte können im Rahmen deines Ernährungs-, Protein- und Stoffwechselkonzepts besprochen werden.',[proteinKey,'phaseomine',...(caffeine==='avoid'?[]:['enerxan','realnrg','keytonic'])]);
+  if(female.includes('weight')||val('sportGoal')==='weight'||['weight'].includes(val('priority1'))||['weight'].includes(val('priority2'))) add('weight','Gewicht / Stoffwechsel','Diese Produkte können im Rahmen deines Ernährungs-, Protein- und Stoffwechselkonzepts besprochen werden.',[proteinKey,'phaseomine','enerxan','realnrg','keytonic']);
 
   const p1=val('priority1'), p2=val('priority2');
-  const orderMap={healthy_age:'healthy_age',sport:'sport',weight:'weight',beauty:'beauty',hair:'hair',gut:'gut',cleanse:'cleanse',joints:'joints',stress:'stress',sleep:'sleep',energy:'energy',focus:'focus',immunity:'immunity',heart:'heart',women:'women',men:'men'};
+  const orderMap={healthy_age:'healthy_age',sport:'sport',weight:'weight',beauty:'beauty',hair:'hair',gut:'gut',cleanse:'cleanse',joints:'joints',water:'water',stress:'stress',sleep:'sleep',energy:'energy',focus:'focus',immunity:'immunity',heart:'heart',women:'women',men:'men'};
   groups.sort((a,b)=>{const aa=a.key===orderMap[p1]?0:a.key===orderMap[p2]?1:2; const bb=b.key===orderMap[p1]?0:b.key===orderMap[p2]?1:2; return aa-bb;});
-  const html=groups.map(g=>themeCard(g.title,g.reason,g.keys)).filter(Boolean).join('');
-  document.getElementById('themeRecommendations').innerHTML=html||'<p class="small-note">Aktuell zeigt sich kein starker zusätzlicher Schwerpunkt. Nach drei Monaten kann trotzdem noch einmal neu geschaut werden.</p>';
+  currentThemeGroups=groups;
+  document.getElementById('themeRecommendations').innerHTML=groups.length?groups.map(g=>themeCard(g.title,g.reason,g.keys)).join(''):'<p class="small-note">Aktuell zeigt sich kein starker zusätzlicher Schwerpunkt. Nach drei Monaten kann trotzdem noch einmal neu geschaut werden.</p>';
+  buildTopRecommendations(groups.filter(g=>g.keys.length));
 }
 
 function buildAdultResults(){
@@ -1316,6 +1388,10 @@ function buildAdultResults(){
     document.getElementById('month2Products').innerHTML=[basis.pro,basis.omega,basis.multi,'MSM Plus'].map(x=>renderChip(x)).join('');
     document.getElementById('month3Products').innerHTML=[basis.pro,basis.omega,basis.multi].map(x=>renderChip(x)).join('');
   }
+  const fq=document.getElementById('foundationQuick');
+  if(fq){
+    fq.innerHTML=`<div class="theme-card"><h3>Deine Produkte im 3-Monats-Fundament</h3><p class="small-note"><b>Monat 1 · Entsäuerungsphase</b></p><div>${document.getElementById('month1Products').innerHTML}</div><p class="small-note"><b>Monat 2 · Entgiftungs-Unterstützung</b></p><div>${document.getElementById('month2Products').innerHTML}</div><p class="small-note"><b>Monat 3 · Grundversorgung</b></p><div>${document.getElementById('month3Products').innerHTML}</div></div>`;
+  }
   buildThemeRecommendations();
 
   const sKeys=sportProductKeys();
@@ -1331,6 +1407,7 @@ function buildAdultResults(){
   if(stage==='pregnant'||stage==='breastfeeding') banners.push('Schwangerschaft bzw. Stillzeit wurde angegeben. Zusätzliche Produkte werden deshalb bewusst zurückhaltend vorgeschlagen und sollten individuell geprüft werden.');
   if(val('iodine')==='yes'||val('iodine')==='unknown') banners.push('Jod ist bei dir ein Prüfthema. Deshalb wird die passende TVM-/Daily-Variante nicht pauschal festgelegt.');
   if(val('herpes')==='yes') banners.push('Wiederkehrender Herpes wurde angegeben. Arginin-/Citrullin-haltige Produkte werden deshalb sichtbar gekennzeichnet und vor einer Verwendung separat geprüft.');
+  if(['strong'].includes(val('waterRetention'))) banners.push('Deutliche Wassereinlagerungen wurden angegeben. Wenn sie plötzlich auftreten, einseitig sind, mit Atemnot/Schmerz einhergehen oder ungeklärt bleiben, sollte das medizinisch abgeklärt werden.');
   const mt=vals('mindTopics');
   if(mt.includes('depression')||mt.includes('burnout')) banners.push('Starke psychische Belastung, Depression oder Burn-out gehören nicht in eine reine Supplement-Selbstberatung. Die angezeigten Produkte sind Gesprächsbereiche und ersetzen keine ärztliche oder therapeutische Begleitung.');
   document.getElementById('safetyBanner').innerHTML=banners.map(t=>`<div class="notice warn"><b>Bitte individuell prüfen:</b><br>${t}</div>`).join('');
@@ -1453,7 +1530,7 @@ function adultQuestionSummary(){
   add('Person',`${val('firstName')||'—'} · ${val('age')||'—'} Jahre · ${val('height')||'—'} cm · ${val('weight')||'—'} kg`);
   add('Hauptziel',selectedOptionText('mainGoal')); add('Budget',selectedLabels('budget'));
   add('Aktuelle Ergänzungen',selectedLabels('suppTypes')); add('Ernährungsform',selectedOptionText('diet')); add('Ernährungsqualität',selectedOptionText('dietQuality')); add('Protein',selectedOptionText('protein')); add('Fisch / Omega',selectedOptionText('fish'));
-  add('Darm / Verdauung',selectedLabels('gutTopics')); add('Harnwege / Blase',selectedOptionText('urinary')); add('Haut / Haare',selectedLabels('beautyTopics')); add('Gelenke / Körper',selectedLabels('bodyTopics'));
+  add('Darm / Verdauung',selectedLabels('gutTopics')); add('Harnwege / Blase',selectedOptionText('urinary')); add('Haut / Haare',selectedLabels('beautyTopics')); add('Gelenke / Körper',selectedLabels('bodyTopics')); add('Wassereinlagerungen',selectedOptionText('waterRetention')); add('Bereiche Wassereinlagerung',selectedLabels('waterAreas'));
   add('Stress',selectedOptionText('stressLevel')); add('Schlaf / Energie / Fokus',selectedLabels('mindTopics')); add('Immunsystem',selectedOptionText('immunityLevel')); add('Herpes',selectedOptionText('herpes')); add('Weitere Präventionsbereiche',selectedLabels('vitalTopics'));
   add('Sporthäufigkeit',selectedOptionText('sportFrequency')); add('Sportart',selectedLabels('sportTypes')); add('Sportziel',selectedOptionText('sportGoal')); add('Gesundheit / Medikamente',selectedLabels('safetyTopics')); add('Jod',selectedOptionText('iodine')); add('Priorität 1',selectedOptionText('priority1')); add('Priorität 2',selectedOptionText('priority2'));
   if(getSex()==='female'){add('Lebensphase',selectedOptionText('femaleStage'));add('Frauenthemen',selectedLabels('femaleTopics'));}
@@ -1466,7 +1543,7 @@ function printStartEvaluation(){
   printWindow('VERSORGEN Start-Auswertung',body);
 }
 function printTrackingSheet(){
-  const metrics=['Energie im Alltag','Schlafqualität','Erholung am Morgen','Stress / innere Ruhe','Konzentration / Fokus','Stimmung / allgemeines Wohlbefinden','Verdauung','Haut / Bindegewebe','Haare / Nägel','Gelenke / Beweglichkeit','Immunsystem / Widerstandskraft','Sportliche Regeneration','Gesamtgefühl im Körper'];
+  const metrics=['Energie im Alltag','Schlafqualität','Erholung am Morgen','Stress / innere Ruhe','Konzentration / Fokus','Stimmung / allgemeines Wohlbefinden','Verdauung','Haut / Bindegewebe','Haare / Nägel','Gelenke / Beweglichkeit','Wassereinlagerungen / Flüssigkeitshaushalt (0 = keine, 10 = stark)','Immunsystem / Widerstandskraft','Sportliche Regeneration','Gesamtgefühl im Körper'];
   const scoreRows=metrics.map(m=>`<tr><td>${esc(m)}</td><td style="width:42%">0&nbsp;&nbsp;1&nbsp;&nbsp;2&nbsp;&nbsp;3&nbsp;&nbsp;4&nbsp;&nbsp;5&nbsp;&nbsp;6&nbsp;&nbsp;7&nbsp;&nbsp;8&nbsp;&nbsp;9&nbsp;&nbsp;10</td></tr>`).join('');
   let pages='';
   for(let i=1;i<=12;i++){
@@ -1477,8 +1554,9 @@ function printTrackingSheet(){
   printWindow('VERSORGEN 12-Monats-Verlaufsbogen',pages+overview);
 }
 
-function part4Placeholder(topic){
-  alert(`${topic}: Dieser Weg wird im nächsten Wirkfeld WIRKEN ergänzt. In dieser Testversion ist der Bereich noch nicht freigeschaltet.`);
+const WIRKEN_URL='https://christinzieger-zurueckzudir.github.io/wirkfelder/wirken/';
+function goToWirken(weg){
+  window.location.href=WIRKEN_URL+(weg?`?weg=${weg}`:'');
 }
 </script>
 </body>
