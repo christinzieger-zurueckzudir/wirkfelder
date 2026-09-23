@@ -249,7 +249,6 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
     <section class="step active" data-step="0">
       <div class="brand">Schritt 1</div>
       <h2>Beginnen wir bei dir</h2>
-      <p class="lead">Die erste Frage entscheidet nur, welche Fragen du im nächsten Schritt siehst. Männer gehen direkt in den allgemeinen Teil, Frauen bekommen zuerst den Frauen-Bereich.</p>
       <label>Bist du Mann oder Frau?</label>
       <div class="sex-choice">
         <label><input type="radio" name="sex" value="male" onchange="updateProgress()"> Mann</label>
@@ -261,7 +260,6 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
     <section class="step" data-step="1">
       <div class="brand">Frauen-Bereich</div>
       <h2>Dein aktueller Rhythmus</h2>
-      <p class="lead">Diese Fragen verändern später Planlänge, Intensität und Übungsauswahl. Danach geht es mit denselben allgemeinen Fragen weiter.</p>
 
       <label>Welche Situation beschreibt dich aktuell am besten?</label>
       <select name="femaleStage" id="femaleStage" onchange="updateFemaleBranches()">
@@ -613,7 +611,7 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
 
     <div class="result-block">
       <h2>Deine tägliche Morgenroutine</h2>
-      <p><b>Diese Basis bleibt für alle gleich.</b> Sie wird nicht möglichst schnell ausgeführt. Lass deinen Körper locker schwingen, bewege dich ruhig und atme während der gesamten Routine bewusst tief in den Bauch ein und aus.</p>
+      <p>Führe die Morgenroutine nicht möglichst schnell aus. Lass deinen Körper locker schwingen, bewege dich ruhig und atme während der gesamten Routine bewusst und entspannt ein und aus.</p>
       <div id="morningRoutine"></div>
       <div class="notice"><b>Wichtig:</b> Bei Sprung-, Gelenk-, Beckenboden- oder Schwangerschaftsthemen ersetzt du die Hüpfvarianten durch die angezeigten Low‑Impact‑Varianten. Technik und gutes Körpergefühl gehen immer vor Wiederholungszahl.</div>
     </div>
@@ -670,7 +668,6 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
         <b>Dein nächster Schlüssel: VERSORGEN</b><br>
         Im dritten Wirkfeld schauen wir auf deine Nährstoffversorgung: Was bekommst du bereits über deine Ernährung? Wo können besondere Bedürfnisse bestehen? Und wann können zum Beispiel Protein, Mikronährstoffe oder eine gezielte Ergänzung sinnvoll sein?
       </div>
-      <p class="hint">Wenn VERSORGEN für dich bereitsteht, führt dich der Button unten direkt zum dritten Teil.</p>
     </div>
 
     <div class="result-actions no-print">
@@ -715,7 +712,7 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
 
 <script>
 const ACCESS_CODES=["NAEHREN2026","WIRKFELDER2026"];
-const SUPPLY_URL="../versorgen/";
+const SUPPLY_URL="https://christinzieger-zurueckzudir.github.io/wirkfelder/versorgen/";
 let currentStep=0;
 let currentLevel="light";
 let currentStrengthDays=2;
@@ -755,7 +752,7 @@ function validateCurrent(){
   if(currentStep===0&&!radio("sex")){alert("Bitte wähle zuerst Mann oder Frau.");return false}
   const active=qs(`.step[data-step="${currentStep}"]`);
   for(const e of qsa(`.step[data-step="${currentStep}"] [required]`)){if(!e.value){e.reportValidity();e.focus();return false}}
-  if(currentStep===2 && +val("age")<18){alert("Diese Version erstellt automatische Pläne nur für Erwachsene ab 18 Jahren.");return false}
+  if(currentStep===2 && +val("age")<18){alert("BEWEGEN erstellt persönliche Bewegungspläne aktuell für Erwachsene ab 18 Jahren.");return false}
   return true;
 }
 function nextStep(){
@@ -983,7 +980,7 @@ function generateResults(){
   }
   qs("#summaryText").innerHTML=`
     <p>Du bist <b>${age} Jahre</b>, ${height} cm groß und wiegst aktuell <b>${weight.toFixed(1)} kg</b>. Dein wichtigstes Ziel ist <b>${goalText}</b>.</p>
-    <p>Für diese Auswertung wurdest du der Gruppe <b>${stageText}</b> zugeordnet. Deine eigene Einschätzung, deine Sporterfahrung über die letzten Jahre, deine aktuelle Bewegung und deine körperliche Ausgangslage fließen gemeinsam in die Empfehlung ein.</p>
+    <p>Für deinen Plan berücksichtigen wir deine aktuelle Situation als <b>${stageText}</b> sowie deine eigene Einschätzung, deine Bewegungserfahrung, deinen Alltag und deine körperliche Ausgangslage.</p>
     ${val("mustHave")?`<div class="notice"><b>Was dein Plan für dich erfüllen muss:</b><br>${esc(val("mustHave"))}</div>`:""}
   `;
 
@@ -1162,7 +1159,7 @@ function printSingle(id,type){
   document.body.classList.add("single-library-print");setTimeout(()=>window.print(),50);
 }
 function goToSupply(){
-  alert("VERSORGEN ist dein nächster Wirkfeld-Schritt. Sobald Teil 3 fertig ist, führt dich dieser Button direkt dorthin.");
+  window.location.href=SUPPLY_URL;
 }
 function restart(){location.reload()}
 
