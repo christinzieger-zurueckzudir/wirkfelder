@@ -3,370 +3,41 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Wirkfelder · WIRKEN · V2</title>
+<title>Wirkfelder · WIRKEN · V3</title>
 <style>
-:root{
-  --bg:#f6f2eb;--card:#fff;--ink:#2d2a26;--muted:#6c655d;--line:#ded7cd;
-  --accent:#6d7b63;--accent2:#b8a58a;--soft:#eef0ea;--ok:#edf6ee;--warn:#fff4dc;
-  --violet:#756a82;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.55}
-.shell{max-width:980px;margin:auto;padding:22px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:0 8px 28px rgba(0,0,0,.05);margin:18px 0}
-h1,h2,h3{line-height:1.15;margin-top:0} h1{font-size:clamp(2rem,5vw,3.4rem);letter-spacing:-.04em} h2{font-size:1.55rem}
-.brand,.section-tag,.eyebrow{font-size:.82rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:800}
-.lead{font-size:1.08rem;color:var(--muted)}
-.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.path-card,.choice,.kpi{border:1px solid var(--line);border-radius:17px;padding:18px;background:#fff}
-.path-card{display:flex;flex-direction:column}.path-card .actions{margin-top:auto}
-.path-number{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--soft);font-weight:800;margin-bottom:12px}
-.notice,.callout{border-radius:14px;padding:15px 17px;margin:16px 0;background:#faf7f1;border-left:4px solid var(--accent2)}
-.notice.ok{background:var(--ok);border-left-color:var(--accent)}
-.notice.warn{background:var(--warn)}
-.actions{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;margin-top:24px}
-button,a.btn{border:0;border-radius:999px;padding:12px 18px;font:inherit;font-weight:750;cursor:pointer;text-decoration:none;display:inline-block}
-.primary{background:var(--accent);color:#fff}.secondary{background:#ece7df;color:var(--ink)}.ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}.violet{background:var(--violet);color:#fff}
-.hidden{display:none!important}
-.progress-wrap{position:sticky;top:0;z-index:10;background:rgba(246,242,235,.94);backdrop-filter:blur(8px);padding:11px 0}
-.progress{height:8px;background:#e6e0d6;border-radius:999px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:var(--accent);transition:.25s}
-label{display:block;font-weight:700;margin:14px 0 7px}
-input,select{width:100%;font:inherit;border:1px solid #cec6bb;border-radius:12px;padding:12px;background:#fff;color:var(--ink)}
-.choice-grid{display:grid;gap:10px}
-.choice label{margin:0;font-weight:500;display:flex;gap:10px;align-items:flex-start}
-.choice input{width:auto;margin-top:4px}
-.code-row{display:flex;gap:8px}.code-row input{flex:1}
-.stepdots{display:flex;gap:6px;justify-content:center;margin:10px 0 20px}.dot{width:9px;height:9px;border-radius:50%;background:#ddd}.dot.on{background:var(--accent)}
-.pills{display:flex;gap:7px;flex-wrap:wrap}.pill{background:var(--soft);border-radius:999px;padding:7px 10px;font-size:.9rem}
-details.info-box{border:1px solid var(--line);border-radius:14px;background:#faf8f4;margin:18px 0}
-details.info-box summary{cursor:pointer;font-weight:800;padding:15px 16px;color:var(--accent)}
-.details-body{padding:0 16px 16px}
-.big{font-size:1.25rem;font-weight:850}
-.route{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0}.route span{background:var(--soft);border-radius:999px;padding:8px 11px;font-weight:700}
-.admin-card{text-align:center}.yn{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:520px;margin:20px auto}.yn button{padding:15px}
-.resource-links a{display:block;margin:10px 0;color:var(--accent);font-weight:700}
-.footer{text-align:center;color:var(--muted);font-size:.82rem;padding:20px 0}
-@media(max-width:760px){.grid3,.grid2{grid-template-columns:1fr}.shell{padding:13px}.card{padding:20px}.code-row{flex-direction:column}}
+:root{--bg:#f6f2eb;--card:#fff;--ink:#2d2a26;--muted:#6c655d;--line:#ded7cd;--accent:#6d7b63;--accent2:#b8a58a;--soft:#eef0ea;--ok:#edf6ee;--warn:#fff4dc;--violet:#756a82}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.55}.shell{max-width:980px;margin:auto;padding:22px}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:0 8px 28px rgba(0,0,0,.05);margin:18px 0}h1,h2,h3{line-height:1.15;margin-top:0}h1{font-size:clamp(2rem,5vw,3.4rem);letter-spacing:-.04em}h2{font-size:1.55rem}.brand,.section-tag,.eyebrow{font-size:.82rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:800}.lead{font-size:1.08rem;color:var(--muted)}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.path-card,.choice,.kpi,.tool-card,.rank-card{border:1px solid var(--line);border-radius:17px;padding:18px;background:#fff}.path-card{display:flex;flex-direction:column}.path-card .actions{margin-top:auto}.path-number{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--soft);font-weight:800;margin-bottom:12px}.notice,.callout{border-radius:14px;padding:15px 17px;margin:16px 0;background:#faf7f1;border-left:4px solid var(--accent2)}.notice.ok{background:var(--ok);border-left-color:var(--accent)}.notice.warn{background:var(--warn)}.actions{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;margin-top:24px}button,a.btn{border:0;border-radius:999px;padding:12px 18px;font:inherit;font-weight:750;cursor:pointer;text-decoration:none;display:inline-block}.primary{background:var(--accent);color:#fff}.secondary{background:#ece7df;color:var(--ink)}.ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}.violet{background:var(--violet);color:#fff}.hidden{display:none!important}.progress-wrap{position:sticky;top:0;z-index:10;background:rgba(246,242,235,.94);backdrop-filter:blur(8px);padding:11px 0}.progress{height:8px;background:#e6e0d6;border-radius:999px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:var(--accent);transition:.25s}label{display:block;font-weight:700;margin:14px 0 7px}input,select{width:100%;font:inherit;border:1px solid #cec6bb;border-radius:12px;padding:12px;background:#fff;color:var(--ink)}.choice-grid{display:grid;gap:10px}.choice label{margin:0;font-weight:500;display:flex;gap:10px;align-items:flex-start}.choice input{width:auto;margin-top:4px}.code-row{display:flex;gap:8px}.code-row input{flex:1}.stepdots{display:flex;gap:6px;justify-content:center;margin:10px 0 20px}.dot{width:9px;height:9px;border-radius:50%;background:#ddd}.dot.on{background:var(--accent)}.pills{display:flex;gap:7px;flex-wrap:wrap}.pill{background:var(--soft);border-radius:999px;padding:7px 10px;font-size:.9rem}details.info-box{border:1px solid var(--line);border-radius:14px;background:#faf8f4;margin:18px 0}details.info-box summary{cursor:pointer;font-weight:800;padding:15px 16px;color:var(--accent)}.details-body{padding:0 16px 16px}.big{font-size:1.25rem;font-weight:850}.route{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0}.route span{background:var(--soft);border-radius:999px;padding:8px 11px;font-weight:700}.admin-card{text-align:center}.yn{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:520px;margin:20px auto}.yn button{padding:15px}.resource-links a{display:block;margin:10px 0;color:var(--accent);font-weight:700}.footer{text-align:center;color:var(--muted);font-size:.82rem;padding:20px 0}.tool-card h3{margin-bottom:8px}.tool-card p{margin-bottom:10px}.rank-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.rank-card{position:relative;overflow:hidden}.rank-card .rank{font-size:1.2rem;font-weight:850;margin-bottom:4px}.rank-card .req{font-size:.92rem;color:var(--muted)}.rank-card.believer{border-left:7px solid #9e8f78}.rank-card.builder{border-left:7px solid #7a8d79}.rank-card.bronze{border-left:7px solid #a56a43}.rank-card.silver{border-left:7px solid #aeb3b8}.rank-card.gold{border-left:7px solid #c5a24b}.rank-card.diamond{border-left:7px solid #879ca7}.rank-card.star{border-left:7px solid #7d6f91}.checklist{display:grid;gap:9px}.check{background:#faf8f4;border:1px solid var(--line);border-radius:13px;padding:12px}.small{font-size:.9rem;color:var(--muted)}@media(max-width:760px){.grid3,.grid2,.rank-grid{grid-template-columns:1fr}.shell{padding:13px}.card{padding:20px}.code-row{flex-direction:column}}
 </style>
 </head>
 <body>
 <div class="shell">
-
-<section id="gate" class="card">
-  <div class="brand">Zurück zu dir · WIRKFELDER</div>
-  <h1>WIRKEN</h1>
-  <p class="lead"><b>Finde heraus, wie groß WIRKEN gerade in deinem Leben sein darf.</b> Du bekommst bewusst nur die Informationen, die du für dein aktuelles Ziel brauchst.</p>
-  <div class="notice"><b>Dein Weg darf wachsen.</b><br>Wenn sich deine Situation verändert, kannst du WIRKEN jederzeit erneut durchlaufen und in die nächste Stufe wechseln.</div>
-  <label>Zugangscode</label>
-  <div class="code-row">
-    <input id="accessCode" type="password" autocomplete="off" placeholder="Code eingeben">
-    <button class="primary" onclick="unlock()">Starten</button>
-  </div>
-  <p id="codeError" class="lead"></p>
-</section>
-
-<div id="tool" class="hidden">
-  <div class="progress-wrap"><div class="progress"><span id="progressBar"></span></div></div>
-
-  <section id="home" class="card view">
-    <div class="brand">WIRKFELDER · WIRKEN</div>
-    <h1>Welcher Weg passt gerade zu dir?</h1>
-    <p class="lead">Drei Möglichkeiten. Keine davon ist besser oder schlechter. Entscheidend ist, was du im Moment erreichen möchtest.</p>
-
-    <div class="grid3">
-      <article class="path-card">
-        <div class="path-number">1</div>
-        <h3>Meine Produkte refinanzieren</h3>
-        <p>Du möchtest LifePlus selbst nutzen und durch ehrliche Empfehlungen einen Teil deiner eigenen Produktkosten wieder hereinholen.</p>
-        <div class="actions"><button class="ghost" onclick="choosePath(1)">Weg 1 wählen</button></div>
-      </article>
-      <article class="path-card">
-        <div class="path-number">2</div>
-        <h3>Unsere Versorgung mittragen</h3>
-        <p>Du möchtest einen größeren Bedarf für dich, Familie oder Haushalt mitfinanzieren und etwas strukturierter empfehlen.</p>
-        <div class="actions"><button class="ghost" onclick="choosePath(2)">Weg 2 wählen</button></div>
-      </article>
-      <article class="path-card">
-        <div class="path-number">3</div>
-        <h3>Einkommen & Wirkfeld aufbauen</h3>
-        <p>Du möchtest über deine Produktkosten hinaus Einkommen entwickeln, ein Team aufbauen oder langfristig ein größeres Wirkfeld schaffen.</p>
-        <div class="actions"><button class="ghost" onclick="choosePath(3)">Weg 3 wählen</button></div>
-      </article>
-    </div>
-
-    <div class="callout">
-      <div class="section-tag">Noch nicht sicher?</div>
-      <h2>Der kurze WIRKEN-Kompass</h2>
-      <p>Sechs kurze Fragen geben dir eine Tendenz. Danach kannst du trotzdem jeden der drei Wege frei auswählen.</p>
-      <button class="primary" onclick="startCompass()">Kompass starten</button>
-    </div>
-  </section>
-
-  <section id="compass" class="card hidden view">
-    <div class="brand">WIRKEN-Kompass</div>
-    <h2>Ein Schritt nach dem anderen.</h2>
-    <div class="stepdots" id="dots"></div>
-
-    <div class="cstep" data-n="0">
-      <label>1. Was möchtest du im Moment hauptsächlich erreichen?</label>
-      <div class="choice-grid">
-        <div class="choice"><label><input type="radio" name="goal" value="1"> Meine eigenen Produktkosten möglichst reduzieren</label></div>
-        <div class="choice"><label><input type="radio" name="goal" value="2"> Einen größeren Bedarf für Familie / Haushalt mittragen</label></div>
-        <div class="choice"><label><input type="radio" name="goal" value="3"> Über meine Produktkosten hinaus etwas verdienen</label></div>
-        <div class="choice"><label><input type="radio" name="goal" value="4"> Langfristig ein richtiges Business aufbauen</label></div>
-      </div>
-    </div>
-
-    <div class="cstep hidden" data-n="1">
-      <label>2. Wie groß ist der Produktbedarf, den du ungefähr mittragen möchtest?</label>
-      <select name="need"><option value="small">Eher klein</option><option value="medium">Mittel</option><option value="large">Größer – z. B. Familie / mehrere Personen</option><option value="verylarge">Sehr groß</option></select>
-    </div>
-
-    <div class="cstep hidden" data-n="2">
-      <label>3. Möchtest du über deine eigenen Produktkosten hinaus Geld verdienen?</label>
-      <select name="income"><option value="no">Nein</option><option value="later">Vielleicht später</option><option value="yes">Ja, ein zusätzliches Einkommen</option><option value="business">Ja, ich möchte bewusst ein Business entwickeln</option></select>
-    </div>
-
-    <div class="cstep hidden" data-n="3">
-      <label>4. Wie viel Raum möchtest du WIRKEN momentan geben?</label>
-      <select name="time"><option value="casual">Nur empfehlen, wenn es sich ergibt</option><option value="regular">Regelmäßig etwas dafür tun</option><option value="hours">Einige Stunden pro Woche</option><option value="serious">Ich möchte es ernsthaft entwickeln</option></select>
-    </div>
-
-    <div class="cstep hidden" data-n="4">
-      <label>5. Was interessiert dich aktuell am meisten?</label>
-      <select name="role"><option value="shop">Produkte und meinen Shop empfehlen</option><option value="members">Auch erste Menschen begleiten, die selbst empfehlen</option><option value="team">Ein Team aufbauen und führen</option></select>
-    </div>
-
-    <div class="cstep hidden" data-n="5">
-      <label>6. Was beschreibt dein langfristiges Ziel am besten?</label>
-      <select name="long"><option value="own">Eigene Produkte mittragen</option><option value="family">Familienversorgung mittragen</option><option value="income">Zusätzliches Einkommen</option><option value="freedom">Mehr berufliche Freiheit</option><option value="purpose">Passion / Vision mit LifePlus verbinden</option></select>
-    </div>
-
-    <div class="actions">
-      <button id="cBack" class="secondary" onclick="compassBack()">Zurück</button>
-      <button id="cNext" class="primary" onclick="compassNext()">Weiter</button>
-    </div>
-  </section>
-
-  <section id="compassResult" class="card hidden view">
-    <div class="brand">Deine Orientierung</div>
-    <h1 id="recTitle"></h1>
-    <p class="lead" id="recText"></p>
-    <div class="notice ok"><b>Du entscheidest selbst.</b><br>Das Ergebnis ist nur eine Tendenz. Du kannst bewusst jeden der drei Wege wählen.</div>
-    <div class="grid3" id="resultCards"></div>
-    <div class="actions"><button class="secondary" onclick="startCompass()">Test erneut machen</button><button class="ghost" onclick="show('home')">Zur Übersicht</button></div>
-  </section>
-
-  <section id="idea" class="card hidden view">
-    <div class="brand">Dein WIRKEN-Weg · <span id="pathLabel"></span></div>
-    <h1>Die Grundidee von LifePlus</h1>
-    <p class="lead">Wir empfehlen im Alltag ständig Dinge weiter – Produkte, Restaurants, Hotels, Kosmetik oder einen guten Friseur.</p>
-    <div class="callout"><div class="big">Was wäre, wenn aus einer ehrlichen Empfehlung zusätzlich eine Vergütung entstehen kann?</div></div>
-    <p>Darum geht es im Kern: <b>eigene Erfahrungen weitergeben, informieren und Menschen selbst entscheiden lassen.</b> Es geht nicht darum, etwas überzustülpen, Diagnosen zu stellen oder Heilversprechen zu machen.</p>
-    <div class="grid3">
-      <div class="kpi"><span class="eyebrow">statt verkaufen</span><h3>Empfehlen</h3></div>
-      <div class="kpi"><span class="eyebrow">statt überreden</span><h3>Informieren</h3></div>
-      <div class="kpi"><span class="eyebrow">statt allein lassen</span><h3>Begleiten</h3></div>
-    </div>
-    <div class="notice warn"><b>Wichtig für jede Vergütung:</b><br>Du musst die jeweils gültige persönliche Aktivitätsqualifikation erfüllen. Aktuell liegt die Grundqualifikation für die Shop- und Empfehlungsvergütung bei 40 IP AV pro Monat.</div>
-    <div class="actions"><button class="secondary" onclick="show('home')">Zurück</button><button class="primary" onclick="startAdmin()">Weiter: Basis einrichten</button></div>
-  </section>
-
-  <section id="admin" class="card hidden view admin-card">
-    <div class="brand">Deine Basis · Schritt <span id="adminNo"></span></div>
-    <h1 id="adminQuestion"></h1>
-    <p class="lead" id="adminLead"></p>
-    <div id="adminHelp"></div>
-    <div class="yn">
-      <button class="primary" onclick="adminYes()">Ja</button>
-      <button class="secondary" onclick="adminNo()">Nein</button>
-    </div>
-    <div class="actions"><button class="ghost" onclick="adminBack()">Zurück</button><span></span></div>
-  </section>
-
-  <section id="pathInfo" class="card hidden view">
-    <div class="brand">Dein Weg · <span id="pathInfoLabel"></span></div>
-    <div id="pathInfoContent"></div>
-    <div class="actions"><button class="secondary" onclick="show('admin')">Zurück</button><button class="primary" onclick="finish()">Zum Abschluss</button></div>
-  </section>
-
-  <section id="finish" class="card hidden view">
-    <div class="brand">WIRKEN · Abschluss</div>
-    <h1>Du hast jetzt die wichtigsten Informationen.</h1>
-    <p class="lead" id="finishText"></p>
-
-    <div class="callout">
-      <div class="section-tag">Dein nächster persönlicher Schritt</div>
-      <h2>Jetzt darfst du alles zusammenführen.</h2>
-      <p>Wenn du herausfinden möchtest, <b>wie du auf deine eigene Art wirken, kommunizieren und arbeiten kannst</b>, gehe als Nächstes durch deinen Zurück-zu-dir-Weg.</p>
-      <div class="route"><span>Kompass 1</span>→<span>Kompass 2</span>→<span>Kompass 3</span>→<span>Lebenscode</span></div>
-      <p>Starte bewusst bei Kompass 1. Die einzelnen Schritte bauen aufeinander auf. Nimm danach deine Ergebnisse aus NÄHREN, BEWEGEN, VERSORGEN, WIRKEN, den drei Kompassen und dem Lebenscode mit zu deinem Mentor. Aus diesem Gesamtbild könnt ihr gemeinsam deine persönliche Strategie entwickeln.</p>
-      <button class="violet" onclick="alert('Hier wird später der Link zu Kompass 1 hinterlegt.')">Zurück-zu-dir-Weg starten</button>
-    </div>
-
-    <div id="path3Library" class="callout hidden">
-      <div class="section-tag">Weg 3 · interner Bereich</div>
-      <h2>Danach beginnt dein vertiefender Lernweg.</h2>
-      <p>Hier können später deine Videos und Tools zu Vergütungsplan, Empfehlung, Kundenbegleitung, Partnerstart, Social Media, Teamaufbau, Leadership, Mindset und weiteren Schulungen hinterlegt werden.</p>
-      <p><b>Dein erster Ansprechpartner bleibt dein Mentor.</b></p>
-    </div>
-
-    <div class="notice ok"><b>Schon eine LifePlus-Kundennummer?</b><br>Verwende bei allen LifePlus-Zugängen immer deine bestehende Kundennummer bzw. dein bestehendes Online-Konto. Lege nicht versehentlich einen zweiten Zugang an.</div>
-
-    <details class="info-box">
-      <summary>Offizielle LifePlus-Informationen</summary>
-      <div class="details-body resource-links">
-        <a href="https://ww1.lifeplus.com/ch/de/" target="_blank" rel="noopener">LifePlus · Webseite</a>
-        <a href="https://team.lifeplus.com/login" target="_blank" rel="noopener">LifePlus · Teams</a>
-        <a href="https://ww1.lifeplus.com/ch/de/web-page/login-to-my-account" target="_blank" rel="noopener">LifePlus · Online-Konto / Member-Bereich</a>
-        <hr>
-        <a href="https://ww1.lifeplus.com/de/de/web-page/what-is-ip" target="_blank" rel="noopener">LifePlus · Was ist IP?</a>
-        <a href="https://ww1.lifeplus.com/media/pdf/mediacenter/ConceptBrochure_DE.pdf" target="_blank" rel="noopener">LifePlus · Konzeptbroschüre</a>
-        <a href="https://ww1.lifeplus.com/media/pdf/mediacenter/Commission_Plan_DE.pdf" target="_blank" rel="noopener">LifePlus · Vergütungsplan</a>
-        <p class="lead" style="font-size:.9rem">LifePlus kann Bedingungen und Inhalte ändern. Für verbindliche Angaben gilt immer die aktuell veröffentlichte Fassung.</p>
-      </div>
-    </details>
-
-    <div class="actions"><button class="secondary" onclick="show('home')">Alle drei Wege ansehen</button><button class="ghost" onclick="window.print()">Drucken</button></div>
-  </section>
-
-  <div class="footer">WIRKFELDER · WIRKEN · V2 · September 2026</div>
-</div>
-</div>
-
+<section id="gate" class="card"><div class="brand">Zurück zu dir · WIRKFELDER</div><h1>WIRKEN</h1><p class="lead"><b>Finde heraus, wie groß WIRKEN gerade in deinem Leben sein darf.</b> Du bekommst bewusst nur die Informationen, die du für dein aktuelles Ziel brauchst.</p><div class="notice"><b>Dein Weg darf wachsen.</b><br>Wenn sich deine Situation verändert, kannst du WIRKEN jederzeit erneut durchlaufen und in die nächste Stufe wechseln.</div><label>Zugangscode</label><div class="code-row"><input id="accessCode" type="password" autocomplete="off" placeholder="Code eingeben"><button class="primary" onclick="unlock()">Starten</button></div><p id="codeError" class="lead"></p></section>
+<div id="tool" class="hidden"><div class="progress-wrap"><div class="progress"><span id="progressBar"></span></div></div>
+<section id="home" class="card view"><div class="brand">WIRKFELDER · WIRKEN</div><h1>Welcher Weg passt gerade zu dir?</h1><p class="lead">Drei Möglichkeiten. Keine davon ist besser oder schlechter. Entscheidend ist, was du im Moment erreichen möchtest.</p><div class="grid3"><article class="path-card"><div class="path-number">1</div><h3>Meine Produkte refinanzieren</h3><p>Du möchtest LifePlus selbst nutzen und durch ehrliche Empfehlungen einen Teil deiner eigenen Produktkosten wieder hereinholen.</p><div class="actions"><button class="ghost" onclick="choosePath(1)">Weg 1 wählen</button></div></article><article class="path-card"><div class="path-number">2</div><h3>Unsere Versorgung mittragen</h3><p>Du möchtest einen größeren Bedarf für dich, Familie oder Haushalt mitfinanzieren und etwas strukturierter empfehlen.</p><div class="actions"><button class="ghost" onclick="choosePath(2)">Weg 2 wählen</button></div></article><article class="path-card"><div class="path-number">3</div><h3>Einkommen & Wirkfeld aufbauen</h3><p>Du möchtest über deine Produktkosten hinaus Einkommen entwickeln, ein Team aufbauen oder langfristig ein größeres Wirkfeld schaffen.</p><div class="actions"><button class="ghost" onclick="choosePath(3)">Weg 3 wählen</button></div></article></div><div class="callout"><div class="section-tag">Noch nicht sicher?</div><h2>Der kurze WIRKEN-Kompass</h2><p>Sechs kurze Fragen geben dir eine Tendenz. Danach kannst du trotzdem jeden der drei Wege frei auswählen.</p><button class="primary" onclick="startCompass()">Kompass starten</button></div></section>
+<section id="compass" class="card hidden view"><div class="brand">WIRKEN-Kompass</div><h2>Ein Schritt nach dem anderen.</h2><div class="stepdots" id="dots"></div><div class="cstep" data-n="0"><label>1. Was möchtest du im Moment hauptsächlich erreichen?</label><div class="choice-grid"><div class="choice"><label><input type="radio" name="goal" value="1"> Meine eigenen Produktkosten möglichst reduzieren</label></div><div class="choice"><label><input type="radio" name="goal" value="2"> Einen größeren Bedarf für Familie / Haushalt mittragen</label></div><div class="choice"><label><input type="radio" name="goal" value="3"> Über meine Produktkosten hinaus etwas verdienen</label></div><div class="choice"><label><input type="radio" name="goal" value="4"> Langfristig ein richtiges Business aufbauen</label></div></div></div><div class="cstep hidden" data-n="1"><label>2. Wie groß ist der Produktbedarf, den du ungefähr mittragen möchtest?</label><select name="need"><option value="small">Eher klein</option><option value="medium">Mittel</option><option value="large">Größer – z. B. Familie / mehrere Personen</option><option value="verylarge">Sehr groß</option></select></div><div class="cstep hidden" data-n="2"><label>3. Möchtest du über deine eigenen Produktkosten hinaus Geld verdienen?</label><select name="income"><option value="no">Nein</option><option value="later">Vielleicht später</option><option value="yes">Ja, ein zusätzliches Einkommen</option><option value="business">Ja, ich möchte bewusst ein Business entwickeln</option></select></div><div class="cstep hidden" data-n="3"><label>4. Wie viel Raum möchtest du WIRKEN momentan geben?</label><select name="time"><option value="casual">Nur empfehlen, wenn es sich ergibt</option><option value="regular">Regelmäßig etwas dafür tun</option><option value="hours">Einige Stunden pro Woche</option><option value="serious">Ich möchte es ernsthaft entwickeln</option></select></div><div class="cstep hidden" data-n="4"><label>5. Was interessiert dich aktuell am meisten?</label><select name="role"><option value="shop">Produkte und meinen Shop empfehlen</option><option value="members">Auch erste Menschen begleiten, die selbst empfehlen</option><option value="team">Ein Team aufbauen und führen</option></select></div><div class="cstep hidden" data-n="5"><label>6. Was beschreibt dein langfristiges Ziel am besten?</label><select name="long"><option value="own">Eigene Produkte mittragen</option><option value="family">Familienversorgung mittragen</option><option value="income">Zusätzliches Einkommen</option><option value="freedom">Mehr berufliche Freiheit</option><option value="purpose">Passion / Vision mit LifePlus verbinden</option></select></div><div class="actions"><button id="cBack" class="secondary" onclick="compassBack()">Zurück</button><button id="cNext" class="primary" onclick="compassNext()">Weiter</button></div></section>
+<section id="compassResult" class="card hidden view"><div class="brand">Deine Orientierung</div><h1 id="recTitle"></h1><p class="lead" id="recText"></p><div class="notice ok"><b>Du entscheidest selbst.</b><br>Das Ergebnis ist nur eine Tendenz. Du kannst bewusst jeden der drei Wege wählen.</div><div class="grid3" id="resultCards"></div><div class="actions"><button class="secondary" onclick="startCompass()">Test erneut machen</button><button class="ghost" onclick="show('home')">Zur Übersicht</button></div></section>
+<section id="idea" class="card hidden view"><div class="brand">Dein WIRKEN-Weg · <span id="pathLabel"></span></div><h1>Die Grundidee von LifePlus</h1><p class="lead">Wir empfehlen im Alltag ständig Dinge weiter – Produkte, Restaurants, Hotels, Kosmetik oder einen guten Friseur.</p><div class="callout"><div class="big">Was wäre, wenn aus einer ehrlichen Empfehlung zusätzlich eine Vergütung entstehen kann?</div></div><p>Darum geht es im Kern: <b>eigene Erfahrungen weitergeben, informieren und Menschen selbst entscheiden lassen.</b> Es geht nicht darum, etwas überzustülpen, Diagnosen zu stellen oder Heilversprechen zu machen.</p><div class="grid3"><div class="kpi"><span class="eyebrow">statt verkaufen</span><h3>Empfehlen</h3></div><div class="kpi"><span class="eyebrow">statt überreden</span><h3>Informieren</h3></div><div class="kpi"><span class="eyebrow">statt allein lassen</span><h3>Begleiten</h3></div></div><div class="notice warn"><b>Wichtig für jede Vergütung:</b><br>Du musst die jeweils gültige persönliche Aktivitätsqualifikation erfüllen. Aktuell liegt die Grundqualifikation für die Shop- und Empfehlungsvergütung bei 40 IP AV pro Monat.</div><div class="actions"><button class="secondary" onclick="show('home')">Zurück</button><button class="primary" onclick="startAdmin()">Weiter: Basis einrichten</button></div></section>
+<section id="admin" class="card hidden view admin-card"><div class="brand">Deine Basis · Schritt <span id="adminNo"></span></div><h1 id="adminQuestion"></h1><p class="lead" id="adminLead"></p><div id="adminHelp"></div><div class="yn"><button class="primary" onclick="adminYes()">Ja</button><button class="secondary" onclick="adminNo()">Nein</button></div><div class="actions"><button class="ghost" onclick="adminBack()">Zurück</button><span></span></div></section>
+<section id="toolbox" class="card hidden view"><div class="brand">Deine LifePlus-Toolbox</div><h1>Wo findest du was?</h1><p class="lead">Du musst nicht die komplette LifePlus-Welt kennen. Für deinen Start reichen diese Bereiche.</p><div class="grid2"><div class="tool-card"><h3>1 · LifePlus Webseite & Online-Konto</h3><p>Hier verwaltest du deine persönlichen Daten, Bestellungen, ASAP, deinen Shop und deine grundlegenden Member-Funktionen.</p><a class="btn ghost" href="https://ww1.lifeplus.com/ch/de/" target="_blank" rel="noopener">LifePlus Webseite öffnen</a></div><div class="tool-card"><h3>2 · Geschäftsbereich / Business Tools</h3><p>Hier findest du offizielle Geschäftstools, Marketingmaterialien, Präsentationshilfen und weitere Ressourcen für dein LifePlus-Geschäft.</p><a class="btn ghost" href="https://ww1.lifeplus.com/de/de/web-page/business-tools" target="_blank" rel="noopener">Business Tools öffnen</a></div><div class="tool-card"><h3>3 · LifePlus Teams</h3><p>Teams hilft dir, deine Struktur und dein Team im Blick zu behalten. Du kannst sehen, wer sich auf welcher Ebene befindet und wo Unterstützung sinnvoll sein kann. Du nutzt dafür dieselben LifePlus-Zugangsdaten wie auf lifeplus.com.</p><a class="btn ghost" href="https://team.lifeplus.com/" target="_blank" rel="noopener">LifePlus Teams öffnen</a></div><div class="tool-card"><h3>4 · Member-Bereich / Wellnesscenter</h3><p>Hier findest du weiterführende Produkt- und Wellbeing-Informationen, Artikel, Videos und teilbare Inhalte. Das ist besonders hilfreich, wenn du Wissen vertiefen oder offizielle Inhalte für Gespräche und Social Media verwenden möchtest.</p><a class="btn ghost" href="https://ww1.lifeplus.com/de/de/de/web-page/associate-area/marketing-materials/online-tools/your-wellness-centre" target="_blank" rel="noopener">Wellnesscenter öffnen</a></div></div><div class="notice ok"><b>Merke:</b><br>Du musst nicht alles selbst erklären. Nutze offizielle LifePlus-Inhalte und deinen Mentor. Das schützt dich davor, Aussagen zu machen, die du fachlich oder rechtlich gar nicht machen musst.</div><div class="actions"><button class="secondary" onclick="show('admin')">Zurück</button><button class="primary" onclick="buildPathInfo()">Weiter: mein Weg</button></div></section>
+<section id="pathInfo" class="card hidden view"><div class="brand">Dein Weg · <span id="pathInfoLabel"></span></div><div id="pathInfoContent"></div><div class="actions"><button class="secondary" onclick="show('toolbox')">Zurück</button><button class="primary" onclick="finish()">Zum Abschluss</button></div></section>
+<section id="finish" class="card hidden view"><div class="brand">WIRKEN · Abschluss</div><h1>Du bist jetzt startklar.</h1><p class="lead" id="finishText"></p><div class="callout"><div class="section-tag">Dein nächster persönlicher Schritt</div><h2>Jetzt darfst du alles zusammenführen.</h2><p>Wenn du herausfinden möchtest, <b>wie du auf deine eigene Art wirken, kommunizieren und arbeiten kannst</b>, gehe als Nächstes durch deinen Zurück-zu-dir-Weg.</p><div class="route"><span>Kompass 1</span>→<span>Kompass 2</span>→<span>Kompass 3</span>→<span>Lebenscode</span></div><p>Starte bewusst bei Kompass 1. Die einzelnen Schritte bauen aufeinander auf. Nimm danach deine Ergebnisse aus NÄHREN, BEWEGEN, VERSORGEN, WIRKEN, den drei Kompassen und dem Lebenscode mit zu deinem Mentor. Aus diesem Gesamtbild könnt ihr gemeinsam deine persönliche Strategie entwickeln.</p><button class="violet" onclick="alert('Hier wird später der Link zu Kompass 1 hinterlegt.')">Zurück-zu-dir-Weg starten</button></div><div id="path3Library" class="callout hidden"><div class="section-tag">Weg 3 · nächster Ausbau</div><h2>Jetzt beginnt dein vertiefender Businessweg.</h2><p>Du kannst bereits starten. Gleichzeitig lohnt es sich für Weg 3 besonders, deine persönliche Arbeitsweise, Vision und Führung bewusst zu entwickeln. Danach können die internen Videos und Tools zu Vergütungsplan, Empfehlung, Kundenbegleitung, Partnerstart, Social Media, Teamaufbau, Leadership und Mindset folgen.</p><p><b>Dein erster Ansprechpartner bleibt dein Mentor.</b></p></div><h2>Dein Startklar-Check</h2><div class="checklist"><div class="check">✓ bestehende Kundennummer / Zugang geklärt</div><div class="check">✓ Online-Konto eingerichtet</div><div class="check">✓ persönlichen Shop aktiviert</div><div class="check">✓ Shop-Link, Shopnummer und QR-Code gespeichert</div><div class="check">✓ wichtigste Warenkorb-/Paketlinks vorbereitet</div><div class="check">✓ LifePlus Teams geöffnet und Zugang geprüft</div><div class="check">✓ Webseite, Business Tools und Member-Bereich verstanden</div><div class="check">✓ Mentor / Sponsor als Ansprechpartner bekannt</div></div><details class="info-box"><summary>Offizielle LifePlus-Informationen</summary><div class="details-body resource-links"><a href="https://ww1.lifeplus.com/ch/de/" target="_blank" rel="noopener">LifePlus · Webseite</a><a href="https://team.lifeplus.com/" target="_blank" rel="noopener">LifePlus · Teams</a><a href="https://ww1.lifeplus.com/ch/de/web-page/login-to-my-account" target="_blank" rel="noopener">LifePlus · Online-Konto / Member-Bereich</a><a href="https://ww1.lifeplus.com/de/de/web-page/business-tools" target="_blank" rel="noopener">LifePlus · Business Tools</a><hr><a href="https://ww1.lifeplus.com/de/de/web-page/what-is-ip" target="_blank" rel="noopener">LifePlus · Was ist IP?</a><a href="https://ww1.lifeplus.com/media/pdf/mediacenter/ConceptBrochure_DE.pdf" target="_blank" rel="noopener">LifePlus · Konzeptbroschüre</a><a href="https://ww1.lifeplus.com/media/pdf/mediacenter/Commission_Plan_DE.pdf" target="_blank" rel="noopener">LifePlus · offizieller Vergütungsplan</a><a href="https://ww1.lifeplus.com/media/pdf/mediacenter/Commission_Plan_Example_DE.pdf" target="_blank" rel="noopener">LifePlus · Vergütungsplan-Beispiel</a><p class="small">LifePlus kann Bedingungen und Inhalte ändern. Für verbindliche Angaben gilt immer die aktuell veröffentlichte Fassung.</p></div></details><div class="actions"><button class="secondary" onclick="show('home')">Alle drei Wege ansehen</button><button class="ghost" onclick="window.print()">Drucken</button></div></section><div class="footer">WIRKFELDER · WIRKEN · V3 · September 2026</div></div></div>
 <script>
-const ACCESS='WIRKEN2026';
-let selectedPath=1, cStep=0, adminStep=0;
-
-function unlock(){
-  if(document.getElementById('accessCode').value.trim()===ACCESS){
-    document.getElementById('gate').classList.add('hidden');
-    document.getElementById('tool').classList.remove('hidden');
-    show('home'); setProgress(5);
-  } else document.getElementById('codeError').textContent='Der Zugangscode stimmt noch nicht.';
-}
-document.getElementById('accessCode').addEventListener('keydown',e=>{if(e.key==='Enter')unlock()});
-
-function setProgress(n){document.getElementById('progressBar').style.width=Math.max(0,Math.min(100,n))+'%'}
-function show(id){
-  document.querySelectorAll('.view').forEach(x=>x.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function choosePath(p){
-  selectedPath=p;
-  document.getElementById('pathLabel').textContent='Weg '+p;
-  show('idea'); setProgress(20);
-}
-function startCompass(){cStep=0;show('compass');drawCompass();setProgress(10)}
-function drawCompass(){
-  document.querySelectorAll('.cstep').forEach((x,i)=>x.classList.toggle('hidden',i!==cStep));
-  document.getElementById('cBack').style.visibility=cStep===0?'hidden':'visible';
-  document.getElementById('cNext').textContent=cStep===5?'Ergebnis anzeigen':'Weiter';
-  document.getElementById('dots').innerHTML=Array.from({length:6},(_,i)=>`<span class="dot ${i===cStep?'on':''}"></span>`).join('');
-}
-function compassBack(){if(cStep>0){cStep--;drawCompass()}}
-function val(name){
-  const r=document.querySelector(`[name="${name}"]:checked`);
-  if(r)return r.value;
-  const e=document.querySelector(`[name="${name}"]`);
-  return e?e.value:'';
-}
-function compassNext(){
-  if(cStep===0&&!val('goal')){alert('Bitte wähle eine Antwort aus.');return}
-  if(cStep<5){cStep++;drawCompass();setProgress(10+cStep*7);return}
-  const g=+val('goal'),need=val('need'),inc=val('income'),time=val('time'),role=val('role'),long=val('long');
-  let p=1;
-  if(g>=3||inc==='yes'||inc==='business'||time==='serious'||role==='team'||['income','freedom','purpose'].includes(long))p=3;
-  else if(g===2||['large','verylarge'].includes(need)||role==='members'||long==='family'||['regular','hours'].includes(time))p=2;
-  selectedPath=p;
-  const titles={1:'Weg 1 · Meine Produkte refinanzieren',2:'Weg 2 · Unsere Versorgung mittragen',3:'Weg 3 · Einkommen & Wirkfeld aufbauen'};
-  const texts={1:'Deine Antworten sprechen im Moment für einen einfachen Empfehlungsweg rund um deine eigene Versorgung.',2:'Deine Antworten sprechen für etwas mehr Struktur, um einen größeren Bedarf mitzutragen.',3:'Du möchtest über reine Refinanzierung hinaus Einkommen, Team oder ein größeres Wirkfeld entwickeln.'};
-  document.getElementById('recTitle').textContent=titles[p];
-  document.getElementById('recText').textContent=texts[p];
-  document.getElementById('resultCards').innerHTML=[1,2,3].map(x=>`<article class="path-card"><div class="path-number">${x}</div><h3>${titles[x]}</h3><div class="actions"><button class="${x===p?'primary':'ghost'}" onclick="choosePath(${x})">${x===p?'Diesen Weg öffnen':'Diesen Weg wählen'}</button></div></article>`).join('');
-  show('compassResult');setProgress(55);
-}
-
+const ACCESS='WIRKEN2026';let selectedPath=1,cStep=0,adminStep=0;
+function unlock(){if(document.getElementById('accessCode').value.trim()===ACCESS){document.getElementById('gate').classList.add('hidden');document.getElementById('tool').classList.remove('hidden');show('home');setProgress(5)}else document.getElementById('codeError').textContent='Der Zugangscode stimmt noch nicht.'}document.getElementById('accessCode').addEventListener('keydown',e=>{if(e.key==='Enter')unlock()});
+function setProgress(n){document.getElementById('progressBar').style.width=Math.max(0,Math.min(100,n))+'%'}function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}function choosePath(p){selectedPath=p;document.getElementById('pathLabel').textContent='Weg '+p;show('idea');setProgress(20)}function startCompass(){cStep=0;show('compass');drawCompass();setProgress(10)}function drawCompass(){document.querySelectorAll('.cstep').forEach((x,i)=>x.classList.toggle('hidden',i!==cStep));document.getElementById('cBack').style.visibility=cStep===0?'hidden':'visible';document.getElementById('cNext').textContent=cStep===5?'Ergebnis anzeigen':'Weiter';document.getElementById('dots').innerHTML=Array.from({length:6},(_,i)=>`<span class="dot ${i===cStep?'on':''}"></span>`).join('')}function compassBack(){if(cStep>0){cStep--;drawCompass()}}function val(name){const r=document.querySelector(`[name="${name}"]:checked`);if(r)return r.value;const e=document.querySelector(`[name="${name}"]`);return e?e.value:''}function compassNext(){if(cStep===0&&!val('goal')){alert('Bitte wähle eine Antwort aus.');return}if(cStep<5){cStep++;drawCompass();setProgress(10+cStep*7);return}const g=+val('goal'),need=val('need'),inc=val('income'),time=val('time'),role=val('role'),long=val('long');let p=1;if(g>=3||inc==='yes'||inc==='business'||time==='serious'||role==='team'||['income','freedom','purpose'].includes(long))p=3;else if(g===2||['large','verylarge'].includes(need)||role==='members'||long==='family'||['regular','hours'].includes(time))p=2;selectedPath=p;const titles={1:'Weg 1 · Meine Produkte refinanzieren',2:'Weg 2 · Unsere Versorgung mittragen',3:'Weg 3 · Einkommen & Wirkfeld aufbauen'};const texts={1:'Deine Antworten sprechen im Moment für einen einfachen Empfehlungsweg rund um deine eigene Versorgung.',2:'Deine Antworten sprechen für etwas mehr Struktur, um einen größeren Bedarf mitzutragen.',3:'Du möchtest über reine Refinanzierung hinaus Einkommen, Team oder ein größeres Wirkfeld entwickeln.'};document.getElementById('recTitle').textContent=titles[p];document.getElementById('recText').textContent=texts[p];document.getElementById('resultCards').innerHTML=[1,2,3].map(x=>`<article class="path-card"><div class="path-number">${x}</div><h3>${titles[x]}</h3><div class="actions"><button class="${x===p?'primary':'ghost'}" onclick="choosePath(${x})">${x===p?'Diesen Weg öffnen':'Diesen Weg wählen'}</button></div></article>`).join('');show('compassResult');setProgress(55)}
 const adminSteps=[
- {q:'Hast du bereits eine LifePlus-Kundennummer?',lead:'Wenn ja, verwendest du immer diese bestehende Kundennummer und legst keine neue an.',help:`<div class="notice ok"><b>Schon Kunde?</b><br>Bitte verwende deinen bestehenden Zugang. Wenn du deine Daten nicht mehr weißt, kläre das mit deinem Mentor oder dem LifePlus-Support.</div>`},
- {q:'Hast du dein LifePlus-Online-Konto bereits aktiviert?',lead:'Über dein Online-Konto verwaltest du deine persönlichen LifePlus-Zugänge.',help:`<div class="notice"><b>Wenn nein:</b><br>Öffne die offizielle LifePlus-Seite und registriere bzw. aktiviere dein Online-Konto. Wenn du bereits eine Kundennummer hast, verwende unbedingt deine bestehenden Daten.</div><a class="btn ghost" href="https://ww1.lifeplus.com/ch/de/web-page/login-to-my-account" target="_blank" rel="noopener">LifePlus Online-Konto öffnen</a>`},
- {q:'Ist dein persönlicher LifePlus-Shop bereits aktiviert?',lead:'Dein Shop ist deine einfache Möglichkeit, Produkte direkt weiterzuempfehlen.',help:`<div class="notice"><b>Wenn nein:</b><br>Lass dein LifePlus-Online-Konto am besten geöffnet. Gehe dort zur Shop-Aktivierung und richte deinen persönlichen Shop ein. Wenn du nicht findest, wo die Funktion liegt, nimm deinen Mentor kurz dazu.</div>`},
- {q:'Hast du deinen persönlichen Shop-Link und deine Shopnummer gespeichert?',lead:'Beides solltest du jederzeit schnell finden können.',help:`<div class="notice"><b>Wenn nein:</b><br>Speichere deinen Shop-Link am Handy und am Computer. Notiere dir auch deine Shopnummer.</div>`},
- {q:'Hast du deinen Shop-QR-Code gespeichert?',lead:'Der QR-Code ist besonders praktisch für persönliche Empfehlungen.',help:`<div class="notice"><b>Wenn nein:</b><br>Speichere den QR-Code als Bild auf deinem Handy. So kannst du ihn bei einem Gespräch direkt zeigen.</div>`},
- {q:'Ist dir klar, dass du für Vergütung selbst monatlich qualifiziert sein musst?',lead:'Aktuell beträgt die grundlegende Aktivitätsqualifikation 40 IP AV pro Monat.',help:`<div class="notice warn"><b>Wichtig:</b><br>Ohne die jeweils gültige persönliche Qualifikation entsteht für dich keine entsprechende Shop-/Empfehlungsvergütung. Prüfe Änderungen immer in den offiziellen LifePlus-Unterlagen.</div>`},
- {q:'Kennst du deinen Mentor / Sponsor als ersten Ansprechpartner?',lead:'Der digitale Weg gibt Struktur. Persönliche Begleitung bleibt live.',help:`<div class="notice"><b>Wenn nein:</b><br>Schau nach, über wen du zu LifePlus gekommen bist. Diese Person bleibt dein erster Ansprechpartner. Bestehende Sponsorbeziehungen werden respektiert.</div>`}
+{q:'Hast du bereits eine LifePlus-Kundennummer?',lead:'Wenn ja, verwendest du immer diese bestehende Kundennummer und legst keine neue an.',help:`<div class="notice ok"><b>Schon Kunde?</b><br>Bitte verwende deinen bestehenden Zugang. Wenn du deine Daten nicht mehr weißt, kläre das mit deinem Mentor oder dem LifePlus-Support.</div>`},
+{q:'Hast du dein LifePlus-Online-Konto bereits aktiviert?',lead:'Über dein Online-Konto verwaltest du deine persönlichen LifePlus-Zugänge.',help:`<div class="notice"><b>Wenn nein:</b><br>Öffne die offizielle LifePlus-Seite und registriere bzw. aktiviere dein Online-Konto. Wenn du bereits eine Kundennummer hast, verwende unbedingt deine bestehenden Daten.</div><a class="btn ghost" href="https://ww1.lifeplus.com/ch/de/web-page/login-to-my-account" target="_blank" rel="noopener">LifePlus Online-Konto öffnen</a>`},
+{q:'Ist dein persönlicher LifePlus-Shop bereits aktiviert?',lead:'Dein Shop ist deine einfache Möglichkeit, Produkte direkt weiterzuempfehlen.',help:`<div class="notice"><b>Wenn nein:</b><br>Lass dein LifePlus-Online-Konto am besten geöffnet. Gehe dort zur Shop-Aktivierung und richte deinen persönlichen Shop ein. Wenn du nicht findest, wo die Funktion liegt, nimm deinen Mentor kurz dazu.</div>`},
+{q:'Hast du deinen persönlichen Shop-Link, deine Shopnummer und deinen QR-Code gespeichert?',lead:'Diese drei Dinge solltest du jederzeit schnell zur Hand haben.',help:`<div class="notice"><b>Wenn nein:</b><br>Speichere deinen Shop-Link am Handy und am Computer, notiere deine Shopnummer und speichere deinen QR-Code als Bild.</div>`},
+{q:'Hast du deine wichtigsten Warenkorb- oder Paketlinks vorbereitet?',lead:'Damit können Menschen passende Produktkombinationen direkt öffnen, statt jedes Produkt einzeln zu suchen.',help:`<div class="notice"><b>Mach deinen Shop jetzt startklar:</b><br>Lege dir in deinem Shop typische Warenkörbe bzw. Produktpakete an und speichere den jeweiligen Link oder QR-Code. Empfehlenswert für den Start sind z. B. <b>Basisversorgung, S/M/L-Pakete, Entsäuerung und Entgiftungs-Unterstützung</b>. Diese Begriffe sind interne Programm-/Wellnessbezeichnungen und keine medizinischen Aussagen.</div><p class="small">Die genaue Menübezeichnung kann sich auf der LifePlus-Seite ändern. Nutze die aktuelle Teilen-/Warenkorb-Funktion deines Shops.</p>`},
+{q:'Kannst du dich bei LifePlus Teams anmelden?',lead:'Für LifePlus Teams verwendest du dieselben Zugangsdaten wie für lifeplus.com.',help:`<div class="notice"><b>Wenn nein:</b><br>Öffne LifePlus Teams und melde dich mit deinem LifePlus-Benutzernamen und Passwort an. Wenn der Zugang nicht funktioniert, prüfe zuerst, ob dein Online-Konto vollständig eingerichtet ist.</div><a class="btn ghost" href="https://team.lifeplus.com/" target="_blank" rel="noopener">LifePlus Teams öffnen</a>`},
+{q:'Ist dir klar, dass du für Vergütung selbst monatlich qualifiziert sein musst?',lead:'Aktuell beträgt die grundlegende Aktivitätsqualifikation 40 IP AV pro Monat.',help:`<div class="notice warn"><b>Wichtig:</b><br>Ohne die jeweils gültige persönliche Qualifikation entsteht für dich keine entsprechende Shop-/Empfehlungsvergütung. Prüfe Änderungen immer in den offiziellen LifePlus-Unterlagen.</div>`},
+{q:'Kennst du deinen Mentor / Sponsor als ersten Ansprechpartner?',lead:'Der digitale Weg gibt Struktur. Persönliche Begleitung bleibt live.',help:`<div class="notice"><b>Wenn nein:</b><br>Schau nach, über wen du zu LifePlus gekommen bist. Diese Person bleibt dein erster Ansprechpartner. Bestehende Sponsorbeziehungen werden respektiert.</div>`}
 ];
-
-function startAdmin(){adminStep=0;showAdmin();show('admin');setProgress(30)}
-function showAdmin(){
- const s=adminSteps[adminStep];
- document.getElementById('adminNo').textContent=(adminStep+1)+' von '+adminSteps.length;
- document.getElementById('adminQuestion').textContent=s.q;
- document.getElementById('adminLead').textContent=s.lead;
- document.getElementById('adminHelp').innerHTML='';
-}
-function adminYes(){advanceAdmin()}
-function adminNo(){
- document.getElementById('adminHelp').innerHTML=adminSteps[adminStep].help+`<div style="margin-top:16px"><button class="primary" onclick="advanceAdmin()">Erledigt / weiter</button></div>`;
-}
-function adminBack(){
- if(adminStep>0){adminStep--;showAdmin()} else show('idea');
-}
-function advanceAdmin(){
- if(adminStep<adminSteps.length-1){adminStep++;showAdmin();setProgress(30+adminStep*5)}
- else buildPathInfo();
-}
-
-function buildPathInfo(){
-  document.getElementById('pathInfoLabel').textContent='Weg '+selectedPath;
-  let h='';
-  if(selectedPath===1){
-    h=`<h1>Für deinen Start reicht jetzt genau das.</h1>
-    <p class="lead">Du hast die administrative Basis. Jetzt darf es einfach bleiben.</p>
-    <div class="notice ok"><b>Deine Aufgabe:</b><br>Nutze die Produkte, von denen du überzeugt bist, und empfehle sie ehrlich weiter, wenn es zu einem Menschen passt.</div>
-    <h2>Was kannst du grundsätzlich weiterempfehlen?</h2>
-    <div class="pills"><span class="pill">Nahrungsergänzung</span><span class="pill">Forever Young Kosmetik</span><span class="pill">Sportprodukte</span><span class="pill">Wellness- & Alltagsprodukte</span><span class="pill">deinen persönlichen Shop</span><span class="pill">die WIRKFELDER</span></div>
-    <p>Du musst nicht alle Produkte auswendig kennen. Wenn du mehr Produktinformationen oder Erfahrungshilfen brauchst, wende dich an deinen Mentor. Dort bekommst du die passenden Schulungen und Materialien.</p>
-    <div class="notice warn"><b>Vergütung bleibt an deine Qualifikation gekoppelt.</b><br>Aktuell brauchst du dafür mindestens 40 IP AV im Monat.</div>`;
-  } else if(selectedPath===2){
-    h=`<h1>Jetzt kommt etwas mehr Struktur dazu.</h1>
-    <p class="lead">Du kannst dieselben Produktbereiche und deinen Shop nutzen wie in Weg 1. Zusätzlich wird interessant, ob einzelne Menschen selbst Member werden und ebenfalls empfehlen möchten.</p>
-    <h2>Shopper oder Member?</h2>
-    <div class="grid2"><div class="kpi"><h3>Shopper</h3><p>Menschen, die einfach Produkte kaufen möchten, können über deinen persönlichen Shop bestellen.</p></div><div class="kpi"><h3>Member</h3><p>Menschen, die selbst empfehlen möchten, können als Member Teil der Struktur werden.</p></div></div>
-    <h2>Die ersten drei Ebenen – kurz erklärt</h2>
-    <p>Für qualifizierte Member-Bestellungen nennt der aktuelle LifePlus-Plan in der Empfehlungsvergütung <b>5 % auf Ebene 1, 25 % auf Ebene 2 und 10 % auf Ebene 3</b>. Für Ebene 3 gelten zusätzliche Qualifikationsbedingungen. Deshalb ist es langfristig interessanter, wenn nicht nur du empfiehlst, sondern auch einzelne Menschen unter dir selbst aktiv werden.</p>
-    <div class="notice warn"><b>Wichtig:</b><br>Diese Prozentsätze gelten nur unter den jeweils aktuellen Qualifikationsbedingungen. Die persönliche Grundqualifikation beginnt aktuell bei 40 IP AV.</div>
-    <p>Du musst daraus noch kein großes Business machen. Wenn du irgendwann merkst, dass du tiefer in Teamaufbau und Leadership einsteigen möchtest, gehst du einfach in Weg 3 weiter.</p>`;
-  } else {
-    h=`<h1>Jetzt wird aus Empfehlung ein Businessweg.</h1>
-    <p class="lead">Für dich ist der Vergütungsplan nicht nur Hintergrundwissen, sondern ein wichtiges Arbeitsinstrument.</p>
-    <h2>Deine großen Leadership-Schritte</h2>
-    <div class="grid2">
-      <div class="kpi"><span class="eyebrow">Bronze</span><h3>100 IP AV · 3.000 QGV · 3 QL</h3><p>Aktuell bis zu 3 % Leadership-Vergütung.</p></div>
-      <div class="kpi"><span class="eyebrow">Silver</span><h3>100 IP AV · 6.000 QGV · 6 QL</h3><p>Aktuell bis zu 6 %.</p></div>
-      <div class="kpi"><span class="eyebrow">Gold</span><h3>150 IP AV · 9.000 QGV · 9 QL</h3><p>Aktuell bis zu 9 %.</p></div>
-      <div class="kpi"><span class="eyebrow">Diamond</span><h3>150 IP AV · 15.000 QGV · 12 QL</h3><p>Aktuell bis zu 12 %.</p></div>
-    </div>
-    <p>LifePlus hat im aktuellen Plan außerdem Vorstufen wie Believer und Builder sowie weitere Leadership-Development-Stufen oberhalb von Diamond. Dein erstes großes Teamziel kann trotzdem bewusst <b>Bronze</b> sein.</p>
-    <div class="notice warn"><b>Ganz wichtig:</b><br>Auch im Businessweg musst du selbst die jeweils notwendige persönliche Aktivitätsqualifikation erfüllen. Ohne eigene Qualifikation erhältst du die entsprechende Vergütung nicht.</div>
-    <p>Ab hier wird deine persönliche Strategie wichtig: Wie arbeitest du gern? Wie möchtest du Menschen erreichen? Wie führst du? Welche Vision hast du? Genau deshalb verbinden wir WIRKEN am Ende mit deinen Zurück-zu-dir-Kompassen und dem Lebenscode.</p>`;
-  }
-  document.getElementById('pathInfoContent').innerHTML=h;
-  show('pathInfo');setProgress(82);
-}
-
-function finish(){
- document.getElementById('path3Library').classList.toggle('hidden',selectedPath!==3);
- document.getElementById('finishText').textContent=selectedPath===1
-   ?'Für dein aktuelles Ziel hast du alles, was du brauchst: eine saubere Basis, deinen Shop und einen einfachen Empfehlungsweg.'
-   :selectedPath===2
-   ?'Für dein aktuelles Ziel kennst du jetzt die Basis aus Shop, Shoppern, Members und den ersten Vergütungsebenen.'
-   :'Du kennst jetzt deine technische Basis und die großen Business-Stufen. Der nächste Schritt ist, daraus deine persönliche Arbeitsweise und Strategie zu entwickeln.';
- show('finish');setProgress(100);
-}
+function startAdmin(){adminStep=0;showAdmin();show('admin');setProgress(30)}function showAdmin(){const s=adminSteps[adminStep];document.getElementById('adminNo').textContent=(adminStep+1)+' von '+adminSteps.length;document.getElementById('adminQuestion').textContent=s.q;document.getElementById('adminLead').textContent=s.lead;document.getElementById('adminHelp').innerHTML=''}function adminYes(){advanceAdmin()}function adminNo(){document.getElementById('adminHelp').innerHTML=adminSteps[adminStep].help+`<div style="margin-top:16px"><button class="primary" onclick="advanceAdmin()">Erledigt / weiter</button></div>`}function adminBack(){if(adminStep>0){adminStep--;showAdmin()}else show('idea')}function advanceAdmin(){if(adminStep<adminSteps.length-1){adminStep++;showAdmin();setProgress(30+adminStep*4)}else{show('toolbox');setProgress(65)}}
+function buildPathInfo(){document.getElementById('pathInfoLabel').textContent='Weg '+selectedPath;let h='';if(selectedPath===1){h=`<h1>Für deinen Start reicht jetzt genau das.</h1><p class="lead">Du hast die administrative Basis und kennst deine LifePlus-Tools. Jetzt darf es einfach bleiben.</p><div class="notice ok"><b>Deine Aufgabe:</b><br>Nutze die Produkte, von denen du überzeugt bist, und empfehle sie ehrlich weiter, wenn es zu einem Menschen passt.</div><h2>Was kannst du grundsätzlich weiterempfehlen?</h2><div class="pills"><span class="pill">Nahrungsergänzung</span><span class="pill">Basisversorgung</span><span class="pill">Omega & Mikronährstoffe</span><span class="pill">Sporternährung</span><span class="pill">Superfoods / Solis</span><span class="pill">Forever Young Hautpflege</span><span class="pill">Healthy Food / Snacks</span><span class="pill">LifePlus Pets</span><span class="pill">Produktpakete</span><span class="pill">deinen persönlichen Shop</span><span class="pill">die WIRKFELDER</span></div><p>Du musst nicht alle Produkte auswendig kennen. Wenn du mehr Produktinformationen oder Erfahrungshilfen brauchst, wende dich an deinen Mentor und nutze die offiziellen LifePlus-Informationen.</p><div class="notice warn"><b>Vergütung bleibt an deine Qualifikation gekoppelt.</b><br>Aktuell brauchst du dafür mindestens 40 IP AV im Monat.</div><h2>Eigene Bestellung</h2><p>Bei einer eigenen Member-Shop-Bestellung gilt aktuell: Auf die ersten 150 IP erhältst du selbst keine Vergütung. Für den Teil oberhalb von 150 IP wird beim Bestellabschluss ein Sofortrabatt von 20 % gewährt.</p><div class="callout"><b>Damit bist du für Weg 1 startklar.</b><br>Shop aktiv, Links vorbereitet, Tools bekannt – jetzt kannst du mit echten Empfehlungen beginnen.</div>`}else if(selectedPath===2){h=`<h1>Jetzt kommt etwas mehr Struktur dazu.</h1><p class="lead">Du kannst dieselben Produktbereiche und deinen Shop nutzen wie in Weg 1. Zusätzlich wird interessant, ob einzelne Menschen selbst Member werden und ebenfalls empfehlen möchten.</p><h2>Shopper oder Member?</h2><div class="grid2"><div class="kpi"><h3>Shopper</h3><p>Menschen, die einfach Produkte kaufen möchten, können über deinen persönlichen Shop bestellen.</p></div><div class="kpi"><h3>Member</h3><p>Menschen, die selbst empfehlen möchten, können als Member Teil der Struktur werden.</p></div></div><h2>Die ersten drei Empfehlungs-Ebenen</h2><div class="grid3"><div class="kpi"><span class="eyebrow">Ebene 1</span><h3>5 %</h3><p>Aktuell bei 40 IP AV.</p></div><div class="kpi"><span class="eyebrow">Ebene 2</span><h3>25 %</h3><p>Aktuell bei 40 IP AV.</p></div><div class="kpi"><span class="eyebrow">Ebene 3</span><h3>10 %</h3><p>Aktuell bei 40 IP AV und 3 qualifizierten Beinen.</p></div></div><p>Zusätzlich gibt es die Shop-Vergütung auf Shopper-Bestellungen. Der aktuelle Plan nennt dafür 25 % auf der Shop-Ebene bei erfüllter Qualifikation.</p><div class="notice warn"><b>Wichtig:</b><br>Die Prozentsätze gelten nur unter den jeweils aktuellen Qualifikationsbedingungen. Der offizielle Vergütungsplan ist maßgeblich.</div><a class="btn ghost" href="https://ww1.lifeplus.com/media/pdf/mediacenter/Commission_Plan_DE.pdf" target="_blank" rel="noopener">Offiziellen Vergütungsplan öffnen</a><div class="callout"><b>Damit bist du für Weg 2 startklar.</b><br>Du kennst deinen Shop, die ersten Ebenen, deine Tools und weißt, wie du Shopper und erste Members unterscheiden kannst. Wenn du später tiefer in Teamaufbau und Leadership einsteigen möchtest, gehst du in Weg 3 weiter.</div>`}else{h=`<h1>Jetzt wird aus Empfehlung ein Businessweg.</h1><p class="lead">Für dich ist der Vergütungsplan nicht nur Hintergrundwissen, sondern ein wichtiges Arbeitsinstrument.</p><h2>Deine Entwicklung im Vergütungsplan</h2><p>Die folgenden Stufen zeigen dir den aktuellen Weg im LifePlus-Vergütungsplan. Die Anforderungen können von LifePlus geändert werden; verbindlich ist immer die offizielle aktuelle Fassung.</p><div class="rank-grid"><div class="rank-card believer"><div class="rank">Believer</div><div class="req">40 IP AV · 500 QGV · 3 QL</div></div><div class="rank-card builder"><div class="rank">Builder</div><div class="req">40 IP AV · 1.500 QGV · 3 QL</div></div><div class="rank-card bronze"><div class="rank">Bronze</div><div class="req">100 IP AV · 3.000 QGV · 3 QL · bis zu 3 % Leadership-Vergütung</div></div><div class="rank-card silver"><div class="rank">Silver</div><div class="req">100 IP AV · 6.000 QGV · 6 QL · bis zu 6 %</div></div><div class="rank-card gold"><div class="rank">Gold</div><div class="req">150 IP AV · 9.000 QGV · 9 QL · bis zu 9 %</div></div><div class="rank-card diamond"><div class="rank">Diamond</div><div class="req">150 IP AV · 15.000 QGV · 12 QL · bis zu 12 %</div></div><div class="rank-card star"><div class="rank">1★ Diamond</div><div class="req">150 IP AV · 15.000 QGV · 12 QL · zusätzlich 1 Diamond + 2 Bronze aus verschiedenen Beinen</div></div><div class="rank-card star"><div class="rank">2★ Diamond</div><div class="req">150 IP AV · 20.000 QGV · 12 QL · zusätzlich 2 Diamond + 1 Bronze aus verschiedenen Beinen</div></div><div class="rank-card star"><div class="rank">3★ Diamond</div><div class="req">150 IP AV · 25.000 QGV · 12 QL · zusätzlich 3 Diamond aus verschiedenen Beinen</div></div></div><p class="small">AV = Aktivitätsvolumen · QGV = Qualifiziertes Gruppenvolumen · QL = Qualifiziertes Bein.</p><div class="notice ok"><b>Dein erstes großes Teamziel:</b><br>Du musst nicht den ganzen Plan auf einmal erreichen. Für deinen Aufbau kann Bronze zunächst ein klarer erster Leadership-Meilenstein sein, danach Silver, Gold und Diamond.</div><h2>Die ersten drei Empfehlungs-Ebenen bleiben deine Basis</h2><div class="grid3"><div class="kpi"><span class="eyebrow">Ebene 1</span><h3>5 %</h3></div><div class="kpi"><span class="eyebrow">Ebene 2</span><h3>25 %</h3></div><div class="kpi"><span class="eyebrow">Ebene 3</span><h3>10 %</h3></div></div><p>Ab Ebene 4 greift bei entsprechender Qualifikation die Leadership- bzw. Leadership-Development-Vergütung. Dadurch wird Teamaufbau über die ersten drei Ebenen hinaus relevant.</p><div class="notice warn"><b>Ganz wichtig:</b><br>Auch im Businessweg musst du selbst die jeweils notwendige persönliche Aktivitätsqualifikation erfüllen. Ohne eigene Qualifikation erhältst du die entsprechende Vergütung nicht.</div><div class="actions" style="justify-content:flex-start"><a class="btn ghost" href="https://ww1.lifeplus.com/media/pdf/mediacenter/Commission_Plan_DE.pdf" target="_blank" rel="noopener">Offiziellen Vergütungsplan öffnen</a><a class="btn ghost" href="https://ww1.lifeplus.com/media/pdf/mediacenter/Commission_Plan_Example_DE.pdf" target="_blank" rel="noopener">Vergütungsplan-Beispiel öffnen</a></div><div class="callout"><b>Du kannst jetzt starten.</b><br>Für Weg 3 kommt zusätzlich die persönliche Ebene dazu: Wie möchtest du arbeiten, kommunizieren und führen? Genau deshalb verbinden wir WIRKEN im Abschluss mit deinen Zurück-zu-dir-Kompassen und dem Lebenscode.</div>`}document.getElementById('pathInfoContent').innerHTML=h;show('pathInfo');setProgress(82)}
+function finish(){document.getElementById('path3Library').classList.toggle('hidden',selectedPath!==3);document.getElementById('finishText').textContent=selectedPath===1?'Für dein aktuelles Ziel hast du alle grundlegenden Werkzeuge und Informationen, um mit deinem Shop und ehrlichen Empfehlungen zu starten.':selectedPath===2?'Für dein aktuelles Ziel kennst du jetzt Shop, Shopper, Members, die ersten Vergütungsebenen und die wichtigsten LifePlus-Tools.':'Du kennst jetzt deine technische Basis, deine LifePlus-Tools und die Stufen des Vergütungsplans. Du kannst starten – und im nächsten Schritt daraus deine persönliche Arbeitsweise und Strategie entwickeln.';show('finish');setProgress(100)}
 </script>
 </body>
 </html>
