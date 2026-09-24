@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>WIRKEN · Partner-Navigator V1</title>
-<meta name="description" content="Interner Lifeplus WIRKEN Partner-Navigator – Produktwissen, Team-Erfahrung und Beratungslogik.">
+<title>WIRKEN · VersorgungsKompass V2</title>
+<meta name="description" content="Interner WIRKEN VersorgungsKompass – Produktwissen, Team-Erfahrung und Beratungslogik.">
 <style>
 :root{
   --bg:#f5f2e9;
@@ -23,8 +23,8 @@
   --radius:22px;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:linear-gradient(180deg,#f4f1e8 0%,#f9f7f1 100%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+html{scroll-behavior:smooth;overflow-y:auto;-webkit-overflow-scrolling:touch}
+body{margin:0;background:linear-gradient(180deg,#f4f1e8 0%,#f9f7f1 100%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 a{color:var(--green)}
@@ -138,6 +138,8 @@ hr.sep{border:0;border-top:1px solid var(--line);margin:18px 0}
 .kicker{font-weight:800;color:var(--green)}
 .footer-note{padding:14px 16px;background:#f1eee6;border-radius:14px;margin-top:16px}
 @media(max-width:860px){
+ .overlay{align-items:flex-start;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 12px}
+ .access{margin:18px 0;max-height:none}
  .hero-grid,.grid2,.grid3,.result-grid,.product-grid,.combo-grid{grid-template-columns:1fr}
  .topbar-inner{align-items:flex-start;padding:10px 0;flex-direction:column;gap:6px}
  .brand{min-width:0}
@@ -160,20 +162,20 @@ hr.sep{border:0;border-top:1px solid var(--line);margin:18px 0}
 </head>
 <body>
 
-<div id="accessOverlay" class="overlay">
+<div id="accessOverlay" class="overlay hidden">
   <div class="access card">
     <div class="smallcaps">Interner Partnerbereich · Prototyp V1</div>
-    <h2>WIRKEN · Vertiefungs-Navigator</h2>
+    <h2>WIRKEN · VersorgungsKompass</h2>
     <p>Dieses Dokument verbindet aktuelle Produktinformationen, Christins Team-/Praxiswissen und Sicherheitsmarkierungen. Es ist als internes Arbeitswerkzeug gedacht – nicht als öffentliche Werbeunterlage und nicht als medizinische Diagnose oder Therapie.</p>
     <div class="notice red"><b>Wichtig bei GitHub Pages:</b> Ein reines HTML kann nicht wirklich „privat“ geschützt werden. Auch mit dieser Zugangskarte bleibt der Quelltext bei einer öffentlichen Veröffentlichung einsehbar. Für den späteren echten Partnerbereich braucht es eine serverseitige Anmeldung bzw. geschützte Auslieferung.</div>
     <label class="checkline"><input id="accessConfirm" type="checkbox"> <span>Ich bestätige, dass ich diese Version im internen Test-/Partnerkontext verwende und Herstellerangaben, Team-Erfahrungen und Sicherheitshinweise getrennt betrachte.</span></label>
-    <button id="enterBtn" class="btn" disabled>Internen Navigator öffnen</button>
+    <button id="enterBtn" class="btn" disabled>VersorgungsKompass öffnen</button>
   </div>
 </div>
 
 <header class="topbar">
   <div class="wrap topbar-inner">
-    <div class="brand"><div class="mark"></div><div><b>ZURÜCK ZU DIR · WIRKEN</b><span>Partner-Navigator · Stand 24.09.2026</span></div></div>
+    <div class="brand"><div class="mark"></div><div><b>ZURÜCK ZU DIR · WIRKEN</b><span>VersorgungsKompass · Stand 24.09.2026</span></div></div>
     <nav class="nav" aria-label="Navigation">
       <button class="nav-btn active" data-tab="home">Start</button>
       <button class="nav-btn" data-tab="consult">Beratung starten</button>
@@ -238,7 +240,7 @@ hr.sep{border:0;border-top:1px solid var(--line);margin:18px 0}
 <section id="consult" class="tabs-section">
   <div class="wrap">
     <div class="section-head">
-      <div><div class="eyebrow">Interne Beratungslogik</div><h2>Vertiefungs-Navigator</h2></div>
+      <div><div class="eyebrow">Interne Beratungslogik</div><h2>VersorgungsKompass</h2></div>
       <p>Dieser erste Prototyp arbeitet vollständig im Browser. Antworten werden nicht gespeichert oder versendet.</p>
     </div>
 
@@ -543,7 +545,7 @@ hr.sep{border:0;border-top:1px solid var(--line);margin:18px 0}
 
 <footer class="footer">
   <div class="wrap">
-    <b>WIRKEN · Partner-Navigator V1</b><br>
+    <b>WIRKEN · VersorgungsKompass V2</b><br>
     Arbeitsstand 24.09.2026 · Daten nur für diese Sitzung im Browser · keine Speicherung.<br>
     Produktrezepturen, Länderstatus und Etiketten können sich ändern; aktuelle Herstellerangaben haben bei Produktdetails Vorrang.
   </div>
