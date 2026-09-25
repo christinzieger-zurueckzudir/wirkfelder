@@ -108,6 +108,7 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
   .result-actions{display:none!important}
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 <div class="shell">
@@ -739,12 +740,12 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
     </div>
 
     <div class="result-block">
-      <h2>Deine persönlichen Themen für danach</h2>
-      <p>Hier siehst du nicht einfach eine lange Produktliste, sondern <b>warum</b> bestimmte Produkte für dich später interessant sein könnten. Du musst nicht alles gleichzeitig nehmen. Nach den ersten drei Monaten wird gemeinsam mit deinem Mentor neu geschaut, welche Themen überhaupt noch relevant sind.</p>
+      <h2>Deine wichtigsten Zusatzprodukte für danach</h2>
+      <p>Hier werden bewusst <b>nicht alle denkbaren Produkte</b> aufgelistet. Aus deinen Antworten werden nur die drei bis vier Produkte mit der aktuell höchsten Priorität ausgewählt. Nach dem 1·2·3-Aufbau wird gemeinsam mit deinem Mentor geprüft, welche davon dann wirklich noch sinnvoll sind.</p>
       <div id="themeRecommendations"></div>
       <div class="notice">
         <b>Einnahme, Menge und Dauer gehören in die persönliche Beratung.</b><br>
-        Diese Auswahl ist eine Orientierung und kein Einnahmeplan. Welche Produkte wirklich Priorität haben, wie sie kombiniert werden und wie lange sie eingesetzt werden, besprichst du mit deinem Mentor. Er hat außerdem Zugang zu Produkt-Zooms, Aufzeichnungen, Live-Events und weiterführenden Informationen.
+        Diese Auswahl ist eine Orientierung und kein Einnahmeplan. Welche Produkte wirklich Priorität haben, wie sie kombiniert werden und wie lange sie eingesetzt werden, besprichst du mit deinem Mentor. Wenn du tiefer in die Produkte einsteigen möchtest, findest du weiter unten den direkten Zugang zum VersorgungsKompass mit ausführlicherem Produktwissen.
       </div>
     </div>
 
@@ -835,8 +836,8 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
     <div class="result-block">
       <div class="brand">Für Partner · Vertiefendes Produktwissen</div>
       <h2>Du möchtest Produkte und Kombinationen genauer verstehen?</h2>
-      <p>Der <b>VersorgungsKompass</b> ist unser ergänzender interner Partnerbereich rund um LifePlus-Produkte. Dort kannst du über einen geführten Fragebogen prüfen, welche Versorgungsbereiche zu einer aktuellen Situation passen könnten.</p>
-      <p>Zusätzlich gibt es für berechtigte Partner einen geschützten Wissensbereich mit ausführlicheren Informationen zu Grundversorgung, Balance-Kombinationen und einzelnen Produkten.</p>
+      <p>Der <b>VersorgungsKompass</b> ist unser ergänzender Bereich rund um die LifePlus-Produkte. Über einen geführten Fragebogen kannst du noch genauer prüfen, welche Versorgungsbereiche und Produkte zu einer aktuellen Situation passen könnten.</p>
+      <p>Für Partner gibt es dort zusätzlich einen geschützten Wissensbereich mit Grundlagen, Balance-Kombinationen und ausführlicherem Produktwissen.</p>
       <p class="small-note">Wenn bereits ein Mentor oder Sponsor vorhanden ist, bleibt diese Person der erste Ansprechpartner.</p>
       <div class="actions no-print" style="margin-top:14px">
         <button class="primary" type="button" onclick="window.location.href='https://christinzieger-zurueckzudir.github.io/wirkfelder/versorgungskompass/'">VersorgungsKompass öffnen →</button>
@@ -845,9 +846,9 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
 
     <div class="result-actions no-print">
       <button class="secondary" type="button" onclick="editAnswers()">Antworten ändern</button>
-      <button class="primary" type="button" onclick="window.print()">Gesamte Auswertung als PDF speichern</button>
+      <button class="primary" type="button" onclick="downloadResultsPDF()">Gesamte Auswertung als PDF herunterladen</button>
       <button class="ghost" type="button" onclick="printStartEvaluation()">Meine Start-Auswertung drucken</button>
-      <button class="ghost" type="button" onclick="printTrackingSheet()">12-Monats-Verlaufsbogen drucken</button>
+      <a class="ghost" href="versorgen_verlaufsbogen.pdf" download style="border-radius:999px;padding:12px 18px;font-weight:700;text-decoration:none;text-align:center;color:var(--ink)">12-Monats-Verlaufsbogen als PDF herunterladen</a>
       <button class="ghost wide" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})">Nach oben</button>
     </div>
 
@@ -878,7 +879,7 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
       <p>Gerade bei Kindern werden Eignung, Kombination und Menge individuell festgelegt. Bei Diagnosen, Medikamenten oder anhaltenden Beschwerden gehört zusätzlich die behandelnde Fachperson dazu.</p>
       <div class="notice blue"><b>Hier gibt es bewusst keinen Bestelllink.</b><br>Die Produktauswahl und – wenn ihr neu bei LifePlus seid – auch Anmeldung und erste Bestellung werden gemeinsam mit eurem Berater abgestimmt.</div>
     </div>
-    <div class="result-actions no-print"><button class="secondary" type="button" onclick="editAnswers()">Antworten ändern</button><button class="primary" type="button" onclick="window.print()">Auswertung als PDF speichern</button></div>
+    <div class="result-actions no-print"><button class="secondary" type="button" onclick="editAnswers()">Antworten ändern</button><button class="primary" type="button" onclick="downloadResultsPDF()">Auswertung als PDF herunterladen</button></div>
     <div class="result-block" style="border-top:0"><p class="small-note"><i>Du hast keinen Mentor und bist direkt über meine eigenen Kanäle hierhergekommen? Dann kannst du dich gerne direkt an mich wenden. Wenn ihr bereits einen Mentor oder Sponsor habt, bleibt bitte bei dieser Person.</i></p></div>
   </section>
 
@@ -900,7 +901,7 @@ details.info-box .details-body{padding:0 16px 16px;color:var(--ink)}
       <p>Speichere die Auswertung und besprich sie mit der Person, von der du diesen Zugang erhalten hast. Dein Berater kann mit dir Auswahl, Kombination und Menge festlegen. Bei Erkrankungen, Medikamenten, Schmerzen oder anhaltenden Beschwerden bitte zusätzlich tierärztlich abklären.</p>
       <div class="notice blue"><b>Hier gibt es bewusst keinen Bestelllink.</b><br>Die Auswertung ist die Grundlage für die anschließende Beratung und Bestellung über deinen Ansprechpartner.</div>
     </div>
-    <div class="result-actions no-print"><button class="secondary" type="button" onclick="editAnswers()">Antworten ändern</button><button class="primary" type="button" onclick="window.print()">Auswertung als PDF speichern</button></div>
+    <div class="result-actions no-print"><button class="secondary" type="button" onclick="editAnswers()">Antworten ändern</button><button class="primary" type="button" onclick="downloadResultsPDF()">Auswertung als PDF herunterladen</button></div>
     <div class="result-block" style="border-top:0"><p class="small-note"><i>Du hast keinen Mentor und bist direkt über meine eigenen Kanäle hierhergekommen? Dann kannst du dich gerne direkt an mich wenden. Wenn ihr bereits einen Mentor oder Sponsor habt, bleibt bitte bei dieser Person.</i></p></div>
   </section>
 
@@ -989,6 +990,7 @@ const PRODUCTS = {
   dailyNoIodine:{name:'Daily / Daily-Variante ohne Jod', tags:['base'], advisor:true},
   tvm:{name:'TVM-Plus', tags:['base']},
   support:{name:'Support Tabs Plus', tags:['energy','stress','focus']},
+  bseries:{name:'B-Series', tags:['energy','stress','focus']},
   micromins:{name:'Micro-Mins Plus', tags:['minerals','base']},
   calmag:{name:'CalMag Plus', tags:['minerals','bones','stress','sleep']},
   omegold:{name:'OmeGold', tags:['base','omega','heart','brain','beauty']},
@@ -1156,15 +1158,15 @@ function buildProductScores(){
 
   // Stress / Schlaf / Energie / Fokus
   const stress=val('stressLevel');
-  if(stress==='high'||stress==='very_high'||mind.includes('restless')){ add('support',3); add('calmag',2); add('cacao',1); add('goldenMilk',1); }
+  if(stress==='high'||stress==='very_high'||mind.includes('restless')){ add('support',4); add('bseries',2); add('calmag',2); add('cacao',1); add('goldenMilk',1); }
   if(mind.includes('sleep')){ add('calmag',3); add('goldenMilk',3); add('cacao',1); }
-  if(mind.includes('tired')||mind.includes('exhausted')){ add('ubiquinol',4); add('coq10',2); add('support',2); add('purpleFlash',1); if(caffeine!=='avoid'){add('realnrg',1);add('enerxan',1);} }
-  if(mind.includes('focus')){ add('brain',4); add('ubiquinol',2); add('support',2); if(caffeine!=='avoid') add('realnrg',2); }
+  if(mind.includes('tired')||mind.includes('exhausted')){ add('ubiquinol',4); add('support',3); add('bseries',2); add('coq10',2); add('purpleFlash',1); if(caffeine!=='avoid'){add('enerxan',1);} }
+  if(mind.includes('focus')){ add('brain',4); add('support',3); add('bseries',2); add('ubiquinol',2);  }
   if(mind.includes('burnout')){ add('support',4); add('ubiquinol',3); add('coq10',2); add('brain',2); add('calmag',1); }
   if(mind.includes('depression')){ add('support',3); add('brain',3); add('ubiquinol',2); add('coq10',1); }
 
   // Prävention/Healthy aging/Immune/Heart
-  if(vital.includes('immunity') || ['seasonal','often','very_often'].includes(immunityLevel)){ add('immune',4); add('zinc',3); add('vitc',2); add('dk',2); add('purpleFlash',1); add('biotic',1); }
+  if(vital.includes('immunity') || ['seasonal','often','very_often'].includes(immunityLevel)){ add('immune',5); add('zinc',3); add('vitc',2); add('dk',2); add('purpleFlash',1); add('biotic',1); }
   if(herpes==='yes'){ add('support',6); add('immune',2); add('zinc',1); add('vitc',1); }
   if(vital.includes('heart')){ add('heart',4); add('ubiquinol',3); add('circulation',2); add('epa',2); add('vite',1); }
   if(vital.includes('cholesterol')){ add('ryr',3); add('ubiquinol',2); add('heart',1); }
@@ -1190,22 +1192,22 @@ function buildProductScores(){
     if(age>=45) add('lycopin',1);
   }
 
-  // Sport
+  // Sport - bewusst fokussiert, keine automatische Real-NRG-Empfehlung
   if(sportFreq!=='none'){
-    if(protein!=='good') add(diet==='vegan'||needs.includes('vegan_pref')?'veganProtein':'triple',3);
-    if(sportFreq==='3to4'||sportFreq==='5plus'||sportFreq==='performance'){
-      add('beSustained',2); add('beRecharged',2); add('beRefueled',2);
-      if(caffeine!=='avoid') add('beFocused',2);
-      add('xcell',1);
-    }
-    if(sportGoal==='muscle'){ add('beRefueled',3); add(diet==='vegan'||needs.includes('vegan_pref')?'veganProtein':'triple',3); add('beRecharged',2); }
-    if(sportGoal==='endurance'||sportTypes.includes('endurance')){ add('beSustained',3); add('beRecharged',2); }
-    if(sportGoal==='recovery'){ add('beRecharged',3); add('msm',1); }
+    const proteinKeySport=(diet==='vegan'||needs.includes('vegan_pref'))?'veganProtein':((sportGoal==='muscle'||sportFreq==='performance')?'beRefueled':'triple');
+    // Kern: Fokus vor dem Training + Regeneration danach + eine passende Proteinquelle.
+    if(caffeine!=='avoid') add('beFocused',4);
+    add('beRecharged',4);
+    add(proteinKeySport,4);
+    // Sustained nur bei echter Ausdauer-/Langzeitbelastung.
+    if(sportGoal==='endurance'||sportTypes.includes('endurance')) add('beSustained',4);
+    // X-Cell eher bei intensiven Ausdauer-, Team- oder Hochleistungs-Sportarten.
+    if(sportTypes.includes('endurance')||sportTypes.includes('team')||sportTypes.includes('performance')||sportFreq==='performance') add('xcell',3);
   }
 
   // Gewicht / Stoffwechsel
   if(female.includes('weight')||sportGoal==='weight'||priority1==='weight'||priority2==='weight'){
-    if(caffeine!=='avoid'){ add('enerxan',2); add('realnrg',1); add('keytonic',1); }
+    if(caffeine!=='avoid'){ add('enerxan',2); add('keytonic',1); }
     add('phaseomine',1);
     if(protein!=='good') add(diet==='vegan'?'veganProtein':'triple',3);
   }
@@ -1213,8 +1215,8 @@ function buildProductScores(){
   // Prioritäten verstärken
   const priorityMap={
     healthy_age:['ubiquinol','discovery','coq10','xtra','vite'],
-    sport:['beFocused','beSustained','beRecharged','beRefueled','xcell'],
-    weight:['triple','enerxan','realnrg','phaseomine','keytonic'],
+    sport:['beFocused','beRecharged','beRefueled','triple','xcell'],
+    weight:['triple','enerxan','phaseomine','keytonic'],
     beauty:['skin','vitc','vite','eveningPrimrose','discovery'],
     hair:['zinc','msm','triple'],
     gut:['biotic','digestive','cogelin','goldenMilk'],
@@ -1222,8 +1224,8 @@ function buildProductScores(){
     joints:['joint','msm','lyprinex','vitc'],
     stress:['support','calmag','cacao','goldenMilk'],
     sleep:['calmag','goldenMilk','cacao'],
-    energy:['ubiquinol','coq10','support','purpleFlash','realnrg'],
-    focus:['brain','ubiquinol','support','realnrg'],
+    energy:['ubiquinol','support','bseries','coq10','purpleFlash'],
+    focus:['brain','support','bseries','ubiquinol'],
     immunity:['immune','zinc','vitc','dk','purpleFlash'],
     heart:['heart','ubiquinol','circulation','epa','vite'],
     women:['menaplus','womensGold','eveningPrimrose','iron'],
@@ -1272,43 +1274,26 @@ function themeCard(title,reason,keys){
   return `<div class="theme-card"><h3>${title}</h3><p class="small-note">${reason}</p><div>${clean.map(renderProductKey).join('')}</div>${herpesWarn?'<div class="mini-warning">⚠️ Mindestens eines dieser Produkte enthält Arginin/Citrullin. Bei deinem Herpes-Thema bitte nicht automatisch ausschließen, sondern vor der Verwendung mit deinem Berater prüfen und individuell beobachten.</div>':''}</div>`;
 }
 function buildThemeRecommendations(){
-  const groups=[];
-  const gut=vals('gutTopics'), beauty=vals('beautyTopics'), body=vals('bodyTopics'), mind=vals('mindTopics'), vital=vals('vitalTopics'), female=vals('femaleTopics');
-  const protein=val('protein'), diet=val('diet'), needs=vals('foodNeeds'), caffeine=val('caffeine'), stage=val('femaleStage'), sex=getSex();
-  const sport=val('sportFrequency')!=='none';
-  const proteinKey=(diet==='vegan'||needs.includes('vegan_pref'))?'veganProtein':'triple';
-  const add=(key,title,reason,keys)=>groups.push({key,title,reason,keys});
+  const scores=buildProductScores();
+  const excluded=new Set(['realnrg','phplus','aloe','parabalance','cogelin','msm']);
+  const ranked=Object.entries(scores)
+    .filter(([k,v])=>PRODUCTS[k]&&v>0&&!excluded.has(k))
+    .sort((a,b)=>b[1]-a[1]||PRODUCTS[a[0]].name.localeCompare(PRODUCTS[b[0]].name,'de'));
 
-  if(val('herpes')==='yes') add('herpes','Herpes / wiederkehrende Lippenbläschen','Dieser Bereich wurde von dir angegeben. In unserem Beratungssystem wird dabei besonders auf Stress/Nervensystem und auf mögliche Arginin-/Citrullin-Überschneidungen geachtet.',['support','immune','zinc','vitc']);
-  if(mind.includes('tired')||mind.includes('exhausted')) add('energy','Müdigkeit / Energie','Diese Produkte tauchen auf, weil du Müdigkeit oder schnelle Erschöpfung angegeben hast.',['ubiquinol','coq10','support','purpleFlash',...(caffeine==='avoid'?[]:['realnrg','enerxan'])]);
-  if(mind.includes('focus')||vital.includes('brain')) add('focus','Konzentration / Fokus','Diese Produkte werden in unserem System bei mentaler Belastung, Konzentration und Fokus betrachtet.',['brain','support','ubiquinol','coq10']);
-  if(mind.includes('restless')||['high','very_high'].includes(val('stressLevel'))) add('stress','Stress / Nervensystem','Hier geht es um Belastung, innere Unruhe und Regeneration.',['support','calmag','cacao','goldenMilk']);
-  if(mind.includes('sleep')||mind.includes('recovery')) add('sleep','Schlaf / Regeneration','Diese Produkte können im Beratungsgespräch rund um Erholung und Abendroutine betrachtet werden.',['calmag','goldenMilk','cacao']);
-  if(vital.includes('immunity')||['seasonal','often','very_often'].includes(val('immunityLevel'))) add('immunity','Immunsystem / saisonale Unterstützung','Diese Auswahl erscheint, weil du dein Immunsystem als Schwerpunkt angegeben hast.',['immune','zinc','vitc','dk','purpleFlash','biotic']);
-  if(gut.some(x=>['bloat','sensitive','constipation','loose','variable','after_antibiotics'].includes(x))) add('gut','Darm / Verdauung','Diese Produkte werden bei deinen Angaben zu Verdauung und Darm als mögliche Bereiche betrachtet.',['biotic','digestive','cogelin','goldenMilk']);
-  if(gut.includes('cleanse')) add('cleanse','Darmreinigung / Reinigungsphase','Du hast Interesse an einer zusätzlichen Darm-/Reinigungsphase angegeben.',['cogelin','parabalance','biotic','greenMedley']);
-  if(val('urinary')!=='none') add('urinary','Harnwege / Blase','Diesen Bereich hast du als zusätzlichen Schwerpunkt markiert.',['dmannose']);
-  if(sex==='female' && beauty.some(x=>['dry_skin','impure','elasticity','aging','cellulite'].includes(x))) add('beauty','Haut / Bindegewebe / Beauty','Diese Produkte passen zu deinen Angaben rund um Haut, Bindegewebe und Healthy Aging.',['skin','msm','vitc','vite','eveningPrimrose','discovery']);
-  if(beauty.some(x=>['hair','hair_loss','nails'].includes(x))||female.includes('hair')) add('hair','Haare / Nägel','Dieser Bereich wurde von dir ausgewählt.',['zinc','msm',proteinKey,'shampoo','conditioner']);
-  if(body.some(x=>['joints','cartilage','back','stiff','recovery'].includes(x))||female.includes('joints')) add('joints','Gelenke / Bewegungsapparat','Diese Produkte werden bei Gelenken, Beweglichkeit und Regeneration betrachtet.',['joint','msm','lyprinex','vitc','somazyme']);
-  if(body.includes('bones')) add('bones','Knochen / Mineralstoffversorgung','Du hast Knochen bzw. Mineralstoffversorgung als Thema angegeben.',['dk','calmag','micromins']);
-  if(sport) add('sport','Sport / Muskelaufbau / Regeneration','Sport wird zusätzlich zur normalen Alltagsversorgung betrachtet. Welche Produkte du wirklich brauchst, hängt von Trainingsart, Umfang und Ziel ab.',[proteinKey,'beRefueled','beSustained','beRecharged',...(caffeine==='avoid'?[]:['beFocused']),'xcell']);
-  if(protein==='low'||protein==='unknown') add('protein','Proteinversorgung','Du hast angegeben, dass deine Proteinversorgung eher niedrig oder schwer einzuschätzen ist.',[proteinKey,'beRefueled']);
-  if(vital.includes('heart')) add('heart','Herz / Kreislauf / Omega','Dieser Bereich wurde von dir als Schwerpunkt ausgewählt.',['heart','ubiquinol','circulation','epa','vite']);
-  if(vital.includes('cholesterol')) add('cholesterol','Blutfette / Cholesterin','Diese Produkte sind mögliche Gesprächsbereiche; gerade RYR Plus gehört in eine individuelle Prüfung.',['ryr','ubiquinol','coq10','heart']);
-  if(vital.includes('eyes')) add('eyes','Augen / Sehkraft','Dieser Bereich wurde von dir angegeben.',['eye']);
-  if(vital.includes('healthy_age')||val('mainGoal')==='healthy_age'||(+val('age')||0)>=35) add('healthy_age','Healthy Aging / Prävention 35+','Diese Produkte werden im längerfristigen Healthy-Aging- und Zellenergie-Kontext betrachtet.',['ubiquinol','coq10','discovery','xtra','vite']);
-  if(vital.includes('antioxidants')) add('antioxidants','Antioxidantien / Zellschutz','Du möchtest Antioxidantien und Zellschutz stärker berücksichtigen.',['xtra','purpleFlash','vite','pro200']);
-  if(sex==='female' && (stage==='peri'||stage==='meno'||female.includes('hot'))) add('women','Wechseljahre / Frauenbalance','Deine Lebensphase bzw. deine Angaben machen diesen Bereich für das Beratungsgespräch relevant.',['menaplus','eveningPrimrose','calmag','womensGold']);
-  if(sex==='female' && female.includes('heavy_period')) add('iron','Starke Monatsblutung / Eisen im Blick behalten','Eisen wird nicht automatisch ergänzt. Bei entsprechendem Bedarf bzw. passenden Blutwerten kann Iron Plus besprochen werden.',['iron']);
-  if(sex==='male' && (+val('age')||0)>=35) add('men','Männer 35+','Für Männer ab mittlerem Alter können zusätzliche Männer-/Healthy-Aging-Produkte interessant sein.',['mensGold','mensFormula','ubiquinol','lycopin']);
-  if(female.includes('weight')||val('sportGoal')==='weight'||['weight'].includes(val('priority1'))||['weight'].includes(val('priority2'))) add('weight','Gewicht / Stoffwechsel','Diese Produkte können im Rahmen deines Ernährungs-, Protein- und Stoffwechselkonzepts besprochen werden.',[proteinKey,'phaseomine',...(caffeine==='avoid'?[]:['enerxan','realnrg','keytonic'])]);
+  // Maximal vier Zusatzprodukte. Ähnliche Alternativen werden bewusst nicht doppelt gezeigt.
+  const chosen=[];
+  const proteinGroup=new Set(['triple','veganProtein','beRefueled']);
+  for(const [k] of ranked){
+    if(chosen.length>=4) break;
+    if(proteinGroup.has(k) && chosen.some(x=>proteinGroup.has(x))) continue;
+    chosen.push(k);
+  }
 
-  const p1=val('priority1'), p2=val('priority2');
-  const orderMap={healthy_age:'healthy_age',sport:'sport',weight:'weight',beauty:'beauty',hair:'hair',gut:'gut',cleanse:'cleanse',joints:'joints',stress:'stress',sleep:'sleep',energy:'energy',focus:'focus',immunity:'immunity',heart:'heart',women:'women',men:'men'};
-  groups.sort((a,b)=>{const aa=a.key===orderMap[p1]?0:a.key===orderMap[p2]?1:2; const bb=b.key===orderMap[p1]?0:b.key===orderMap[p2]?1:2; return aa-bb;});
-  const html=groups.map(g=>themeCard(g.title,g.reason,g.keys)).filter(Boolean).join('');
-  document.getElementById('themeRecommendations').innerHTML=html||'<p class="small-note">Aktuell zeigt sich kein starker zusätzlicher Schwerpunkt. Nach drei Monaten kann trotzdem noch einmal neu geschaut werden.</p>';
+  const intro=`<div class="notice blue"><b>Bewusst priorisiert:</b><br>Aus deinen Antworten können mehrere Produkte grundsätzlich interessant sein. Damit deine Auswertung übersichtlich bleibt, zeigen wir dir hier nur die <b>${chosen.length||'wenigen'} aktuell wichtigsten Zusatzprodukte</b>. Es geht nicht darum, alles gleichzeitig zu nehmen. Weitere passende Möglichkeiten und ausführliches Produktwissen findest du anschließend im VersorgungsKompass.</div>`;
+  const products=chosen.length
+    ? `<div class="theme-card"><h3>Deine 3–4 Prioritäten für danach</h3><p class="small-note">Diese Auswahl ergibt sich aus deinen Antworten und wird nach dem 1·2·3-Aufbau gemeinsam mit deinem Mentor noch einmal geprüft.</p><div>${chosen.map(renderProductKey).join('')}</div></div>`
+    : '<p class="small-note">Aktuell zeigt sich kein starker zusätzlicher Schwerpunkt. Die Basis und der 1·2·3-Aufbau dürfen zunächst im Mittelpunkt stehen.</p>';
+  document.getElementById('themeRecommendations').innerHTML=intro+products;
 }
 
 function buildAdultResults(){
@@ -1330,13 +1315,9 @@ function buildAdultResults(){
   }
   buildThemeRecommendations();
 
-  const sKeys=sportProductKeys();
+  // Sportprodukte werden bereits innerhalb der maximal vier Zusatz-Prioritäten ausgewählt.
   const sportBlock=document.getElementById('sportResultBlock');
-  if(val('sportFrequency')!=='none'&&sKeys.length){
-    document.getElementById('sportProducts').innerHTML=sKeys.map(renderProductKey).join('');
-    if(val('herpes')==='yes'&&sKeys.some(k=>PRODUCTS[k].arginine)) document.getElementById('sportProducts').innerHTML+='<div class="mini-warning">⚠️ Arginin-/Citrullin-haltige Sportprodukte bleiben sichtbar, damit du die Optionen kennst. Bei deinem Herpes-Thema bitte mit dem Berater prüfen und individuell testen.</div>';
-    sportBlock.classList.remove('hidden');
-  }else sportBlock.classList.add('hidden');
+  if(sportBlock) sportBlock.classList.add('hidden');
 
   const safety=vals('safetyTopics'), stage=val('femaleStage'), banners=[];
   if(safety.length&&!safety.includes('none')) banners.push('Du hast gesundheitliche Besonderheiten oder Medikamente angegeben. Bitte prüfe den Start und spätere Zusatzprodukte mit deinem Mentor und – wo nötig – mit Arzt oder Apotheke.');
@@ -1456,6 +1437,62 @@ function selectedOptionText(name){
   const el=document.querySelector(`[name="${name}"]`); return el?.selectedOptions?.[0]?.textContent?.trim()||'';
 }
 function esc(v){return String(v||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+
+async function downloadResultsPDF(){
+  const visible=[...document.querySelectorAll('.results-section')].find(el=>!el.classList.contains('hidden'));
+  if(!visible){
+    alert('Bitte erstelle zuerst deine Auswertung.');
+    return;
+  }
+
+  if(typeof html2pdf === 'undefined'){
+    alert('Der PDF-Download konnte gerade nicht geladen werden. Bitte prüfe deine Internetverbindung und versuche es noch einmal.');
+    return;
+  }
+
+  const clone=visible.cloneNode(true);
+  clone.classList.remove('hidden');
+  clone.querySelectorAll('.no-print,.result-actions,button,a[href*="versorgen_verlaufsbogen.pdf"]').forEach(el=>el.remove());
+
+  const wrapper=document.createElement('div');
+  wrapper.style.background='#ffffff';
+  wrapper.style.color='#2d2a26';
+  wrapper.style.padding='20px';
+  wrapper.style.width='794px';
+  wrapper.style.maxWidth='794px';
+  wrapper.style.fontFamily='Arial, sans-serif';
+  wrapper.appendChild(clone);
+
+  // Keep the temporary PDF source off-screen, but rendered.
+  wrapper.style.position='fixed';
+  wrapper.style.left='-10000px';
+  wrapper.style.top='0';
+  wrapper.style.zIndex='-1';
+  document.body.appendChild(wrapper);
+
+  const name=(document.querySelector('[name="firstName"]')?.value||'').trim();
+  const suffix=name ? '_' + name.replace(/[^A-Za-zÀ-ÿ0-9_-]+/g,'_') : '';
+  const filename='VERSORGEN_Auswertung'+suffix+'.pdf';
+
+  const options={
+    margin:[10,10,12,10],
+    filename,
+    image:{type:'jpeg',quality:0.96},
+    html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',scrollY:0},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+    pagebreak:{mode:['css','legacy'],avoid:['.month-card','.kpi','.notice','.route','.theme-card']}
+  };
+
+  try{
+    await html2pdf().set(options).from(wrapper).save();
+  }catch(err){
+    console.error(err);
+    alert('Der PDF-Download hat nicht funktioniert. Bitte versuche es erneut.');
+  }finally{
+    wrapper.remove();
+  }
+}
+
 function printWindow(title,body){
   const w=window.open('','_blank'); if(!w){alert('Bitte Pop-ups für den Druck kurz erlauben.');return;}
   w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(title)}</title><style>@page{size:A4;margin:15mm}body{font-family:Arial,sans-serif;color:#2d2a26;line-height:1.4;font-size:10.5pt}h1{font-size:22pt;margin:0 0 5mm}h2{font-size:14pt;margin:7mm 0 3mm}h3{font-size:11.5pt}.box{border:1px solid #ccc;border-radius:10px;padding:10px;margin:8px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.line{border-bottom:1px solid #aaa;min-height:18px;margin:4px 0}.page{page-break-after:always}.page:last-child{page-break-after:auto}.score{width:100%;border-collapse:collapse}.score td,.score th{border:1px solid #ccc;padding:5px;text-align:left}.muted{color:#666;font-size:9pt}@media print{button{display:none}}</style></head><body>${body}<script>setTimeout(()=>window.print(),350)<\/script></body></html>`); w.document.close();
